@@ -1,4 +1,7 @@
 package juego;
+import java.awt.Color;
+
+import java.awt.Color;
 
 import java.awt.Color;
 
@@ -9,19 +12,34 @@ public class Juego extends InterfaceJuego {
 
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
+
 	private Calle calle;
+
+
+
 	
+	private Sakura sakura;
+	
+
+	private Ninja ninja;
+
 	public Juego() {
 		// Inicializa el objeto entorno
-		this.entorno = new Entorno(this, "Prueba del Entorno", 800, 600);
-		
+		this.entorno = new Entorno(this,  "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
+		this.ninja = new Ninja(100,200,Color.CYAN,2);
 		// Inicializar lo que haga falta para el juego
 		// ...
 		calle = new Calle(400,100, 800,50,0, Color.blue);
 		calle = new Calle(400,300, 800,50,0, Color.blue); 
 
+		sakura= new Sakura (entorno.ancho()/2,entorno.alto()/2,50,Color.BLUE,1);
 		// Inicia el juego!
+
 		this.entorno.iniciar(); 
+
+
+		sakura.dibujar(entorno);
+
 	}
 
 	/**
@@ -33,7 +51,16 @@ public class Juego extends InterfaceJuego {
 	public void tick() {
 		// Procesamiento de un instante de tiempo
 		// ...
+
 		calle.dibujar(entorno);
+
+
+//		sakura.dibujar(entorno);
+	//	sakura.mover();
+		ninja.dibujar(entorno);
+		ninja.mover();
+
+
 	}
 	
 	@SuppressWarnings("unused")
