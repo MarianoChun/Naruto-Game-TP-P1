@@ -1,5 +1,7 @@
 package juego;
 
+import java.awt.Color;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -7,6 +9,7 @@ public class Juego extends InterfaceJuego {
 
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
+	private Calle calle;
 	
 	public Juego() {
 		// Inicializa el objeto entorno
@@ -14,9 +17,11 @@ public class Juego extends InterfaceJuego {
 		
 		// Inicializar lo que haga falta para el juego
 		// ...
+		calle = new Calle(400,100, 800,50,0, Color.blue);
+		calle = new Calle(400,300, 800,50,0, Color.blue); 
 
 		// Inicia el juego!
-		this.entorno.iniciar();
+		this.entorno.iniciar(); 
 	}
 
 	/**
@@ -28,7 +33,7 @@ public class Juego extends InterfaceJuego {
 	public void tick() {
 		// Procesamiento de un instante de tiempo
 		// ...
-		
+		calle.dibujar(entorno);
 	}
 	
 	@SuppressWarnings("unused")
