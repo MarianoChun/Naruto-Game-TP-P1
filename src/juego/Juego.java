@@ -1,5 +1,5 @@
 package juego;
-import java.awt.Color;
+
 
 import java.awt.Color;
 
@@ -15,19 +15,24 @@ public class Juego extends InterfaceJuego {
 	private Sakura sakura;
 	
 
-	private Ninja ninja;
+//	private Ninja ninja;
 
 	public Juego() {
 		// Inicializa el objeto entorno
 		this.entorno = new Entorno(this,  "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
-		this.ninja = new Ninja(100,200,Color.CYAN,2);
+		this.sakura = new Sakura (400,300,50,5,Color.BLUE);
+		
+				
+		
 		// Inicializar lo que haga falta para el juego
 		// ...
 
-		sakura= new Sakura (entorno.ancho()/2,entorno.alto()/2,50,Color.BLUE,1);
+
+		
 		// Inicia el juego!
 		this.entorno.iniciar();
-		sakura.dibujar(entorno);
+//		this.sakura.dibujar(entorno);
+		
 	}
 
 	/**
@@ -37,14 +42,33 @@ public class Juego extends InterfaceJuego {
 	 * (ver el enunciado del TP para mayor detalle).
 	 */
 	public void tick() {
+	
 		// Procesamiento de un instante de tiempo
 		// ...
 
-//		sakura.dibujar(entorno);
-	//	sakura.mover();
-		ninja.dibujar(entorno);
-		ninja.mover();
-
+		sakura.dibujar(entorno);
+		
+		
+		if(sakura.chocasteConElEntorno(entorno)) {
+			sakura.frenar(entorno);
+		}
+		if (entorno.estaPresionada('s')) {
+			sakura.moverAbajo();
+		}
+		
+		if (entorno.estaPresionada('a')) {
+			sakura.moverIzquierda();
+		}
+		
+		if (entorno.estaPresionada('d')) {
+			sakura.moverDerecha();
+		}
+		
+		if (entorno.estaPresionada('w')) {
+			sakura.moverArriba();
+		}
+		
+		
 	}
 	
 	@SuppressWarnings("unused")
