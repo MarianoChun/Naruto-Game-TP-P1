@@ -13,7 +13,8 @@ public class Juego extends InterfaceJuego {
 	private Ninja ninja1;
 	private Rasengan rasengan;
 	boolean vivo = true;
-	private Calle calle;	
+	private Calle calle;
+	private Calle calle1;
 	private Sakura sakura;
 
 	
@@ -40,7 +41,7 @@ public class Juego extends InterfaceJuego {
 		// Inicializar lo que haga falta para el juego
 		// ...
 		calle = new Calle(400,100, 800,50,0, Color.blue);
-		calle = new Calle(400,300, 800,50,0, Color.blue); 
+		calle1 = new Calle(400,300, 800,50,0, Color.blue); 
 
 
 		
@@ -66,8 +67,8 @@ public class Juego extends InterfaceJuego {
 	
 		// Procesamiento de un instante de tiempo
 		// ...
-
-
+		calle.dibujar(entorno);
+		calle1.dibujar(entorno);
 		sakura.dibujar(entorno);
 		
 		
@@ -91,7 +92,7 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		
-
+		
 		if(vivo) {
 		ninja1.dibujar(entorno);
 		ninja1.mover();
@@ -107,10 +108,9 @@ public class Juego extends InterfaceJuego {
 //			//vivo = false;
 //			System.out.println("Choca");
 //		}
+	
 		
 		
-		
-	//	calle.dibujar(entorno);
 
 
 	//	sakura.dibujar(entorno);
