@@ -57,10 +57,10 @@ public class Juego extends InterfaceJuego {
 			ninja1.cambiarDeDireccion();
 		}
 		
-		if (ninja1.chocasteConUnRasengan(rasengan)) {
-			//vivo = false;
-			System.out.println("Choca");
-		}
+//		if (ninja1.chocasteConUnRasengan(rasengan)) {
+//			//vivo = false;
+//			System.out.println("Choca");
+//		}
 		
 	//	calle.dibujar(entorno);
 

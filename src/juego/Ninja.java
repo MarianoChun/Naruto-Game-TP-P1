@@ -11,7 +11,8 @@ import entorno.Herramientas;
 public class Ninja {
 	private double x;
 	private double y;
-	private double tamaño;
+	private int ancho;
+	private int alto;
 	private double angulo;
 	private double velocidad;
 	private Color color;
@@ -19,7 +20,8 @@ public class Ninja {
 	public Ninja(double x, double y, double velocidad, double angulo, Color color) {
 		this.x = x;
 		this.y = y;
-		this.tamaño = 50;
+		this.ancho = 50;
+		this.alto = 20;
 		this.velocidad = velocidad;
 		this.angulo = angulo;
 		this.color = color;
@@ -29,7 +31,7 @@ public class Ninja {
 	public void dibujar(Entorno e) {
 //		Image ninja = Herramientas.cargarImagen("ninja.png");
 //		e.dibujarImagen(ninja,200,400,50);
-		e.dibujarCirculo(x, y, tamaño, color);
+		e.dibujarRectangulo(x, y, ancho, alto, angulo, color);
 	}
 	
 	public void mover() {
@@ -43,12 +45,13 @@ public class Ninja {
 	}
 	
 	public boolean chocasteConElEntorno(Entorno e) {
-		return x < tamaño/2|| x > e.ancho() - tamaño/2 ||
-				y < tamaño/2 || y > e.alto() -tamaño/2;
+		return x <= alto / 2 || x >= e.ancho() - alto / 2 || 
+				y <= ancho / 2 || y >= e.alto() - ancho / 2;
 	}
 	
 	public boolean chocasteConUnRasengan(Rasengan rasengan) {
-		double distancia = Math.sqrt(Math.pow(rasengan.getX() - x, 2 + Math.pow(rasengan.getY() - y, 2)));
-		return tamaño + rasengan.getTamaño() > distancia;
+		int perimetro = (2 * ancho + 2 * alto);
+		return rasengan.getX() <= perimetro || 
+				perimetro <= rasengan.getX() + ancho; 
 	}
 }
