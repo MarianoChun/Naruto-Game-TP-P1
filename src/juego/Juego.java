@@ -1,5 +1,8 @@
 package juego;
+
+
 import java.awt.Color;
+
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -12,12 +15,24 @@ public class Juego extends InterfaceJuego {
 	boolean vivo = true;
 	private Calle calle;	
 	private Sakura sakura;
+
+	
+
+//	private Ninja ninja;
+
 	private Ninja ninja;
+
 
 
 	public Juego() {
 		// Inicializa el objeto entorno
-		this.entorno = new Entorno(this, "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
+
+		this.entorno = new Entorno(this,  "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
+		this.sakura = new Sakura (400,300,50,5,Color.BLUE);
+		
+				
+
+		
 		this.ninja1 = new Ninja(100, 400, 2, Math.PI / 2, Color.RED);
 		this.rasengan = new Rasengan(100,0,Math.PI/2);
 		
@@ -27,11 +42,17 @@ public class Juego extends InterfaceJuego {
 		calle = new Calle(400,100, 800,50,0, Color.blue);
 		calle = new Calle(400,300, 800,50,0, Color.blue); 
 
-		sakura= new Sakura (entorno.ancho()/2,entorno.alto()/2,50,Color.BLUE,1);
+
+		
 		// Inicia el juego!
 
 		this.entorno.iniciar();
+
+//		this.sakura.dibujar(entorno);
+		
+
 		// ninja1.dibujar(entorno);
+
 
 	}
 
@@ -42,10 +63,35 @@ public class Juego extends InterfaceJuego {
 	 * del TP para mayor detalle).
 	 */
 	public void tick() {
+	
 		// Procesamiento de un instante de tiempo
 		// ...
 
+
+		sakura.dibujar(entorno);
 		
+		
+		if(sakura.chocasteConElEntorno(entorno)) {
+			sakura.frenar(entorno);
+		}
+		if (entorno.estaPresionada('s')) {
+			sakura.moverAbajo();
+		}
+		
+		if (entorno.estaPresionada('a')) {
+			sakura.moverIzquierda();
+		}
+		
+		if (entorno.estaPresionada('d')) {
+			sakura.moverDerecha();
+		}
+		
+		if (entorno.estaPresionada('w')) {
+			sakura.moverArriba();
+		}
+		
+		
+
 		if(vivo) {
 		ninja1.dibujar(entorno);
 		ninja1.mover();
@@ -61,6 +107,8 @@ public class Juego extends InterfaceJuego {
 //			//vivo = false;
 //			System.out.println("Choca");
 //		}
+		
+		
 		
 	//	calle.dibujar(entorno);
 
