@@ -22,7 +22,7 @@ public class Sakura {
 	        this.tamaño = tamaño;
 	        this.color = color;
 	        this.velocidad = velocidad;
-	        this.imagenSakura = Herramientas.cargarImagen("Sakura.png");
+	        this.imagenSakura = Herramientas.cargarImagen("SakuraAbajo.png");
 	    }
 	    
 	 
