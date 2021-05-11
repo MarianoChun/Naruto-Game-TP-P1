@@ -15,6 +15,12 @@ public class Juego extends InterfaceJuego {
 	boolean vivo = true;
 	private Calle calle;
 	private Calle calle1;
+	private Calle calle2;
+	private Calle calle3;
+	private Calle calle4;
+	private Calle calle5;
+	private Calle calle6;
+	
 	private Sakura sakura;
 
 	
@@ -40,10 +46,23 @@ public class Juego extends InterfaceJuego {
 		
 		// Inicializar lo que haga falta para el juego
 		// ...
-		calle = new Calle(400,100, 800,50,0, Color.blue);
-		calle1 = new Calle(400,300, 800,50,0, Color.blue); 
-
-
+		calle = new Calle(400,90, 800,50,0, Color.gray);
+		calle1 = new Calle(400,230, 800,50,0, Color.gray); 
+		calle2 = new Calle(400,370, 800,50,0, Color.gray);
+		calle3 = new Calle(400,510, 800,50,0, Color.gray);
+		calle4 = new Calle(200,100, 50,1000,0, Color.gray);
+		calle5 = new Calle(400,100, 50,1000,0, Color.gray);
+		calle6 = new Calle(600,100, 50,1000,0, Color.gray);
+		
+//		Calle[] calles = new Calle [4];
+//		int x=400;
+//		int y=100;
+//		for (int i=0; i <4;i++) {
+//			calles[i] = new Calle(x,y, 800,50,0, Color.gray);
+//			x=x+100;
+//			y=y+100;
+//			
+//		}
 		
 		// Inicia el juego!
 
@@ -69,6 +88,14 @@ public class Juego extends InterfaceJuego {
 		// ...
 		calle.dibujar(entorno);
 		calle1.dibujar(entorno);
+		calle2.dibujar(entorno);
+		calle3.dibujar(entorno);
+		calle4.dibujar(entorno);
+		calle5.dibujar(entorno);
+		calle6.dibujar(entorno);
+		
+		
+		
 		sakura.dibujar(entorno);
 		
 		
