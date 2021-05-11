@@ -16,7 +16,7 @@ public class Juego extends InterfaceJuego {
 	private Calle calle;
 	private Calle calle1;
 	private Sakura sakura;
-
+//	private Sakura sakuraizquierda;
 	
 
 //	private Ninja ninja;
@@ -29,8 +29,8 @@ public class Juego extends InterfaceJuego {
 		// Inicializa el objeto entorno
 
 		this.entorno = new Entorno(this,  "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
-		this.sakura = new Sakura (400,300,50,5,Color.BLUE);
-		
+		this.sakura = new Sakura (400,300,50,5,Color.PINK);
+//		this.sakuraizquierda = new Sakura()
 				
 
 		
@@ -70,10 +70,10 @@ public class Juego extends InterfaceJuego {
 		calle.dibujar(entorno);
 		calle1.dibujar(entorno);
 		sakura.dibujar(entorno);
-		
+//		sakuraizquierda.dibujar(entorno);
 		
 		if(sakura.chocasteConElEntorno(entorno)) {
-			sakura.frenar(entorno);
+//			sakura.frenar(entorno);
 		}
 		if (entorno.estaPresionada('s')) {
 			sakura.moverAbajo();
@@ -91,6 +91,7 @@ public class Juego extends InterfaceJuego {
 			sakura.moverArriba();
 		}
 		
+	
 		
 		
 		if(vivo) {

@@ -13,7 +13,8 @@ public class Sakura {
 	    private double tamaño;
 	    private Color color;
 	    private double velocidad;
-	    private double angulo;
+	    private Image imagenSakura;
+	    
 
 	    public Sakura (double x, double y, double tamaño, double velocidad, Color color) {
 	        this.x=x;
@@ -21,30 +22,28 @@ public class Sakura {
 	        this.tamaño = tamaño;
 	        this.color = color;
 	        this.velocidad = velocidad;
-	        this.angulo = - Math.PI / 4;
+	        this.imagenSakura = Herramientas.cargarImagen("Sakura.png");
 	    }
 	    
 	 
 
 	    public void dibujar(Entorno e) {
-	       e.dibujarCirculo(x,y,tamaño, color);
-//	    	Image Sakura = Herramientas.cargarImagen("Sakura.png");
-//	    	e.dibujarImagen(Sakura,200,400,50);
+//	       e.dibujarCirculo(x,y,tamaño, color);
+    	
+    	e.dibujarImagen(imagenSakura,400,300,Math.PI*2);
 	    }
-	    public void mover() {
-	        x += velocidad * Math.cos(angulo);
-	        y += velocidad * Math.sin(angulo);
-	    }
+	   
+	    
 	    public boolean chocasteConElEntorno(Entorno e) {
 	        return x < tamaño/2|| x > e.ancho() - tamaño/2  ||
 	                y < tamaño/2 || y>e.alto() - tamaño/2;
 	    }
-	    public void cambiarDeDireccion() {
-	        angulo += Math.PI/2;
-	    }
-	    public void acelerar() {
-	        velocidad += 0.2;
-	    }
+	   
+	       
+	    
+//	    public void acelerar() {
+//	        velocidad += 0.2;
+//	    }
 	    
 	 public void moverIzquierda() {
 		 x -= velocidad;
@@ -73,16 +72,17 @@ public class Sakura {
 		}
 
 
+//	public boolean volverAPantalla(Entorno e) {	
+//		if (x > 800 || x> e.ancho()){
+//			return false;
+//		}
+//			return false;   
+//			 
+//		}
 
-		public void frenar(Entorno e) {
-			 x -= velocidad * Math.cos(angulo);
-		      y -= velocidad * Math.sin(angulo);
-		     
-		}
+}
 
-		
-
-	}
+	
 	
 	
 	
