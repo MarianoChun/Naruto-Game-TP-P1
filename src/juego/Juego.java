@@ -21,7 +21,7 @@ public class Juego extends InterfaceJuego {
 	private Calle calle4;
 	private Calle calle5;
 	private Calle calle6;
-	
+	private Ninja ninjas[];
 	private Sakura sakura;
 
 //	private Sakura sakuraizquierda;
@@ -40,27 +40,48 @@ public class Juego extends InterfaceJuego {
 
 		
 		
-		
+		                                       
 
 		// Inicializar lo que haga falta para el juego
 		// ...
 
 		sakura = new Sakura (400,300,50,5,Color.BLUE);		
-		ninja1 = new Ninja(100, 400, 2);
+		ninja1 = new Ninja(100, 400);
 		rasengan = new Rasengan(100,0,Math.PI/2);
 		calle = new Calle(400,100, 800,50,0, Color.blue);
 		calle1 = new Calle(400,300, 800,50,0, Color.blue); 
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
-		
 
 		calle = new Calle(400,90, 800,50,0, Color.gray);
 		calle1 = new Calle(400,230, 800,50,0, Color.gray); 
 		calle2 = new Calle(400,370, 800,50,0, Color.gray);
 		calle3 = new Calle(400,510, 800,50,0, Color.gray);
+		
 		calle4 = new Calle(200,100, 50,1000,0, Color.gray);
 		calle5 = new Calle(400,100, 50,1000,0, Color.gray);
 		calle6 = new Calle(600,100, 50,1000,0, Color.gray);
 		
+		ninjas = new Ninja[6];
+		// Se toma como primera posicion a las coordenadas de la primer calle.
+		int ninjaX = 400;
+		int ninjaY = 90;
+		int auxY = 600; // inicia en 600 y se decrementa en 200 por cada calle para las verticales
+		boolean callesHorizontales = false; // Si se colocaron los ninjas en las calles horizontales, true
+		
+		for (int i = 0; i < 6;i++) {
+			if(i == 2) { // Se completaron los ninjas en las calles horizontales
+				callesHorizontales = true;
+			}
+			
+			if(callesHorizontales == false) {
+				ninjas[i] = new Ninja(ninjaX,ninjaY);
+				ninjaY = ninjaY + 140;
+			} else {
+				ninjaY = 100; // Calles verticales, Y es constante en 100
+				ninjas[i] = new Ninja(ninjaX,auxY);
+				auxY = auxY - 200;
+			}
+		}
 //		Calle[] calles = new Calle [4];
 //		int x=400;
 //		int y=100;
@@ -106,10 +127,14 @@ public class Juego extends InterfaceJuego {
 		calle4.dibujar(entorno);
 		calle5.dibujar(entorno);
 		calle6.dibujar(entorno);
+		
 		sakura.dibujar(entorno);	
-		ninja1.dibujar(entorno);
+		//ninja1.dibujar(entorno);
 		
-		
+		// Dibujo array ninja
+		for(int i = 0; i < 6; i++) {
+			ninjas[i].dibujar(entorno);
+		}
 		sakura.dibujar(entorno);
 
 //		sakuraizquierda.dibujar(entorno);

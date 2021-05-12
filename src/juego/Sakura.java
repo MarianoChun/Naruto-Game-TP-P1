@@ -27,10 +27,8 @@ public class Sakura {
 	    
 	 
 
-	    public void dibujar(Entorno e) {
-//	       e.dibujarCirculo(x,y,tamaño, color);
-    	
-    	e.dibujarImagen(imagenSakura,400,300,Math.PI*2);
+	    public void dibujar(Entorno e) {	
+    	e.dibujarImagen(imagenSakura,x,y,Math.PI*2);
 	    }
 	   
 	    

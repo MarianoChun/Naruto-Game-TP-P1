@@ -16,12 +16,12 @@ public class Ninja {
 	private double velocidad;
 	private Image img1;
 	
-	public Ninja(double x, double y, double velocidad) {
+	public Ninja(double x, double y) {
 		this.x = x;
 		this.y = y;
 		this.ancho = 50;
 		this.alto = 20;
-		this.velocidad = velocidad;
+		this.velocidad = 2;
 		this.img1 = Herramientas.cargarImagen("ninja.png");
 	}
 	
