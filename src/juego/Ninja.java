@@ -28,7 +28,8 @@ public class Ninja {
 
 	public void dibujar(Entorno e) {
 		e.dibujarImagen(img1, x, y, Math.PI*2);
-
+	
+		
 	}
 		public void mover() {
 		// TODO Auto-generated method stub

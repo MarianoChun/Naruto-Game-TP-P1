@@ -45,7 +45,7 @@ public class Juego extends InterfaceJuego {
 		// Inicializar lo que haga falta para el juego
 		// ...
 
-		sakura = new Sakura (400,300,50,5,Color.BLUE);		
+		sakura = new Sakura (400,300,50,2,Color.BLUE);		
 		ninja1 = new Ninja(100, 400, 2);
 		rasengan = new Rasengan(100,0,Math.PI/2);
 		calle = new Calle(400,100, 800,50,0, Color.blue);
@@ -98,40 +98,39 @@ public class Juego extends InterfaceJuego {
 //		calle.dibujar(entorno);
 //		calle1.dibujar(entorno);
 		entorno.dibujarImagen(fondo,400, 300, Math.PI*2);
-
 		calle.dibujar(entorno);
 		calle1.dibujar(entorno);
 		calle2.dibujar(entorno);
 		calle3.dibujar(entorno);
 		calle4.dibujar(entorno);
 		calle5.dibujar(entorno);
-		calle6.dibujar(entorno);
-		sakura.dibujar(entorno);	
+		calle6.dibujar(entorno);	
 		ninja1.dibujar(entorno);
-		
-		
 		sakura.dibujar(entorno);
+		
+		
 
 //		sakuraizquierda.dibujar(entorno);
 
 		
-		if(sakura.chocasteConElEntorno(entorno)) {
+//		if(sakura.chocasteConElEntorno(entorno)) {
 //			sakura.frenar(entorno);
-		}
-		if (entorno.estaPresionada('s')) {
+	
+		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
 		}
 		
-		if (entorno.estaPresionada('a')) {
+		else if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
 			sakura.moverIzquierda();
 		}
 		
-		if (entorno.estaPresionada('d')) {
+		else if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			sakura.moverDerecha();
 		}
 		
-		if (entorno.estaPresionada('w')) {
+		else if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
 			sakura.moverArriba();
+		
 		}
 		
 	

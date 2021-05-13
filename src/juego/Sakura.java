@@ -11,18 +11,23 @@ public class Sakura {
 	    private double x;
 	    private double y;
 	    private double tamaño;
-	    private Color color;
 	    private double velocidad;
 	    private Image imagenSakura;
+	    private Image imagenSakuraArriba;
+	    private Image imagenSakuraDerecha;
+	    private Image imagenSakuraIzquierda;
+	    private Image imagenSakuraAbajo;
 	    
-
 	    public Sakura (double x, double y, double tamaño, double velocidad, Color color) {
 	        this.x=x;
 	        this.y = y;
 	        this.tamaño = tamaño;
-	        this.color = color;
 	        this.velocidad = velocidad;
-	        this.imagenSakura = Herramientas.cargarImagen("SakuraAbajo.png");
+	        this.imagenSakura = Herramientas.cargarImagen("SakuraQuieta.png");
+	        this.imagenSakuraArriba=Herramientas.cargarImagen("SakuraArriba.png");
+	        this.imagenSakuraDerecha=Herramientas.cargarImagen("SakuraDer.png");
+	        this.imagenSakuraIzquierda=Herramientas.cargarImagen("SakuraIzq.png");
+	        this.imagenSakuraAbajo=Herramientas.cargarImagen("SakuraAbajo.png");
 	    }
 	    
 	 
@@ -30,9 +35,27 @@ public class Sakura {
 	    public void dibujar(Entorno e) {
 //	       e.dibujarCirculo(x,y,tamaño, color);
     	
-    	e.dibujarImagen(imagenSakura,400,300,Math.PI*2);
-	    }
-	   
+
+    		
+    	if (e.estaPresionada(e.TECLA_ARRIBA)) 
+			e.dibujarImagen(this.imagenSakuraArriba, this.x, this.y, 0.3);
+    	
+    	else if (e.estaPresionada(e.TECLA_DERECHA))	
+			e.dibujarImagen(this.imagenSakuraDerecha, this.x, this.y, 0.3);
+    	
+    	else if (e.estaPresionada(e.TECLA_IZQUIERDA))
+    		e.dibujarImagen(this.imagenSakuraIzquierda, this.x, this.y, 0.3);
+    		
+    	else if (e.estaPresionada(e.TECLA_ABAJO))
+    		e.dibujarImagen(this.imagenSakuraAbajo, this.x, this.y, 0.3);
+    	
+    	else
+    		e.dibujarImagen(imagenSakura,x,y,Math.PI*2);}
+    	
+	    
+	     
+    	
+	    
 	    
 	    public boolean chocasteConElEntorno(Entorno e) {
 	        return x < tamaño/2|| x > e.ancho() - tamaño/2  ||
@@ -72,15 +95,13 @@ public class Sakura {
 		}
 
 
-//	public boolean volverAPantalla(Entorno e) {	
-//		if (x > 800 || x> e.ancho()){
-//			return false;
-//		}
-//			return false;   
-//			 
-//		}
+	public boolean colisionCalles(Calle c) {	
+		  return  x < 400|| x >  200 ; 
+	                
+	    }
+		
+	}
 
-}
 
 	
 	
