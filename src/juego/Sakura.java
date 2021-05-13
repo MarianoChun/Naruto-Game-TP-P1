@@ -31,9 +31,16 @@ public class Sakura {
 	    }
 	    
 	 
+	    public double getX() {
+			return x;
+		}
+
+		public double getY() {
+			return y;
+		}
 
 
-	    public void dibujar(Entorno e) {
+		public void dibujar(Entorno e) {
 //	       e.dibujarCirculo(x,y,tamaño, color);
     	
 

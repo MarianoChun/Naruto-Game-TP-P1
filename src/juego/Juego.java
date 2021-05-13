@@ -48,7 +48,6 @@ public class Juego extends InterfaceJuego {
 
 
 		sakura = new Sakura (400,300,50,2,Color.BLUE);		
-		rasengan = new Rasengan(100,0,Math.PI/2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 
 		// Horizontales
@@ -129,6 +128,7 @@ public class Juego extends InterfaceJuego {
 	 * estado interno del juego para simular el paso del tiempo (ver el enunciado
 	 * del TP para mayor detalle).
 	 */
+
 	public void tick() {
 	
 		// Procesamiento de un instante de tiempo
@@ -186,10 +186,15 @@ public class Juego extends InterfaceJuego {
 			sakura.moverArriba();
 		
 		}
+		if(entorno.sePresiono(entorno.TECLA_ESPACIO)) {
+			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2);
+			
+			rasengan.dibujar(entorno);
+			rasengan.mover();
+			
 	
-		
-		rasengan.dibujar(entorno);
-		rasengan.mover();
+		}
+	
 		
 //		if (ninja1.chocasteConElEntorno(entorno)) {
 //			ninja1.cambiarDeDireccion();
