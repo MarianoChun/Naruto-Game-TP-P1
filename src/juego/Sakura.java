@@ -32,6 +32,7 @@ public class Sakura {
 	    
 	 
 
+
 	    public void dibujar(Entorno e) {
 //	       e.dibujarCirculo(x,y,tamaño, color);
     	
@@ -56,6 +57,10 @@ public class Sakura {
 	     
     	
 	    
+
+	   
+	   
+
 	    
 	    public boolean chocasteConElEntorno(Entorno e) {
 	        return x < tamaño/2|| x > e.ancho() - tamaño/2  ||
