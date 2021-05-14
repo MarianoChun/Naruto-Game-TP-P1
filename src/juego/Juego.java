@@ -28,7 +28,7 @@ public class Juego extends InterfaceJuego {
 //	private Sakura sakuraizquierda;
 
 	private Image fondo;
-
+	boolean rasenganActivado = false;
 	
 
 	public Juego() {
@@ -118,8 +118,8 @@ public class Juego extends InterfaceJuego {
 		
 
 		// ninja1.dibujar(entorno);
-
-
+	
+		
 	}
 
 	/**
@@ -186,16 +186,28 @@ public class Juego extends InterfaceJuego {
 			sakura.moverArriba();
 		
 		}
-		if(entorno.sePresiono(entorno.TECLA_ESPACIO)) {
+		// Lanzamiento Rasengan
+		if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ABAJO) ) {
 			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2);
-			
+			rasenganActivado = true;
+		}
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_IZQUIERDA) ) {
+			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI);
+			rasenganActivado = true;
+		}
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_DERECHA) ) {
+			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI*2);
+			rasenganActivado = true;
+		}
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ARRIBA) ) {
+			rasengan = new Rasengan(sakura.getX(),sakura.getY(),-Math.PI/2);
+			rasenganActivado = true;
+		}
+		
+		if(rasenganActivado) {
 			rasengan.dibujar(entorno);
 			rasengan.mover();
-			
-	
 		}
-	
-		
 //		if (ninja1.chocasteConElEntorno(entorno)) {
 //			ninja1.cambiarDeDireccion();
 //		}
