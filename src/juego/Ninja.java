@@ -26,6 +26,26 @@ public class Ninja {
 	}
 	
 
+	public int getAncho() {
+		return ancho;
+	}
+
+
+	public int getAlto() {
+		return alto;
+	}
+
+
+	public double getX() {
+		return x;
+	}
+
+
+	public double getY() {
+		return y;
+	}
+
+
 	public void dibujar(Entorno e) {
 		e.dibujarImagen(img1, x, y, Math.PI*2);
 	
@@ -45,9 +65,5 @@ public class Ninja {
 				y <= ancho / 2 || y >= e.alto() - ancho / 2;
 	}
 	
-	public boolean chocasteConUnRasengan(Rasengan rasengan) {
-		int perimetro = (2 * ancho + 2 * alto);
-		return rasengan.getX() <= perimetro || 
-				perimetro <= rasengan.getX() + ancho; 
-	}
+
 }

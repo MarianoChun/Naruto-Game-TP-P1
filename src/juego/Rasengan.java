@@ -46,5 +46,10 @@ public class Rasengan {
 	public boolean chocasteConElEntorno(Entorno e) {
 		return x < tamaño / 2 || x > e.ancho() - tamaño / 2 || y < tamaño / 2 || y > e.alto() - tamaño / 2;
 	}
-
+	
+	public boolean chocasteConNinja(Ninja n) {
+		return n.getX() - n.getAncho() / 2 < x && 
+				x < n.getX() + n.getAncho()/2 &&
+				y + tamaño/2 > n.getY() - n.getAlto()/2;
+	}
 }

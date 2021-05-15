@@ -208,6 +208,14 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
+		for(int i = 0; i < ninjas.length;i++) { // Si hay rasengan y choca con algun ninja, eliminamos el rasengan.
+			if(rasengan[0] != null) {
+				if(rasengan[0].chocasteConNinja(ninjas[i])) {
+					rasengan[0] = null;
+				}
+			}
+		}
+		
 		if(rasengan[0] != null && rasengan[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
 			rasengan[0] = null;
 		}
