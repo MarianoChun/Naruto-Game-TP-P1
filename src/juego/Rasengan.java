@@ -19,6 +19,7 @@ public class Rasengan {
 		this.velocidad = 3;
 		this.color = Color.BLUE;
 	}
+	
 
 	public double getTamaño() {
 		return tamaño;

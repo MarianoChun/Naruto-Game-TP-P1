@@ -12,7 +12,8 @@ public class Juego extends InterfaceJuego {
 
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	private Rasengan rasengan;
+//	private Rasengan rasengan;
+	private Rasengan rasengan[];
 	private Calle calle;
 	private Calle calle1;
 	private Calle calle2;
@@ -28,14 +29,13 @@ public class Juego extends InterfaceJuego {
 //	private Sakura sakuraizquierda;
 
 	private Image fondo;
-	boolean rasenganActivado = false;
 	
 
 	public Juego() {
 		// Inicializa el objeto entorno
 
 		this.entorno = new Entorno(this,  "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
-
+		
 //		this.sakuraizquierda = new Sakura()
 				
 
@@ -46,7 +46,7 @@ public class Juego extends InterfaceJuego {
 		// Inicializar lo que haga falta para el juego
 		// ...
 
-
+		rasengan = new Rasengan[1];
 		sakura = new Sakura (400,300,50,2,Color.BLUE);		
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 
@@ -187,27 +187,38 @@ public class Juego extends InterfaceJuego {
 		
 		}
 		// Lanzamiento Rasengan
-		if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ABAJO) ) {
-			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2);
-			rasenganActivado = true;
+		if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ABAJO)) { // Dispara el rasengan en la direccion a la que mira el jugador
+			if(rasengan[0] == null) { // Si hay rasengan, no dibuja otro
+			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2); // Obtenemos la posicion de sakura y disparamos al angulo al que esta mirando
+			}
 		}
-		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_IZQUIERDA) ) {
-			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI);
-			rasenganActivado = true;
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+			if(rasengan[0] == null) {
+			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),Math.PI);
+			}
 		}
-		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_DERECHA) ) {
-			rasengan = new Rasengan(sakura.getX(),sakura.getY(),Math.PI*2);
-			rasenganActivado = true;
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+			if(rasengan[0] == null) {
+			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),Math.PI*2);
+			}
 		}
-		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ARRIBA) ) {
-			rasengan = new Rasengan(sakura.getX(),sakura.getY(),-Math.PI/2);
-			rasenganActivado = true;
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
+			if(rasengan[0] == null) {
+			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),-Math.PI/2);
+			}
 		}
 		
-		if(rasenganActivado) {
-			rasengan.dibujar(entorno);
-			rasengan.mover();
+		if(rasengan[0] != null && rasengan[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
+			rasengan[0] = null;
 		}
+		if (rasengan[0] != null && !rasengan[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
+			rasengan[0].dibujar(entorno);
+			rasengan[0].mover();
+		}
+//		if(rasenganActivado) {
+//			rasengan.dibujar(entorno);
+//			rasengan.mover();
+//		}
 //		if (ninja1.chocasteConElEntorno(entorno)) {
 //			ninja1.cambiarDeDireccion();
 //		}
