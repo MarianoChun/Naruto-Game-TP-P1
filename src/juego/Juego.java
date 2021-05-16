@@ -45,9 +45,9 @@ public class Juego extends InterfaceJuego {
 
 		// Inicializar lo que haga falta para el juego
 		// ...
-
+	
 		rasengan = new Rasengan[1];
-		sakura = new Sakura (400,300,50,2,Color.BLUE);		
+		sakura = new Sakura (400,300,2,Color.BLUE);		
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 
 		// Horizontales
@@ -167,9 +167,10 @@ public class Juego extends InterfaceJuego {
 //		sakuraizquierda.dibujar(entorno);
 
 		
-//		if(sakura.chocasteConElEntorno(entorno)) {
-//			sakura.frenar(entorno);
-	
+		if(sakura.chocasteConElEntorno(entorno)) {
+			System.out.println("Choca");
+		}
+		
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
 		}

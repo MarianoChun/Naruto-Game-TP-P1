@@ -10,7 +10,8 @@ public class Sakura {
 
 	    private double x;
 	    private double y;
-	    private double tamaño;
+	    private double ancho;
+	    private double alto;
 	    private double velocidad;
 	    private Image imagenSakura;
 	    private Image imagenSakuraArriba;
@@ -18,11 +19,12 @@ public class Sakura {
 	    private Image imagenSakuraIzquierda;
 	    private Image imagenSakuraAbajo;
 	    
-	    public Sakura (double x, double y, double tamaño, double velocidad, Color color) {
+	    public Sakura (double x, double y,double velocidad, Color color) {
 	        this.x=x;
 	        this.y = y;
-	        this.tamaño = tamaño;
 	        this.velocidad = velocidad;
+	        this.alto = 41;
+	        this.ancho = 28;
 	        this.imagenSakura = Herramientas.cargarImagen("SakuraQuieta.png");
 	        this.imagenSakuraArriba=Herramientas.cargarImagen("SakuraArriba.png");
 	        this.imagenSakuraDerecha=Herramientas.cargarImagen("SakuraDer.png");
@@ -62,19 +64,11 @@ public class Sakura {
     	
 	    
 	     
-    	
-	    
-
-	   
-	   
-
-	    
+     
 	    public boolean chocasteConElEntorno(Entorno e) {
-	        return x < tamaño/2|| x > e.ancho() - tamaño/2  ||
-	                y < tamaño/2 || y>e.alto() - tamaño/2;
-	    }
-	   
-	       
+	        return x <= 0 || x + ancho >= e.ancho() || 
+	        		y <= 0 || y + alto >= e.alto();
+	    }  
 	    
 //	    public void acelerar() {
 //	        velocidad += 0.2;
@@ -111,7 +105,10 @@ public class Sakura {
 		  return  x < 400|| x >  200 ; 
 	                
 	    }
-		
+	
+//	public boolean chocasteConNinja() {
+//		return y + ancho;
+//	}
 	}
 
 
