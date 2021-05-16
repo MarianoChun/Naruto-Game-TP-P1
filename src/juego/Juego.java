@@ -207,6 +207,11 @@ public class Juego extends InterfaceJuego {
 			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),-Math.PI/2);
 			}
 		}
+		else if(entorno.sePresiono(entorno.TECLA_ESPACIO)) {
+			if(rasengan[0] == null) {
+			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2);
+			}
+		}
 		
 		for(int i = 0; i < ninjas.length;i++) { // Si hay rasengan y choca con algun ninja, eliminamos el rasengan.
 			if(rasengan[0] != null) {
