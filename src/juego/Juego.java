@@ -25,7 +25,8 @@ public class Juego extends InterfaceJuego {
 	private Sakura sakura;
 	private Casa casa;
 	private Casa casa1;
-
+	private Casa casas[];
+	private int posicionesNinjas[][];
 //	private Sakura sakuraizquierda;
 
 	private Image fondo;
@@ -51,63 +52,110 @@ public class Juego extends InterfaceJuego {
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 
 		// Horizontales
-		calle = new Calle(400,90, 800,50,0, Color.gray);
-		calle1 = new Calle(400,230, 800,50,0, Color.gray); 
-		calle2 = new Calle(400,370, 800,50,0, Color.gray);
-		calle3 = new Calle(400,510, 800,50,0, Color.gray);
+		calle = new Calle(400,90, 800,50,0,true);
+		calle1 = new Calle(400,230, 800,50,0, true); 
+		calle2 = new Calle(400,370, 800,50,0, true);
+		calle3 = new Calle(400,510, 800,50,0, true);
 		
 		// Verticales
-		calle4 = new Calle(200,100, 50,1000,0, Color.gray);
-		calle5 = new Calle(400,100, 50,1000,0, Color.gray);
-		calle6 = new Calle(600,100, 50,1000,0, Color.gray);
+
+		calle4 = new Calle(200,100, 50,1000,0, false);
+		calle5 = new Calle(400,100, 50,1000,0, false);
+		calle6 = new Calle(600,100, 50,1000,0, false);
+
 
 		// Ninjas
+
 		ninjas = new Ninja[5];
+		posicionesNinjas = new int[5][2];
+		// Ninja[0]
+		posicionesNinjas[0][0] = 200;
+		posicionesNinjas[0][1] = 570;
+		// Ninja[1]
+		posicionesNinjas[1][0] = 600;
+		posicionesNinjas[1][1] = 25;
+		// Ninja[2]
+		posicionesNinjas[2][0] = 30;
+		posicionesNinjas[2][1] = 90;
+		// Ninja[3]
+		posicionesNinjas[3][0] = 770;
+		posicionesNinjas[3][1] = 370;
+		// Ninja[4]
+		posicionesNinjas[4][0] = 30;
+		posicionesNinjas[4][1] = 510;
 		// Se toma como primera posicion a las coordenadas de la primer calle vertical.
-		int ninjaX = 200;
-		int ninjaY = 570;
 		// ninja[0] de abajo hacia arrriba, calle vertical izquierda
 		// ninja[1] de arriba hacia abajo, calle vertical derecha
 		// ninja[2] de izq a der, calle horizontal superior primera
 		// ninja[3] de der a izq, calle horizontal inferior segunda
-		// ninja[4] de iz a der, calle horizontal inferior primera
+		// ninja[4] de iz a der, calle horizontal inferior primera		
 		for (int i = 0; i < ninjas.length;i++) {
 			if(i == 0) {
-				ninjas[i] = new Ninja(ninjaX,ninjaY);
+				ninjas[i] = new Ninja(posicionesNinjas[0][0],posicionesNinjas[0][1]);
 			}
 			if(i == 1) {
-				ninjaX = 600;
-				ninjaY = 50;
-				ninjas[i] = new Ninja(ninjaX,ninjaY);
+				ninjas[i] = new Ninja(posicionesNinjas[1][0],posicionesNinjas[1][1]);
 			}
 			if(i == 2) {
-				ninjaX = 100;
-				ninjaY = 90;
-				ninjas[i] = new Ninja(ninjaX,ninjaY);
+				ninjas[i] = new Ninja(posicionesNinjas[2][0],posicionesNinjas[2][1]);
 			}
 			if(i == 3) {
-				ninjaX = 700;
-				ninjaY = 370;
-				ninjas[i] = new Ninja(ninjaX,ninjaY);
+				ninjas[i] = new Ninja(posicionesNinjas[3][0],posicionesNinjas[3][1]);
 			}
 			if(i == 4) {
-					ninjaX = 100;
-					ninjaY = 510;
-					ninjas[i] = new Ninja(ninjaX,ninjaY);
+					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
 				}
 		}
+		
+		
 		casa = new Casa(50,20,50,40,0,Color.MAGENTA);
 		casa1 = new Casa(130,20,50,60,0,Color.blue);
 		
-//		Calle[] calles = new Calle [4];
-//		int x=400;
-//		int y=100;
-//		for (int i=0; i <4;i++) {
-//			calles[i] = new Calle(x,y, 800,50,0, Color.gray);
-//			x=x+100;
-//			y=y+100;
-//			
-//		}
+		casas = new Casa [8];
+		int casaX=50;
+		int casaY=20;
+		for (int i = 0; i < casas.length;i++) {
+			if(i==0) {
+				casas[i]= new Casa(casaX,casaY,50,40,0,Color.MAGENTA);
+			}
+			if(i==1) {
+				casaX = 130;
+				casaY=20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+			if(i==2) {
+				casaX = 250;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
+			}
+			if(i==3) {
+				casaX = 320;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+			if(i==4) {
+				casaX = 450;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
+			}
+			if(i==5) {
+				casaX = 530;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+			if(i==6) {
+				casaX = 680;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.magenta);
+			}
+			if(i==7) {
+				casaX = 760;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+		}
+		
+
 
 		
 		// Inicia el juego!
@@ -134,24 +182,26 @@ public class Juego extends InterfaceJuego {
 		// Procesamiento de un instante de tiempo
 		// ...
 
-//		calle.dibujar(entorno);
-//		calle1.dibujar(entorno);
 		entorno.dibujarImagen(fondo,entorno.ancho()/2, entorno.alto()/2, Math.PI*2);
+		//dibujo las calles
 		calle.dibujar(entorno);
 		calle1.dibujar(entorno);
 		calle2.dibujar(entorno);
 		calle3.dibujar(entorno);
 		calle4.dibujar(entorno);
 		calle5.dibujar(entorno);
-
 		calle6.dibujar(entorno);	
-		sakura.dibujar(entorno);
-
-		calle6.dibujar(entorno);
-
 		
-		casa.dibujar(entorno);
-		casa1.dibujar(entorno);
+		sakura.dibujar(entorno);
+		
+	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
+		
+
+		for(int i = 0; i < casas.length; i++) {
+			casas[i].dibujar(entorno);
+		}
+		//casa.dibujar(entorno);
+		//casa1.dibujar(entorno);
 		
 		sakura.dibujar(entorno);	
 		//ninja1.dibujar(entorno);
@@ -166,9 +216,51 @@ public class Juego extends InterfaceJuego {
 
 //		sakuraizquierda.dibujar(entorno);
 
+		// Movimiento Ninjas
 		
-		if(sakura.chocasteConNinja(ninjas[0])) {
-			System.out.println("Choca");
+		// ninja[0] de abajo hacia arrriba, calle vertical izquierda
+		// ninja[1] de arriba hacia abajo, calle vertical derecha
+		// ninja[2] de izq a der, calle horizontal superior primera
+		// ninja[3] de der a izq, calle horizontal inferior segunda
+		// ninja[4] de iz a der, calle horizontal inferior primera
+		
+		for(int i = 0;i < ninjas.length;i++) {
+			if(i == 0) {
+				ninjas[i].mover(Math.PI/2);
+			}
+			if(i == 1) {
+				ninjas[i].mover(-Math.PI/2);
+			}
+			if(i == 2) {
+				ninjas[i].mover(0.0);
+			}
+			if(i == 3) {
+				ninjas[i].mover(Math.PI);
+			}
+			if(i == 4) {
+				ninjas[i].mover(0.0);
+				}
+		}
+		// Aparicion ninja luego de chocar con el entorno
+		for(int i = 0;i < ninjas.length;i++) {
+			if(ninjas[i].chocasteConElEntorno(entorno)) {
+				ninjas[i] = null; // Eliminamos al ninja anterior y luego inicializamos otro nuevo en la posicion inicial
+				if(i == 0) {
+					ninjas[i] = new Ninja(posicionesNinjas[0][0],posicionesNinjas[0][1]);
+				}
+				if(i == 1) {
+					ninjas[i] = new Ninja(posicionesNinjas[1][0],posicionesNinjas[1][1]);
+				}
+				if(i == 2) {
+					ninjas[i] = new Ninja(posicionesNinjas[2][0],posicionesNinjas[2][1]);
+				}
+				if(i == 3) {
+					ninjas[i] = new Ninja(posicionesNinjas[3][0],posicionesNinjas[3][1]);
+				}
+				if(i == 4) {
+					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
+					}
+			}
 		}
 		
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
@@ -229,6 +321,14 @@ public class Juego extends InterfaceJuego {
 			rasengan[0].dibujar(entorno);
 			rasengan[0].mover();
 		}
+		
+		for(int i = 0; i < ninjas.length;i++) { // Si choca con algun ninja, perdemos.
+			if(sakura.chocasteConNinja(ninjas[i])) {
+				System.out.println("Perdiste");
+			}
+		}
+		
+
 //		if(rasenganActivado) {
 //			rasengan.dibujar(entorno);
 //			rasengan.mover();

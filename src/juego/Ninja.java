@@ -19,10 +19,10 @@ public class Ninja {
 	public Ninja(double x, double y) {
 		this.x = x;
 		this.y = y;
-		this.ancho = 36;
-		this.alto = 50;
 		this.velocidad = 2;
 		this.img1 = Herramientas.cargarImagen("ninja.png");
+		this.alto = img1.getHeight(null);
+		this.ancho = img1.getWidth(null);
 	}
 	
 
@@ -45,15 +45,27 @@ public class Ninja {
 		return y;
 	}
 
-
-	public void dibujar(Entorno e) {
-		e.dibujarImagen(img1, x, y, Math.PI*2);
 	
-		
+	
+	
+	
+	
+	public void dibujar(Entorno e) {
+		e.dibujarImagen(img1, x, y, Math.PI*2);	
 	}
-		public void mover() {
-		// TODO Auto-generated method stub
-		y += velocidad;
+		public void mover(double angulo) {
+		// angulo = orientacion de ninja
+			if(angulo == 0.0) { // izquierda a derecha
+				x += velocidad;
+			} else if (angulo == Math.PI){ // derecha a izquierda
+				x  -= velocidad;
+			}else if (angulo == Math.PI/2){ // abajo hacia arriba
+				y -= velocidad;
+			} else if (angulo == -Math.PI/2){ //arriba hacia abajo
+				y += velocidad;
+			}
+			
+
 	}
 	
 //	public void cambiarDeDireccion() {
