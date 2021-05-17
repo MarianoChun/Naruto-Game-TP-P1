@@ -91,10 +91,7 @@ public class Sakura {
 			
 		}
 
-		public void setVelocidad(int v) {
-		velocidad= v;
-			
-		}
+		
 
 		public void moverAbajo() {
 			y +=velocidad;
