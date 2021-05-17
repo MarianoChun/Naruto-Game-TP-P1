@@ -58,9 +58,9 @@ public class Juego extends InterfaceJuego {
 		calle3 = new Calle(400,510, 800,50,0, Color.gray);
 		
 		// Verticales
-		calle4 = new Calle(200,100, 50,1000,0, Color.gray);
-		calle5 = new Calle(400,100, 50,1000,0, Color.gray);
-		calle6 = new Calle(600,100, 50,1000,0, Color.gray);
+		calle4 = new Calle(200,370, 40,1000,0, Color.gray);
+		calle5 = new Calle(400,370, 40,1000,0, Color.gray);
+		calle6 = new Calle(600,370, 40,1000,0, Color.gray);
 
 		// Ninjas
 		ninjas = new Ninja[5];
@@ -171,8 +171,6 @@ public class Juego extends InterfaceJuego {
 		// Procesamiento de un instante de tiempo
 		// ...
 
-//		calle.dibujar(entorno);
-//		calle1.dibujar(entorno);
 		entorno.dibujarImagen(fondo,entorno.ancho()/2, entorno.alto()/2, Math.PI*2);
 		//dibujo las calles
 		calle.dibujar(entorno);
