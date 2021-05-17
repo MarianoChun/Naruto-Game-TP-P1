@@ -19,8 +19,8 @@ public class Ninja {
 	public Ninja(double x, double y) {
 		this.x = x;
 		this.y = y;
-		this.ancho = 50;
-		this.alto = 20;
+		this.ancho = 36;
+		this.alto = 50;
 		this.velocidad = 2;
 		this.img1 = Herramientas.cargarImagen("ninja.png");
 	}

@@ -16,7 +16,7 @@ public class Rasengan {
 		this.y = y;
 		this.tamaño = 20;
 		this.angulo = angulo;
-		this.velocidad = 3;
+		this.velocidad = 4;
 		this.color = Color.BLUE;
 	}
 	
