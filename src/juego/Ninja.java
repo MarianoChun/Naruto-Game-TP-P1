@@ -53,9 +53,19 @@ public class Ninja {
 	public void dibujar(Entorno e) {
 		e.dibujarImagen(img1, x, y, Math.PI*2);	
 	}
-		public void mover() {
-		// TODO Auto-generated method stub
-		y += velocidad;
+		public void mover(double angulo) {
+		// angulo = orientacion de ninja
+			if(angulo == 0.0) { // izquierda a derecha
+				x += velocidad;
+			} else if (angulo == Math.PI){ // derecha a izquierda
+				x  -= velocidad;
+			}else if (angulo == Math.PI/2){ // abajo hacia arriba
+				y -= velocidad;
+			} else if (angulo == -Math.PI/2){ //arriba hacia abajo
+				y += velocidad;
+			}
+			
+
 	}
 	
 //	public void cambiarDeDireccion() {
