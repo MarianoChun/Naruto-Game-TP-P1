@@ -52,15 +52,15 @@ public class Juego extends InterfaceJuego {
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 
 		// Horizontales
-		calle = new Calle(400,90, 800,50,0,Color.gray );
-		calle1 = new Calle(400,230, 800,50,0, Color.gray); 
-		calle2 = new Calle(400,370, 800,50,0, Color.gray);
-		calle3 = new Calle(400,510, 800,50,0, Color.gray);
+		calle = new Calle(400,90, 800,50,0,true);
+		calle1 = new Calle(400,230, 800,50,0, true); 
+		calle2 = new Calle(400,370, 800,50,0, true);
+		calle3 = new Calle(400,510, 800,50,0, true);
 		
 		// Verticales
-		calle4 = new Calle(200,100, 50,1000,0, Color.gray);
-		calle5 = new Calle(400,100, 50,1000,0, Color.gray);
-		calle6 = new Calle(600,100, 50,1000,0, Color.gray);
+		calle4 = new Calle(200,100, 50,1000,0, false);
+		calle5 = new Calle(400,100, 50,1000,0, false);
+		calle6 = new Calle(600,100, 50,1000,0, false);
 
 		// Ninjas
 		ninjas = new Ninja[5];
@@ -184,7 +184,8 @@ public class Juego extends InterfaceJuego {
 		calle6.dibujar(entorno);	
 		
 		sakura.dibujar(entorno);
-
+		
+	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 		
 
 		for(int i = 0; i < casas.length; i++) {

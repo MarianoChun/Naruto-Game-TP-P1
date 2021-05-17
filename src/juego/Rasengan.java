@@ -48,8 +48,6 @@ public class Rasengan {
 	}
 	
 	public boolean chocasteConNinja(Ninja n) {
-		return n.getX() - n.getAncho() / 2 < x && 
-				x < n.getX() + n.getAncho()/2 &&
-				y + tamaño/2 > n.getY() - n.getAlto()/2;
+		return Math.sqrt(Math.pow(x - n.getX(), 2) + Math.pow(y - n.getY(), 2)) < tamaño;
 	}
 }

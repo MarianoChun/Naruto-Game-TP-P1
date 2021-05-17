@@ -93,7 +93,6 @@ public class Sakura {
 
 	}
 	public boolean chocasteConNinja(Ninja n) {
-		return y + ancho >= n.getX() && x <= n.getX() + n.getAncho()
-		&& n.getY() + n.getAlto() >= y && y <= n.getY() + n.getAlto();
+		return Math.abs(y - n.getY()) < alto && Math.abs(x - n.getX()) < ancho;
 	}
 }
