@@ -167,7 +167,7 @@ public class Juego extends InterfaceJuego {
 //		sakuraizquierda.dibujar(entorno);
 
 		
-		if(sakura.chocasteConElEntorno(entorno)) {
+		if(sakura.chocasteConNinja(ninjas[0])) {
 			System.out.println("Choca");
 		}
 		
