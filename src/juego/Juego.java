@@ -25,6 +25,7 @@ public class Juego extends InterfaceJuego {
 	private Sakura sakura;
 	private Casa casa;
 	private Casa casa1;
+	private Casa casas[];
 
 //	private Sakura sakuraizquierda;
 
@@ -51,7 +52,7 @@ public class Juego extends InterfaceJuego {
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 
 		// Horizontales
-		calle = new Calle(400,90, 800,50,0, Color.gray);
+		calle = new Calle(400,90, 800,50,0,Color.gray );
 		calle1 = new Calle(400,230, 800,50,0, Color.gray); 
 		calle2 = new Calle(400,370, 800,50,0, Color.gray);
 		calle3 = new Calle(400,510, 800,50,0, Color.gray);
@@ -99,15 +100,51 @@ public class Juego extends InterfaceJuego {
 		casa = new Casa(50,20,50,40,0,Color.MAGENTA);
 		casa1 = new Casa(130,20,50,60,0,Color.blue);
 		
-//		Calle[] calles = new Calle [4];
-//		int x=400;
-//		int y=100;
-//		for (int i=0; i <4;i++) {
-//			calles[i] = new Calle(x,y, 800,50,0, Color.gray);
-//			x=x+100;
-//			y=y+100;
-//			
-//		}
+		casas = new Casa [8];
+		int casaX=50;
+		int casaY=20;
+		for (int i = 0; i < casas.length;i++) {
+			if(i==0) {
+				casas[i]= new Casa(casaX,casaY,50,40,0,Color.MAGENTA);
+			}
+			if(i==1) {
+				casaX = 130;
+				casaY=20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+			if(i==2) {
+				casaX = 250;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
+			}
+			if(i==3) {
+				casaX = 320;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+			if(i==4) {
+				casaX = 450;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
+			}
+			if(i==5) {
+				casaX = 530;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+			if(i==6) {
+				casaX = 680;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.magenta);
+			}
+			if(i==7) {
+				casaX = 760;
+				casaY = 20;
+				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+			}
+		}
+		
+
 
 		
 		// Inicia el juego!
@@ -137,21 +174,24 @@ public class Juego extends InterfaceJuego {
 //		calle.dibujar(entorno);
 //		calle1.dibujar(entorno);
 		entorno.dibujarImagen(fondo,entorno.ancho()/2, entorno.alto()/2, Math.PI*2);
+		//dibujo las calles
 		calle.dibujar(entorno);
 		calle1.dibujar(entorno);
 		calle2.dibujar(entorno);
 		calle3.dibujar(entorno);
 		calle4.dibujar(entorno);
 		calle5.dibujar(entorno);
-
 		calle6.dibujar(entorno);	
+		
 		sakura.dibujar(entorno);
 
-		calle6.dibujar(entorno);
-
 		
-		casa.dibujar(entorno);
-		casa1.dibujar(entorno);
+
+		for(int i = 0; i < casas.length; i++) {
+			casas[i].dibujar(entorno);
+		}
+		//casa.dibujar(entorno);
+		//casa1.dibujar(entorno);
 		
 		sakura.dibujar(entorno);	
 		//ninja1.dibujar(entorno);
