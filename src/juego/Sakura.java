@@ -92,24 +92,26 @@ public class Sakura {
 
 	public void moverDerecha() {
 		if(x < 800) {
+		
+		}
 			
-		if (x==400 || y>90) {
-		x +=velocidad;
+		if (x>400 || y>90) {
+		x -=velocidad;
 	}
 		
-		if (x==400 || y>230) {
-			x -=velocidad;
+		if (x>400 || y>230) {
+			x +=velocidad;
 		}
-		if (x==400 || y>370) {
+		if (x>400 || y>370) {
 			x-=velocidad;
 		}
-		if (x==400 || y>510) {
+	if (x>400 || y>510) {
 			x+=velocidad;
 	}
 		
 		x += velocidad;
 	}
-	}
+	
 
 
 	public void moverAbajo() {
