@@ -47,11 +47,15 @@ public class Sakura {
 		else if (e.estaPresionada(e.TECLA_DERECHA))
 			e.dibujarImagen(this.imagenSakuraDerecha, this.x, this.y, 0.0);
 
+
+		
+
 		else if (e.estaPresionada(e.TECLA_IZQUIERDA))
 			e.dibujarImagen(this.imagenSakuraIzquierda, this.x, this.y, 0.0);
 
 		else if (e.estaPresionada(e.TECLA_ABAJO))
 			e.dibujarImagen(this.imagenSakuraAbajo, this.x, this.y, 0.0);
+
 
 		else
 			e.dibujarImagen(imagenSakura, x, y, Math.PI * 2);
@@ -64,35 +68,90 @@ public class Sakura {
 
 	public void moverIzquierda() {
 		if(x > 0) {
-		x -= velocidad;
+		if (x>400 || y>90 ) {
+			x +=velocidad;
 		}
+		if (x>400 || y>230) {
+			x -=velocidad;
+		}
+		if (x>400 || y>370) {
+			x+=velocidad;
+		}
+		if (x>400 || y>510) {
+			x-=velocidad;
+		}
+		
+		
+			
+		
+			x -= velocidad;
+		}
+		
 	}
+	
 
 	public void moverDerecha() {
 		if(x < 800) {
-		x += velocidad;
+		
 		}
+			
+		if (x>400 || y>90) {
+		x -=velocidad;
 	}
+		
+		if (x>400 || y>230) {
+			x +=velocidad;
+		}
+		if (x>400 || y>370) {
+			x-=velocidad;
+		}
+	if (x>400 || y>510) {
+			x+=velocidad;
+	}
+		
+		x += velocidad;
+	}
+	
 
 
 	public void moverAbajo() {
 		if(y < 600) {
+		
+			
+			
 		y += velocidad;
 		}
 	}
 
 	public void moverArriba() {
-		if(y > 0) {
+//		if(y > 0) {
+//			
+//		if(x>200 || y>100) {
+//			y-=velocidad;
+//		}
+//		if(x>400 || y>100) {
+//			y-=velocidad;
+//		}	
+//		if(x>600 || y>100) {
+//			y+=velocidad;
+//		}	
+			
+			
 			y -= velocidad;
 		}
 
-	}
+	
 
-	public boolean colisionCalles(Calle c) {
-		return x < 400 || x > 200;
+//	public boolean colisionCalles(Calle c) {
+//		return x < 400 || x > 200;
 
-	}
+	
 	public boolean chocasteConNinja(Ninja n) {
 		return Math.abs(y - n.getY()) < alto && Math.abs(x - n.getX()) < ancho;
 	}
+	
+	
+	
+	
+		
 }
