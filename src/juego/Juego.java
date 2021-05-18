@@ -405,6 +405,8 @@ public class Juego extends InterfaceJuego {
 		entorno.cambiarFont("Verdana", 17, Color.GREEN);
 		entorno.escribirTexto("Puntaje: " + puntaje, 690, 15);
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
+		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
+		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
 
 	}
 
