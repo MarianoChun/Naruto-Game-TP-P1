@@ -3,7 +3,11 @@ package juego;
 
 import java.awt.Color;
 import java.awt.Image;
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.*;
 import entorno.Entorno;
 import entorno.Herramientas;
 import entorno.InterfaceJuego;
@@ -28,10 +32,10 @@ public class Juego extends InterfaceJuego {
 	private Casa casas[];
 	private int posicionesNinjas[][];
 //	private Sakura sakuraizquierda;
-
+	double clockCasero = 1;
 	private Image fondo;
-	
-
+	private int puntaje;
+	private int ninjasEliminados;
 	public Juego() {
 		// Inicializa el objeto entorno
 
@@ -39,14 +43,17 @@ public class Juego extends InterfaceJuego {
 		
 //		this.sakuraizquierda = new Sakura()
 				
-
 		
+
+	
+		
+		   
 		
 		                                       
 
 		// Inicializar lo que haga falta para el juego
 		// ...
-	
+		
 		rasengan = new Rasengan[1];
 		sakura = new Sakura (400,300,2,Color.BLUE);		
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
@@ -66,6 +73,7 @@ public class Juego extends InterfaceJuego {
 
 		// Ninjas
 
+           
 		ninjas = new Ninja[5];
 		posicionesNinjas = new int[5][2];
 		// Ninja[0]
@@ -194,6 +202,7 @@ public class Juego extends InterfaceJuego {
 		
 		sakura.dibujar(entorno);
 		
+		
 	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 		
 
@@ -209,7 +218,9 @@ public class Juego extends InterfaceJuego {
 
 		// Dibujo array ninja
 		for(int i = 0; i < ninjas.length; i++) {
-			ninjas[i].dibujar(entorno);
+			if(ninjas[i] != null) {
+				ninjas[i].dibujar(entorno);
+			}
 		}
 		sakura.dibujar(entorno);
 
@@ -226,43 +237,80 @@ public class Juego extends InterfaceJuego {
 		
 		for(int i = 0;i < ninjas.length;i++) {
 			if(i == 0) {
-				ninjas[i].mover(Math.PI/2);
+				if(ninjas[i] != null) {
+					ninjas[i].mover(Math.PI/2);
+				}
 			}
 			if(i == 1) {
+				if(ninjas[i] != null) {
 				ninjas[i].mover(-Math.PI/2);
+				}
 			}
 			if(i == 2) {
-				ninjas[i].mover(0.0);
+				if(ninjas[i] != null) {
+					ninjas[i].mover(0.0);
+				}
 			}
 			if(i == 3) {
-				ninjas[i].mover(Math.PI);
+				if(ninjas[i] != null) {
+					ninjas[i].mover(Math.PI);
+				}
 			}
 			if(i == 4) {
-				ninjas[i].mover(0.0);
+				if(ninjas[i] != null) {
+					ninjas[i].mover(0.0);
 				}
-		}
-		// Aparicion ninja luego de chocar con el entorno
-		for(int i = 0;i < ninjas.length;i++) {
-			if(ninjas[i].chocasteConElEntorno(entorno)) {
-				ninjas[i] = null; // Eliminamos al ninja anterior y luego inicializamos otro nuevo en la posicion inicial
-				if(i == 0) {
-					ninjas[i] = new Ninja(posicionesNinjas[0][0],posicionesNinjas[0][1]);
-				}
-				if(i == 1) {
-					ninjas[i] = new Ninja(posicionesNinjas[1][0],posicionesNinjas[1][1]);
-				}
-				if(i == 2) {
-					ninjas[i] = new Ninja(posicionesNinjas[2][0],posicionesNinjas[2][1]);
-				}
-				if(i == 3) {
-					ninjas[i] = new Ninja(posicionesNinjas[3][0],posicionesNinjas[3][1]);
-				}
-				if(i == 4) {
-					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
-					}
 			}
 		}
+
+		// Aparicion ninja luego de chocar con el entorno
+		for(int i = 0;i < ninjas.length;i++) {
+			if(ninjas[i] != null) {
+				if(ninjas[i].chocasteConElEntorno(entorno)) {
+					ninjas[i] = null; // Eliminamos al ninja anterior y luego inicializamos otro nuevo en la posicion inicial
+					if(i == 0) {
+						ninjas[i] = new Ninja(posicionesNinjas[0][0],posicionesNinjas[0][1]);
+					}
+					if(i == 1) {
+						ninjas[i] = new Ninja(posicionesNinjas[1][0],posicionesNinjas[1][1]);
+					}
+					if(i == 2) {
+						ninjas[i] = new Ninja(posicionesNinjas[2][0],posicionesNinjas[2][1]);
+					}
+					if(i == 3) {
+						ninjas[i] = new Ninja(posicionesNinjas[3][0],posicionesNinjas[3][1]);
+					}
+					if(i == 4) {
+						ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
+						}
+				}
+			}
+				
+			if (ninjas[i] == null) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
+										// reaparezcan
+
+				if (i == 0) {
+					ninjas[i] = new Ninja(posicionesNinjas[0][0], posicionesNinjas[0][1]);
+				}
+				if (i == 1) {
+					ninjas[i] = new Ninja(posicionesNinjas[1][0], posicionesNinjas[1][1]);
+				}
+				if (i == 2) {
+					ninjas[i] = new Ninja(posicionesNinjas[2][0], posicionesNinjas[2][1]);
+				}
+				if (i == 3) {
+					ninjas[i] = new Ninja(posicionesNinjas[3][0], posicionesNinjas[3][1]);
+				}
+				if (i == 4) {
+					ninjas[i] = new Ninja(posicionesNinjas[4][0], posicionesNinjas[4][1]);
+				}
+
+			}
+			
+
+		}
 		
+	
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
 		}
@@ -308,8 +356,11 @@ public class Juego extends InterfaceJuego {
 		
 		for(int i = 0; i < ninjas.length;i++) { // Si hay rasengan y choca con algun ninja, eliminamos el rasengan.
 			if(rasengan[0] != null) {
-				if(rasengan[0].chocasteConNinja(ninjas[i])) {
+				if(ninjas[i] != null && rasengan[0].chocasteConNinja(ninjas[i])) {
 					rasengan[0] = null;
+					ninjas[i] = null;
+					puntaje = puntaje + 5;
+					ninjasEliminados++;
 				}
 			}
 		}
@@ -323,8 +374,10 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		for(int i = 0; i < ninjas.length;i++) { // Si choca con algun ninja, perdemos.
-			if(sakura.chocasteConNinja(ninjas[i])) {
-				System.out.println("Perdiste");
+			if(ninjas[i] != null) {
+				if( sakura.chocasteConNinja(ninjas[i])) {
+					System.out.println("Perdiste");
+				}
 			}
 		}
 		
@@ -349,8 +402,9 @@ public class Juego extends InterfaceJuego {
 	//	sakura.dibujar(entorno);
 	//	sakura.mover();
 
-
-
+		entorno.cambiarFont("Verdana", 17, Color.GREEN);
+		entorno.escribirTexto("Puntaje: " + puntaje, 690, 15);
+		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
 
 	}
 
