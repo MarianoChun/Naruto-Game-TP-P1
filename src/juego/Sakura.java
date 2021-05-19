@@ -68,23 +68,10 @@ public class Sakura {
 
 	public void moverIzquierda() {
 		if(x > 0) {
-		if (x>400 || y>90 ) {
-			x +=velocidad;
-		}
-		if (x>400 || y>230) {
-			x -=velocidad;
-		}
-		if (x>400 || y>370) {
-			x+=velocidad;
-		}
-		if (x>400 || y>510) {
-			x-=velocidad;
-		}
-		
-		
-			
-		
+			if(y > 212  && y < 240|| y > 62 && y < 96 || y > 335 && y < 378|| y > 482 && y < 518) {
 			x -= velocidad;
+			}
+			
 		}
 		
 	}
@@ -92,51 +79,30 @@ public class Sakura {
 
 	public void moverDerecha() {
 		if(x < 800) {
-			
-		if (x==400 || y>90) {
-		x +=velocidad;
-	}
+			if(y > 212  && y < 240|| y > 62 && y < 96 || y > 335 && y < 378|| y > 482 && y < 518) {
+				x += velocidad;
+			}	
 		
-		if (x==400 || y>230) {
-			x -=velocidad;
 		}
-		if (x==400 || y>370) {
-			x-=velocidad;
-		}
-		if (x==400 || y>510) {
-			x+=velocidad;
 	}
-		
-		x += velocidad;
-	}
-	}
+	
 
 
 	public void moverAbajo() {
 		if(y < 600) {
-		
-			
-			
-		y += velocidad;
+			if(x > 387 && x < 418|| x > 186 && x < 220 || x > 587 && x < 620) {
+				y += velocidad;
+			}
 		}
 	}
 
 	public void moverArriba() {
-//		if(y > 0) {
-//			
-//		if(x>200 || y>100) {
-//			y-=velocidad;
-//		}
-//		if(x>400 || y>100) {
-//			y-=velocidad;
-//		}	
-//		if(x>600 || y>100) {
-//			y+=velocidad;
-//		}	
-			
-			
-			y -= velocidad;
+		if(y > 0) {
+			if(x > 387 && x < 418|| x > 186 && x < 220 || x > 587 && x < 620) {
+				y -= velocidad;
+			}
 		}
+	}
 
 	
 
