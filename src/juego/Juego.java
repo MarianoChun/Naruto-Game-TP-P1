@@ -31,9 +31,10 @@ public class Juego extends InterfaceJuego {
 	private int posicionescasas [][];
 	private int posicionesNinjas[][];
 //	private Sakura sakuraizquierda;
-	int clockCasero[];
+	private int clockCasero[];
 	private Image fondo;
 	private int puntaje;
+	private int ninjasEnJuego;
 	private int ninjasEliminados;
 	boolean perdido = false;
 	
@@ -121,6 +122,7 @@ public class Juego extends InterfaceJuego {
 					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
 				}
 			clockCasero[i] = 0;
+			ninjasEnJuego ++;
 		}
 		
 		
@@ -228,7 +230,7 @@ public class Juego extends InterfaceJuego {
 
 	public void tick() {
 		if(!perdido) {
-			
+		//System.out.println(ninjasEnJuego);
 		
 		// Procesamiento de un instante de tiempo
 		// ...
@@ -334,7 +336,7 @@ public class Juego extends InterfaceJuego {
 				}
 			}
 				
-			if (ninjas[i] == null && clockCasero[i] > 500) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
+			if (ninjas[i] == null && clockCasero[i] > 500 ||ninjas[i] == null && ninjasEnJuego < 4) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
 										// reaparezcan
 				
 				if (i == 0) {
@@ -353,6 +355,7 @@ public class Juego extends InterfaceJuego {
 					ninjas[i] = new Ninja(posicionesNinjas[4][0], posicionesNinjas[4][1]);
 				}
 				clockCasero[i] = 0;
+				ninjasEnJuego++;
 			}
 			
 
@@ -408,6 +411,7 @@ public class Juego extends InterfaceJuego {
 					rasengan[0] = null;
 					ninjas[i] = null;
 					clockCasero[i] = 0;
+					ninjasEnJuego--;
 					puntaje = puntaje + 5;
 					ninjasEliminados++;
 				}
@@ -426,7 +430,7 @@ public class Juego extends InterfaceJuego {
 			if(ninjas[i] != null) {
 				if( sakura.chocasteConNinja(ninjas[i])) {
 					System.out.println("Perdiste");
-					perdido = true;
+					//perdido = true;
 				}
 			}
 		}
@@ -458,8 +462,10 @@ public class Juego extends InterfaceJuego {
 		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
 		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
 		
+		} else {
+		entorno.cambiarFont("Arial", 30, Color.RED);
+		entorno.escribirTexto("Perdiste", 300, 300);
 		}
-		entorno.escribirTexto("Perdiste", 100, 100);
 	}
 
 	@SuppressWarnings("unused")
