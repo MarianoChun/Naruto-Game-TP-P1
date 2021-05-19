@@ -116,9 +116,18 @@ public class Juego extends InterfaceJuego {
 		
 		
 		casas = new Casa [8];
-		int posXPrimercasa = 0;
+		int posXPrimercasa = 20;
 		int posYPrimercasa = 20;
+//		int filas = 5, columnas = 4;
+//		int i,j;
+//		int [][] posiciones = {{50,130},{250,320},{450,530},{680,760}};
 		posicionescasas = new int [5][4];
+//		for (i = 0; i < filas; i++) {
+//            for (j = 0; j < columnas; j++) {
+//            	posicionescasas[i][j]= posiciones.length;
+//            }
+//		}
+		//int [][] posicionescasas = {{50,130},{250,320},{450,530},{680,760}};
 		for(int i = 0; i < posicionescasas.length;i++) {
 			for(int j = 0; j< posicionescasas[i].length; j++) {
 				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue);
