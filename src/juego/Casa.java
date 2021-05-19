@@ -11,12 +11,13 @@ public class Casa {
 	private double alto;
 	private double angulo;
 	private Color color;
+
 	
 	public Casa(double x, double y, double ancho, double alto,double angulo, Color color) {
 		this.x = x;
 		this.y = y;
-		this.ancho = ancho;
-		this.alto = alto;
+		this.ancho = 50;
+		this.alto = 40;
 		this.angulo = angulo;
 		this.color = color;
 	}

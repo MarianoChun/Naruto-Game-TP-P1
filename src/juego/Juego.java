@@ -23,9 +23,8 @@ public class Juego extends InterfaceJuego {
 	private Calle calle6;
 	private Ninja ninjas[];
 	private Sakura sakura;
-	private Casa casa;
-	private Casa casa1;
 	private Casa casas[];
+	private int posicionescasas [][];
 	private int posicionesNinjas[][];
 //	private Sakura sakuraizquierda;
 
@@ -108,52 +107,69 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		
-		casa = new Casa(50,20,50,40,0,Color.MAGENTA);
-		casa1 = new Casa(130,20,50,60,0,Color.blue);
+//		casas = new Casa [8];
+//		int posXPrimercasa = 0;
+//		int posYPrimercasa = 20;
+//		posicionescasas = new int [5][4];
+//		for(int i = 0; i < posicionescasas.length;i++) {
+//			for(int j = 0; j< posicionescasas[i].length; j++) {
+//				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue);
+//				posXPrimercasa = posXPrimercasa + 20;
+//				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,60,0,Color.magenta);
+//			}
+//			int posXSegundacasa = 50;
+//			int posYSegundacasa = 100;
+//		}
 		
-		casas = new Casa [8];
-		int casaX=50;
-		int casaY=20;
-		for (int i = 0; i < casas.length;i++) {
-			if(i==0) {
-				casas[i]= new Casa(casaX,casaY,50,40,0,Color.MAGENTA);
-			}
-			if(i==1) {
-				casaX = 130;
-				casaY=20;
-				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-			}
-			if(i==2) {
-				casaX = 250;
-				casaY = 20;
-				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
-			}
-			if(i==3) {
-				casaX = 320;
-				casaY = 20;
-				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-			}
-			if(i==4) {
-				casaX = 450;
-				casaY = 20;
-				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
-			}
-			if(i==5) {
-				casaX = 530;
-				casaY = 20;
-				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-			}
-			if(i==6) {
-				casaX = 680;
-				casaY = 20;
-				casas[i] = new Casa(casaX,casaY,50,60,0,Color.magenta);
-			}
-			if(i==7) {
-				casaX = 760;
-				casaY = 20;
-				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-			}
-		}
+		
+
+		
+		
+		
+				
+		
+//		int casaX=50;
+//		int casaY=20;
+//		for (int i = 0; i < casas.length;i++) {
+//			if(i==0) {
+//				casas[i]= new Casa(casaX,casaY,50,40,0,Color.MAGENTA);
+//			}
+//			if(i==1) {
+//				casaX = 130;
+//				casaY=20;
+//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+//			}
+//			if(i==2) {
+//				casaX = 250;
+//				casaY = 20;
+//				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
+//			}
+//			if(i==3) {
+//				casaX = 320;
+//				casaY = 20;
+//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+//			}
+//			if(i==4) {
+//				casaX = 450;
+//				casaY = 20;
+//				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
+//			}
+//			if(i==5) {
+//				casaX = 530;
+//				casaY = 20;
+//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+//			}
+//			if(i==6) {
+//				casaX = 680;
+//				casaY = 20;
+//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.magenta);
+//			}
+//			if(i==7) {
+//				casaX = 760;
+//				casaY = 20;
+//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
+//			}
+		
 		
 
 
@@ -196,10 +212,11 @@ public class Juego extends InterfaceJuego {
 		
 	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 		
-
-		for(int i = 0; i < casas.length; i++) {
-			casas[i].dibujar(entorno);
-		}
+//		for(int i = 0; i < posicionescasas.length;i++) {
+//			casas[i].dibujar(entorno);
+//		}
+		
+		
 		//casa.dibujar(entorno);
 		//casa1.dibujar(entorno);
 		
