@@ -27,21 +27,14 @@ public class Juego extends InterfaceJuego {
 	private Calle calle6;
 	private Ninja ninjas[];
 	private Sakura sakura;
-	private Casa casas[][];
+	private Casa casas[];
 	private int posicionescasas [][];
 	private int posicionesNinjas[][];
 //	private Sakura sakuraizquierda;
-	int clockCasero[];
+	double clockCasero = 1;
 	private Image fondo;
 	private int puntaje;
 	private int ninjasEliminados;
-	boolean perdido = false;
-	
-	
-	
-	
-	
-
 	public Juego() {
 		// Inicializa el objeto entorno
 
@@ -81,7 +74,6 @@ public class Juego extends InterfaceJuego {
 
            
 		ninjas = new Ninja[5];
-		clockCasero = new int[5];
 		posicionesNinjas = new int[5][2];
 		// Ninja[0]
 		posicionesNinjas[0][0] = 200;
@@ -120,35 +112,29 @@ public class Juego extends InterfaceJuego {
 			if(i == 4) {
 					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
 				}
-			clockCasero[i] = 0;
 		}
 		
 		
-		casas = new Casa [8][5];
-		int[] posXCasas = {50,130,200,250,320,400,550,700};
-		int[] posYCasas = {20,100,200,300,400};
-		
-
-//		int [][] posiciones = {{50,130},{250,320},{450,530},{680,760}};
-		
-		// Llenar array pos casas, for doble
-		for(int i = 0;i< posXCasas.length ;i++) {
-			for(int j = 0;j<posYCasas.length;j++) {
-				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
-			}
-		}	
-		//int [][] posicionescasas = {{50,130},{250,320},{450,530},{680,760}};
+//		casas = new Casa [8];
+//		int posXPrimercasa = 0;
+//		int posYPrimercasa = 20;
+//		
+//
+////		int [][] posiciones = {{50,130},{250,320},{450,530},{680,760}};
+//		posicionescasas = new int [5][4];
+//
+//		//int [][] posicionescasas = {{50,130},{250,320},{450,530},{680,760}};
 //		for(int i = 0; i < posicionescasas.length;i++) {
 //			for(int j = 0; j< posicionescasas[i].length; j++) {
-//				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue)
-//				posXPrimercasa = posXPrimercasa + 20;
+//				if(casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue)) {
+//				}else{posXPrimercasa = posXPrimercasa + 20;
 //				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,60,0,Color.magenta);}
 //			}
 //			int posXPrimercasa1 = posXPrimercasa;
 //			int posYPrimercasa1 = posYPrimercasa + 150;
 //			casas[i] = new Casa(posXPrimercasa1,posYPrimercasa,50,40,0,Color.gray);
 //		}
-		
+//		
 		
 
 		
@@ -227,9 +213,7 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
-		if(!perdido) {
-			
-		
+	
 		// Procesamiento de un instante de tiempo
 		// ...
 
@@ -248,10 +232,8 @@ public class Juego extends InterfaceJuego {
 		
 	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 		
-		for(int i = 0; i < casas.length;i++) {
-			for(int j = 0; j < casas[0].length;j++) {
-				casas[i][j].dibujar(entorno);
-			}
+		for(int i = 0; i < posicionescasas.length;i++) {
+			casas[i].dibujar(entorno);
 		}
 		
 		
@@ -266,8 +248,6 @@ public class Juego extends InterfaceJuego {
 		for(int i = 0; i < ninjas.length; i++) {
 			if(ninjas[i] != null) {
 				ninjas[i].dibujar(entorno);
-			} else {
-				clockCasero[i]++;
 			}
 		}
 		sakura.dibujar(entorno);
@@ -334,9 +314,9 @@ public class Juego extends InterfaceJuego {
 				}
 			}
 				
-			if (ninjas[i] == null && clockCasero[i] > 500) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
+			if (ninjas[i] == null) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
 										// reaparezcan
-				
+
 				if (i == 0) {
 					ninjas[i] = new Ninja(posicionesNinjas[0][0], posicionesNinjas[0][1]);
 				}
@@ -352,7 +332,7 @@ public class Juego extends InterfaceJuego {
 				if (i == 4) {
 					ninjas[i] = new Ninja(posicionesNinjas[4][0], posicionesNinjas[4][1]);
 				}
-				clockCasero[i] = 0;
+
 			}
 			
 
@@ -407,7 +387,6 @@ public class Juego extends InterfaceJuego {
 				if(ninjas[i] != null && rasengan[0].chocasteConNinja(ninjas[i])) {
 					rasengan[0] = null;
 					ninjas[i] = null;
-					clockCasero[i] = 0;
 					puntaje = puntaje + 5;
 					ninjasEliminados++;
 				}
@@ -426,7 +405,6 @@ public class Juego extends InterfaceJuego {
 			if(ninjas[i] != null) {
 				if( sakura.chocasteConNinja(ninjas[i])) {
 					System.out.println("Perdiste");
-					perdido = true;
 				}
 			}
 		}
@@ -457,9 +435,7 @@ public class Juego extends InterfaceJuego {
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
 		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
 		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
-		
-		}
-		entorno.escribirTexto("Perdiste", 100, 100);
+
 	}
 
 	@SuppressWarnings("unused")
