@@ -116,34 +116,36 @@ public class Juego extends InterfaceJuego {
 		
 		
 		casas = new Casa [8];
-		int posXPrimercasa = 20;
+		int posXPrimercasa = 0;
 		int posYPrimercasa = 20;
-//		int filas = 5, columnas = 4;
-//		int i,j;
+		
+
 //		int [][] posiciones = {{50,130},{250,320},{450,530},{680,760}};
 		posicionescasas = new int [5][4];
-//		for (i = 0; i < filas; i++) {
-//            for (j = 0; j < columnas; j++) {
-//            	posicionescasas[i][j]= posiciones.length;
-//            }
-//		}
+
 		//int [][] posicionescasas = {{50,130},{250,320},{450,530},{680,760}};
 		for(int i = 0; i < posicionescasas.length;i++) {
 			for(int j = 0; j< posicionescasas[i].length; j++) {
-				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue);
-				posXPrimercasa = posXPrimercasa + 20;
-				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,60,0,Color.magenta);
+				if(casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue)) {
+				}else{posXPrimercasa = posXPrimercasa + 20;
+				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,60,0,Color.magenta);}
 			}
 			int posXPrimercasa1 = posXPrimercasa;
-			int posYPrimercasa1 = posYPrimercasa+100;
+			int posYPrimercasa1 = posYPrimercasa + 150;
+			casas[i] = new Casa(posXPrimercasa1,posYPrimercasa,50,40,0,Color.gray);
 		}
 		
 		
 
 		
-		
-		
-				
+		//int nfilas,ncolumnas;
+//		int filas = 5, columnas = 4;
+//		int i,j;
+//		for (i = 0; i < filas; i++) {
+//      for (j = 0; j < columnas; j++) {
+//      	posicionescasas[i][j]= posiciones.length;
+//      }
+//	}		
 		
 //		int casaX=50;
 //		int casaY=20;
