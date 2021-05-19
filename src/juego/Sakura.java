@@ -79,7 +79,7 @@ public class Sakura {
 
 	public void moverDerecha() {
 		if(x < 800) {
-			if(y > 212  && y < 240|| y > 62 && y < 96 || y > 335 && y < 378|| y > 482 && y < 518) {
+			if(y > 212  && y < 240|| y > 62 && y < 96 || y > 335 && y < 380|| y > 482 && y < 518) {
 				x += velocidad;
 			}	
 		
