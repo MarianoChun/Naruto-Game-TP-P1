@@ -125,8 +125,8 @@ public class Juego extends InterfaceJuego {
 				posXPrimercasa = posXPrimercasa + 20;
 				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,60,0,Color.magenta);
 			}
-			int posXSegundacasa = 50;
-			int posYSegundacasa = 100;
+			int posXPrimercasa1 = posXPrimercasa;
+			int posYPrimercasa1 = posYPrimercasa+100;
 		}
 		
 		
