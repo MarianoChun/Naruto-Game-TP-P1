@@ -12,7 +12,7 @@ public class Casa {
 	private double angulo;
 	private Color color;
 
-	
+	// Al usar imagenes, sacar (angulo?) y color
 	public Casa(double x, double y, double ancho, double alto,double angulo, Color color) {
 		this.x = x;
 		this.y = y;
