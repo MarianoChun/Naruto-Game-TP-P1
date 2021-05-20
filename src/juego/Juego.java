@@ -124,7 +124,7 @@ public class Juego extends InterfaceJuego {
 		
 		casas = new Casa[8][5];
 		int[] posXCasas = {50,130,270,340,470,540,680,760};
-		int[] posYCasas = {20,160,300,440,580};
+		int[] posYCasas = {30,160,300,440,570};
 		// Llenar array pos casas, for doble
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
