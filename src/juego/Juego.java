@@ -123,88 +123,15 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		casas = new Casa[8][5];
-		int[] posXCasas = {50,130,200,250,320,400,550,700};
-		int[] posYCasas = {20,100,200,300,400};
+		int[] posXCasas = {50,130,270,340,470,540,680,760};
+		int[] posYCasas = {20,160,300,440,580};
 		// Llenar array pos casas, for doble
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
 				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
 			}
 		}
-//		casas = new Casa [8];
-//		int posXPrimercasa = 0;
-//		int posYPrimercasa = 20;
-//		
-//
-////		int [][] posiciones = {{50,130},{250,320},{450,530},{680,760}};
-//		posicionescasas = new int [5][4];
-//
-//		//int [][] posicionescasas = {{50,130},{250,320},{450,530},{680,760}};
-//		for(int i = 0; i < posicionescasas.length;i++) {
-//			for(int j = 0; j< posicionescasas[i].length; j++) {
-//				if(casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,40,0,Color.blue)) {
-//				}else{posXPrimercasa = posXPrimercasa + 20;
-//				casas[i] = new Casa(posXPrimercasa,posYPrimercasa,50,60,0,Color.magenta);}
-//			}
-//			int posXPrimercasa1 = posXPrimercasa;
-//			int posYPrimercasa1 = posYPrimercasa + 150;
-//			casas[i] = new Casa(posXPrimercasa1,posYPrimercasa,50,40,0,Color.gray);
-//		}
-//		
-		
 
-		
-		//int nfilas,ncolumnas;
-//		int filas = 5, columnas = 4;
-//		int i,j;
-//		for (i = 0; i < filas; i++) {
-//      for (j = 0; j < columnas; j++) {
-//      	posicionescasas[i][j]= posiciones.length;
-//      }
-//	}		
-		
-//		int casaX=50;
-//		int casaY=20;
-//		for (int i = 0; i < casas.length;i++) {
-//			if(i==0) {
-//				casas[i]= new Casa(casaX,casaY,50,40,0,Color.MAGENTA);
-//			}
-//			if(i==1) {
-//				casaX = 130;
-//				casaY=20;
-//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-//			}
-//			if(i==2) {
-//				casaX = 250;
-//				casaY = 20;
-//				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
-//			}
-//			if(i==3) {
-//				casaX = 320;
-//				casaY = 20;
-//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-//			}
-//			if(i==4) {
-//				casaX = 450;
-//				casaY = 20;
-//				casas[i] = new Casa(casaX,casaY,50,40,0,Color.magenta);
-//			}
-//			if(i==5) {
-//				casaX = 530;
-//				casaY = 20;
-//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-//			}
-//			if(i==6) {
-//				casaX = 680;
-//				casaY = 20;
-//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.magenta);
-//			}
-//			if(i==7) {
-//				casaX = 760;
-//				casaY = 20;
-//				casas[i] = new Casa(casaX,casaY,50,60,0,Color.blue);
-//			}
-		
 		
 
 
