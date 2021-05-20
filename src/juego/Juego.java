@@ -27,7 +27,7 @@ public class Juego extends InterfaceJuego {
 	private Calle calle6;
 	private Ninja ninjas[];
 	private Sakura sakura;
-	private Casa casas[];
+	private Casa casas[][];
 	private int posicionescasas [][];
 	private int posicionesNinjas[][];
 //	private Sakura sakuraizquierda;
@@ -122,7 +122,15 @@ public class Juego extends InterfaceJuego {
 
 		}
 		
-		
+		casas = new Casa[8][5];
+		int[] posXCasas = {50,130,200,250,320,400,550,700};
+		int[] posYCasas = {20,100,200,300,400};
+		// Llenar array pos casas, for doble
+		for(int i = 0;i< posXCasas.length ;i++) {
+			for(int j = 0;j<posYCasas.length;j++) {
+				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
+			}
+		}
 //		casas = new Casa [8];
 //		int posXPrimercasa = 0;
 //		int posYPrimercasa = 20;
@@ -243,9 +251,12 @@ public class Juego extends InterfaceJuego {
 		
 	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 		
-		for(int i = 0; i < posicionescasas.length;i++) {
-			casas[i].dibujar(entorno);
+		for(int i = 0; i < casas.length;i++) {
+			for(int j = 0; j < casas[0].length;j++) {
+				casas[i][j].dibujar(entorno);
+			}
 		}
+
 		
 		
 		//casa.dibujar(entorno);
