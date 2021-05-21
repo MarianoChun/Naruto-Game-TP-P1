@@ -31,7 +31,9 @@ public class Juego extends InterfaceJuego {
 	private int posicionesNinjas[][];
 	private int pedidoX;
 	private int pedidoY;
-	private boolean entregaHecha = false;
+	private int posXCasas[] = {50,130,270,340,470,540,680,760};
+	private int posYCasas[] = {30,160,300,440,570};
+	private boolean entregaHecha = true;
 	private int posXFlecha;
 	private int posYFlecha;
 //	private Sakura sakuraizquierda;
@@ -134,8 +136,7 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		casas = new Casa[8][5];
-		int [] posXCasas = {50,130,270,340,470,540,680,760};
-		int [] posYCasas = {30,160,300,440,570};
+		
 		// Llenar array pos casas, for doble
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
@@ -144,18 +145,7 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
-		entregaHecha = true;
-		if(entregaHecha) {
-			pedidoX = (int)Math.floor(Math.random()*casas.length); 
-			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
-			
-			System.out.println(pedidoX +" "+pedidoY);
-			
-			posXFlecha = posXCasas[pedidoX];
-			posYFlecha = posYCasas[pedidoY];
-			System.out.println(posXFlecha + " " + posYFlecha);
-			flecha = new Flecha(posXFlecha,posYFlecha);
-		}
+		
 		
 
 		
@@ -210,13 +200,26 @@ public class Juego extends InterfaceJuego {
 		
 		//	Flecha
 		// Nos arroja una coordeanda x e y aleatoria correspondiente a una casa
+			
 		
+
+		if(entregaHecha) {
+			pedidoX = (int)Math.floor(Math.random()*casas.length); 
+			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
+			
+			System.out.println(pedidoX +" "+pedidoY);
+			
+			posXFlecha = posXCasas[pedidoX];
+			posYFlecha = posYCasas[pedidoY];
+			System.out.println(posXFlecha + " " + posYFlecha);
+			flecha = new Flecha(posXFlecha,posYFlecha);
+			entregaHecha = false;
+		}
 		
-		//System.out.println(pedidoX +" "+ pedidoY);
-		
-		
-	
-		
+		if(sakura.enCasaMarcada(flecha)) {
+			entregaHecha = true;
+			puntaje = puntaje + 5;
+		}
 		flecha.dibujar(entorno);
 		
 
@@ -385,10 +388,8 @@ public class Juego extends InterfaceJuego {
 				if(ninjas[i] != null && rasengan[0].chocasteConNinja(ninjas[i])) {
 					rasengan[0] = null;
 					ninjas[i] = null;
-
 					clockCasero[i] = 0;
 					ninjasEnJuego--;
-					puntaje = puntaje + 5;
 					ninjasEliminados++;
 				}
 			}

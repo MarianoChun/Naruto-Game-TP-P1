@@ -39,7 +39,6 @@ public class Sakura {
 	public double getY() {
 		return y;
 	}
-
 	public void dibujar(Entorno e) {
 		if (e.estaPresionada(e.TECLA_ARRIBA))
 			e.dibujarImagen(this.imagenSakuraArriba, this.x, this.y, -0.0);
@@ -131,7 +130,10 @@ public class Sakura {
 		return Math.abs(y - n.getY()) < alto && Math.abs(x - n.getX()) < ancho;
 	}
 	
-	
+	public boolean enCasaMarcada(Flecha f) {
+		return Math.abs(y - f.getY() - 45) < alto && Math.abs(x - f.getX() - 45) < ancho
+				||Math.abs(y - f.getY() + 50) < alto && Math.abs(x - f.getX() + 50) < ancho;
+	}
 	
 	
 		

@@ -16,6 +16,14 @@ public class Flecha {
 		this.flecha = Herramientas.cargarImagen("Flecha.png");
 	}
 	
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
 	public void dibujar(Entorno e) {
 		e.dibujarImagen(this.flecha, this.x, this.y, 0.0);
 	}
