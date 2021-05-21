@@ -67,44 +67,61 @@ public class Sakura {
 //	}
 
 	public void moverIzquierda() {
-		if(x > 0) {
-			if(y >= 212  && y <= 240|| y >= 62 && y <= 96 || y >= 335 && y <= 378|| y >= 482 && y <= 518 || 
-					x >= 386 && x <= 420|| x >= 186 && x <= 220 || x >= 587 && x <= 620) {
-			x -= velocidad;
+		if (x > 0) {
+			if (y > 57 && y < 97 ||y > 205 && y < 240 ||y > 335 && y < 380 || y > 482 && y < 518) {// Si esta en una interseccion
+				x -= velocidad;
+			} else { // Si no se esta en una interseccion, es decir, se esta en las entrecalles
+				if (x > 186 && x < 228||x > 384 && x < 426||x > 587) {
+					x -= velocidad;
+					System.out.println("Cumple Izquierda");
+				} 
 			}
-			
 		}
-		
+
 	}
+		
+	
 	
 
 	public void moverDerecha() {
 		if(x < 800) {
-			if(y >= 212  && y <= 240|| y >= 62 && y <= 96 || y >= 335 && y <= 378|| y >= 482 && y <= 518 || 
-					x >= 386 && x <= 420|| x >= 186 && x <= 220 || x >= 587 && x <= 620) {
+			if(y > 57 && y < 97 ||y > 205 && y < 240 ||y > 335 && y < 380 || y > 482 && y < 518) { // Si esta en una interseccion
 				x += velocidad;
-			}	
-		
+			} else { // Si no se esta en una interseccion, es decir, se esta en las entrecalles
+				if(x < 224 ||x > 382 && x < 424||x > 584 && x < 620) { // Esta entrecalles
+					x += velocidad;
+					System.out.println("Cumple Derecha");
+				}
+			}
 		}
 	}
-	
-
 
 	public void moverAbajo() {
 		if(y < 600) {
-			if(x > 387 && x < 418|| x > 186 && x < 220 || x > 587 && x < 620) {
+			if(x > 184 && x < 227 ||x > 383 && x < 425|| x > 585 && x < 621) { // Si esta entrecalles
 				y += velocidad;
+			} else {
+				if(y < 96 || y > 196 && y < 238|| y > 338 &&y < 378|| y > 482 && y < 516) { // Si se esta en una interseccion
+					y += velocidad;
+				}
 			}
+
 		}
 	}
 
 	public void moverArriba() {
 		if(y > 0) {
-			if(x > 387 && x < 418|| x > 186 && x < 220 || x > 587 && x < 620) {
+			if(x > 184 && x < 227 ||x > 383 && x < 425|| x > 585 && x < 621) { // Si esta entrecalles
 				y -= velocidad;
+			} else {
+				if(y > 58 && y < 98||y > 206 && y < 240|| y > 342 && y < 380|| y > 486) { // Si se esta en una interseccion
+					y -= velocidad;
+				}
 			}
 		}
 	}
+		
+			
 
 	
 
