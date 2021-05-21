@@ -28,12 +28,16 @@ public class Juego extends InterfaceJuego {
 	private Ninja ninjas[];
 	private Sakura sakura;
 	private Casa casas[][];
-	private int posicionescasas [][];
 	private int posicionesNinjas[][];
+	private int pedidoX;
+	private int pedidoY;
+	private boolean entregaHecha = false;
+	private int posXFlecha;
+	private int posYFlecha;
 //	private Sakura sakuraizquierda;
 	private boolean perdido = false;
 	private int clockCasero[];
-
+	private Flecha flecha;
 	private Image fondo;
 	private int puntaje;
 	private int ninjasEnJuego;
@@ -59,7 +63,7 @@ public class Juego extends InterfaceJuego {
 		rasengan = new Rasengan[1];
 		sakura = new Sakura (400,300,2,Color.BLUE);		
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
-
+		
 		// Horizontales
 		calle = new Calle(400,90, 800,50,0,true);
 		calle1 = new Calle(400,230, 800,50,0, true); 
@@ -130,17 +134,29 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		casas = new Casa[8][5];
-		int[] posXCasas = {50,130,270,340,470,540,680,760};
-		int[] posYCasas = {30,160,300,440,570};
+		int [] posXCasas = {50,130,270,340,470,540,680,760};
+		int [] posYCasas = {30,160,300,440,570};
 		// Llenar array pos casas, for doble
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
 				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
+				//System.out.println("Casa " +posXCasas[i] +" "+ posYCasas[j]);
 			}
 		}
-
 		
-
+		entregaHecha = true;
+		if(entregaHecha) {
+			pedidoX = (int)Math.floor(Math.random()*casas.length); 
+			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
+			
+			System.out.println(pedidoX +" "+pedidoY);
+			
+			posXFlecha = posXCasas[pedidoX];
+			posYFlecha = posYCasas[pedidoY];
+			System.out.println(posXFlecha + " " + posYFlecha);
+			flecha = new Flecha(posXFlecha,posYFlecha);
+		}
+		
 
 		
 		// Inicia el juego!
@@ -182,7 +198,6 @@ public class Juego extends InterfaceJuego {
 		
 		sakura.dibujar(entorno);
 		
-		
 	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 		
 		for(int i = 0; i < casas.length;i++) {
@@ -191,13 +206,18 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 
+	
+		
+		//	Flecha
+		// Nos arroja una coordeanda x e y aleatoria correspondiente a una casa
 		
 		
-		//casa.dibujar(entorno);
-		//casa1.dibujar(entorno);
+		//System.out.println(pedidoX +" "+ pedidoY);
 		
-		sakura.dibujar(entorno);	
-		//ninja1.dibujar(entorno);
+		
+	
+		
+		flecha.dibujar(entorno);
 		
 
 		// Dibujo array ninja
