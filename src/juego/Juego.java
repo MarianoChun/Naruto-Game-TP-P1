@@ -76,9 +76,9 @@ public class Juego extends InterfaceJuego {
 		// Ninjas
 
            
-		ninjas = new Ninja[5];
-		clockCasero = new int[5];
-		posicionesNinjas = new int[5][2];
+		ninjas = new Ninja[6];
+		clockCasero = new int[6];
+		posicionesNinjas = new int[6][2];
 		// Ninja[0]
 		posicionesNinjas[0][0] = 200;
 		posicionesNinjas[0][1] = 570;
@@ -94,12 +94,16 @@ public class Juego extends InterfaceJuego {
 		// Ninja[4]
 		posicionesNinjas[4][0] = 30;
 		posicionesNinjas[4][1] = 510;
+		// Ninja[5]
+		posicionesNinjas[5][0] = 404;
+		posicionesNinjas[5][1] = 25;
 		// Se toma como primera posicion a las coordenadas de la primer calle vertical.
 		// ninja[0] de abajo hacia arrriba, calle vertical izquierda
 		// ninja[1] de arriba hacia abajo, calle vertical derecha
 		// ninja[2] de izq a der, calle horizontal superior primera
 		// ninja[3] de der a izq, calle horizontal inferior segunda
-		// ninja[4] de iz a der, calle horizontal inferior primera		
+		// ninja[4] de iz a der, calle horizontal inferior primera
+		// ninja[5] de arriba hacia abajo, calle vertical central
 		for (int i = 0; i < ninjas.length;i++) {
 			if(i == 0) {
 				ninjas[i] = new Ninja(posicionesNinjas[0][0],posicionesNinjas[0][1]);
@@ -116,6 +120,9 @@ public class Juego extends InterfaceJuego {
 			if(i == 4) {
 					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
 				}
+			if(i == 5) {
+				ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
+			}
 
 			clockCasero[i] = 0;
 			ninjasEnJuego ++;
@@ -197,6 +204,8 @@ public class Juego extends InterfaceJuego {
 		for(int i = 0; i < ninjas.length; i++) {
 			if(ninjas[i] != null) {
 				ninjas[i].dibujar(entorno);
+			} else {
+				clockCasero[i]++;
 			}
 		}
 		sakura.dibujar(entorno);
@@ -211,7 +220,7 @@ public class Juego extends InterfaceJuego {
 		// ninja[2] de izq a der, calle horizontal superior primera
 		// ninja[3] de der a izq, calle horizontal inferior segunda
 		// ninja[4] de iz a der, calle horizontal inferior primera
-		
+		// ninja[5] de arriba hacia abajo, calle vertical central
 		for(int i = 0;i < ninjas.length;i++) {
 			if(i == 0) {
 				if(ninjas[i] != null) {
@@ -238,6 +247,11 @@ public class Juego extends InterfaceJuego {
 					ninjas[i].mover(0.0);
 				}
 			}
+			if(i == 5) {
+				if(ninjas[i] != null) {
+					ninjas[i].mover(-Math.PI/2);
+				}
+			}
 		}
 
 		// Aparicion ninja luego de chocar con el entorno
@@ -245,6 +259,7 @@ public class Juego extends InterfaceJuego {
 			if(ninjas[i] != null) {
 				if(ninjas[i].chocasteConElEntorno(entorno)) {
 					ninjas[i] = null; // Eliminamos al ninja anterior y luego inicializamos otro nuevo en la posicion inicial
+					
 					if(i == 0) {
 						ninjas[i] = new Ninja(posicionesNinjas[0][0],posicionesNinjas[0][1]);
 					}
@@ -260,11 +275,16 @@ public class Juego extends InterfaceJuego {
 					if(i == 4) {
 						ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
 						}
+					if(i == 5) {
+						ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
+						}
+					
 				}
 			}
+//			System.out.println(ninjasEnJuego);
+//			System.out.println(clockCasero[i]);
+			if (ninjas[i] == null && clockCasero[i] > 600 ||ninjas[i] == null && ninjasEnJuego < 4) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
 				
-
-			if (ninjas[i] == null && clockCasero[i] > 500 ||ninjas[i] == null && ninjasEnJuego < 4) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
 				if (ninjas[i] == null) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
 					// reaparezcan
 					if (i == 0) {
@@ -282,9 +302,15 @@ public class Juego extends InterfaceJuego {
 					if (i == 4) {
 						ninjas[i] = new Ninja(posicionesNinjas[4][0], posicionesNinjas[4][1]);
 					}
+					if(i == 5) {
+						ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
+						}
 
 					clockCasero[i] = 0;
-					ninjasEnJuego++;
+					if(ninjasEnJuego < ninjas.length) {
+						ninjasEnJuego++;
+					}
+					
 				}
 			
 

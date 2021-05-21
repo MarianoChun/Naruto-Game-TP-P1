@@ -73,7 +73,6 @@ public class Sakura {
 			} else { // Si no se esta en una interseccion, es decir, se esta en las entrecalles
 				if (x > 186 && x < 228||x > 384 && x < 426||x > 587) {
 					x -= velocidad;
-					System.out.println("Cumple Izquierda");
 				} 
 			}
 		}
@@ -90,7 +89,6 @@ public class Sakura {
 			} else { // Si no se esta en una interseccion, es decir, se esta en las entrecalles
 				if(x < 224 ||x > 382 && x < 424||x > 584 && x < 620) { // Esta entrecalles
 					x += velocidad;
-					System.out.println("Cumple Derecha");
 				}
 			}
 		}
