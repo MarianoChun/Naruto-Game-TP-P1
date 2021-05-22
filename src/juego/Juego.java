@@ -28,6 +28,9 @@ public class Juego extends InterfaceJuego {
 	private Ninja ninjas[];
 	private Sakura sakura;
 	private Casa casas[][];
+	private Moneda monedas[][];
+	private int posXMonedas[] = {202,402,602};
+	private int posYMonedas[] = {84,226,362,498};
 	private int posicionesNinjas[][];
 	private int pedidoX;
 	private int pedidoY;
@@ -136,10 +139,8 @@ public class Juego extends InterfaceJuego {
 			ninjasEnJuego ++;
 
 		}
-		
+		// Inicializamos el array de casas
 		casas = new Casa[8][5];
-		
-		// Llenar array pos casas, for doble
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
 				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
@@ -147,8 +148,14 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
-		
-		
+		// Inicializamos el array de monedas
+		monedas = new Moneda[3][4];
+		for(int i = 0;i< posXMonedas.length ;i++) {
+			for(int j = 0; j<posYMonedas.length;j++) {
+				monedas[i][j] = new Moneda(posXMonedas[i],posYMonedas[j]);
+				
+			}
+		}
 
 		
 		// Inicia el juego!
@@ -191,13 +198,20 @@ public class Juego extends InterfaceJuego {
 		sakura.dibujar(entorno);
 		
 	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
-		
+		// Dibujamos las casas
 		for(int i = 0; i < casas.length;i++) {
 			for(int j = 0; j < casas[0].length;j++) {
 				casas[i][j].dibujar(entorno);
 			}
 		}
-
+		// Dibujamos las monedas
+		for(int i = 0; i < monedas.length;i++) {
+			for(int j = 0; j < monedas[0].length;j++) {
+				if(monedas[i][j] != null) {
+					monedas[i][j].dibujar(entorno);
+				}
+			}
+		}
 	
 		
 		//	Flecha
@@ -401,6 +415,15 @@ public class Juego extends InterfaceJuego {
 			rasengan[0].mover();
 		}
 		
+		for(int i = 0; i < monedas.length;i++) {
+			for(int j = 0; j < monedas[0].length;j++) {
+				if(monedas[i][j] != null && sakura.tocasteMoneda(monedas[i][j])) {
+					monedas[i][j] = null;
+					puntaje += 10;
+				}
+			}
+		}
+	
 		for(int i = 0; i < ninjas.length;i++) { // Si choca con algun ninja, perdemos.
 			if(ninjas[i] != null) {
 				if( sakura.chocasteConNinja(ninjas[i])) {
@@ -411,7 +434,7 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		// Ganar el juego
-		if(puntaje >= 20 || tiempo == 2000) {
+		if(puntaje >= 100 || tiempo == 2000) {
 			ganar = true;
 		}
 //		if(rasenganActivado) {
