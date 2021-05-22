@@ -42,8 +42,10 @@ public class Juego extends InterfaceJuego {
 	private Flecha flecha;
 	private Image fondo;
 	private int puntaje;
+	private int tiempo;
 	private int ninjasEnJuego;
 	private int ninjasEliminados;
+	private boolean ganar = false;
 	public Juego() {
 		// Inicializa el objeto entorno
 
@@ -169,13 +171,13 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
-		if(!perdido) {
+		if(!perdido && !ganar) {
 		//System.out.println(ninjasEnJuego);
-		
+		tiempo++;
 
 		// Procesamiento de un instante de tiempo
 		// ...
-
+			
 		entorno.dibujarImagen(fondo,entorno.ancho()/2, entorno.alto()/2, Math.PI*2);
 		//dibujo las calles
 		calle.dibujar(entorno);
@@ -199,20 +201,16 @@ public class Juego extends InterfaceJuego {
 	
 		
 		//	Flecha
-		// Nos arroja una coordeanda x e y aleatoria correspondiente a una casa
-			
-		
-
 		if(entregaHecha) {
-			pedidoX = (int)Math.floor(Math.random()*casas.length); 
+			pedidoX = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
 			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
 			
 			System.out.println(pedidoX +" "+pedidoY);
 			
-			posXFlecha = posXCasas[pedidoX];
+			posXFlecha = posXCasas[pedidoX]; // Asignamos a una variable la posicion aleatoria
 			posYFlecha = posYCasas[pedidoY];
 			System.out.println(posXFlecha + " " + posYFlecha);
-			flecha = new Flecha(posXFlecha,posYFlecha);
+			flecha = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
 			entregaHecha = false;
 		}
 		
@@ -412,7 +410,10 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
-
+		// Ganar el juego
+		if(puntaje >= 20 || tiempo == 2000) {
+			ganar = true;
+		}
 //		if(rasenganActivado) {
 //			rasengan.dibujar(entorno);
 //			rasengan.mover();
@@ -438,9 +439,12 @@ public class Juego extends InterfaceJuego {
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
 		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
 		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
+		} else if(ganar) {
+		entorno.cambiarFont("Arial", 30, Color.YELLOW);
+		entorno.escribirTexto("Ganaste", 300, 300);
 		} else {
-		entorno.cambiarFont("Arial", 30, Color.RED);
-		entorno.escribirTexto("Perdiste", 300, 300);
+			entorno.cambiarFont("Arial", 30, Color.RED);
+			entorno.escribirTexto("Perdiste", 300, 300);
 		}
 
 	}
