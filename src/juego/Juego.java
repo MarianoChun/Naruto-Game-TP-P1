@@ -49,6 +49,9 @@ public class Juego extends InterfaceJuego {
 	private int ninjasEnJuego;
 	private int ninjasEliminados;
 	private boolean ganar = false;
+	//private Jugadores[] jugadores;
+	
+	
 	public Juego() {
 		// Inicializa el objeto entorno
 
@@ -56,6 +59,7 @@ public class Juego extends InterfaceJuego {
 		
 //		this.sakuraizquierda = new Sakura()
 				
+	
 		
 
 	
@@ -147,6 +151,8 @@ public class Juego extends InterfaceJuego {
 				//System.out.println("Casa " +posXCasas[i] +" "+ posYCasas[j]);
 			}
 		}
+		
+		
 		
 		// Inicializamos el array de monedas
 		monedas = new Moneda[3][4];
@@ -428,7 +434,7 @@ public class Juego extends InterfaceJuego {
 			if(ninjas[i] != null) {
 				if( sakura.chocasteConNinja(ninjas[i])) {
 					System.out.println("Perdiste");
-					//perdido = true;
+					perdido = true;
 				}
 			}
 		}
