@@ -1,7 +1,10 @@
 package juego;
 
 import java.awt.Color;
+import java.awt.Image;
+
 import entorno.Entorno;
+import entorno.Herramientas;
 
 public class Rasengan {
 	private double x;
@@ -9,7 +12,7 @@ public class Rasengan {
 	private double tamaño;
 	private double angulo;
 	private double velocidad;
-	private Color color;
+	private Image rasengan;
 
 	public Rasengan(double x, double y, double angulo) {
 		this.x = x;
@@ -17,7 +20,7 @@ public class Rasengan {
 		this.tamaño = 20;
 		this.angulo = angulo;
 		this.velocidad = 4;
-		this.color = Color.BLUE;
+		this.rasengan = Herramientas.cargarImagen("rasengan.png");
 	}
 	
 
@@ -34,7 +37,7 @@ public class Rasengan {
 	}
 
 	public void dibujar(Entorno e) {
-		e.dibujarCirculo(x, y, tamaño, color);
+		e.dibujarImagen(rasengan, x, y, angulo);;
 	}
 
 	public void mover() {

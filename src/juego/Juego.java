@@ -3,11 +3,6 @@ package juego;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.*;
 import entorno.Entorno;
 import entorno.Herramientas;
 import entorno.InterfaceJuego;
@@ -76,7 +71,7 @@ public class Juego extends InterfaceJuego {
 		rasengan = new Rasengan[1];
 		sakura = new Sakura (400,300,2,Color.BLUE);		
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
-		
+		gameover = Herramientas.cargarImagen("gameover.jpg");
 		// Horizontales
 		calle = new Calle(400,90, 800,50,0,true);
 		calle1 = new Calle(400,230, 800,50,0, true); 
@@ -326,9 +321,9 @@ public class Juego extends InterfaceJuego {
 			}
 //			System.out.println(ninjasEnJuego);
 //			System.out.println(clockCasero[i]);
-			if (ninjas[i] == null && clockCasero[i] > 600 ||ninjas[i] == null && ninjasEnJuego < 4) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
+			if (ninjas[i] == null && clockCasero[i] > 600 ||ninjas[i] == null && ninjasEnJuego < 4) { 
 				
-				if (ninjas[i] == null) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que //
+				if (ninjas[i] == null) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que
 					// reaparezcan
 					if (i == 0) {
 						ninjas[i] = new Ninja(posicionesNinjas[0][0], posicionesNinjas[0][1]);
@@ -349,16 +344,15 @@ public class Juego extends InterfaceJuego {
 						ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
 						}
 
-					clockCasero[i] = 0;
-					if(ninjasEnJuego < ninjas.length) {
-						ninjasEnJuego++;
-					}
-					
-				}
-			
+						clockCasero[i] = 0;
+						if (ninjasEnJuego < ninjas.length) {
+							ninjasEnJuego++;
+						}
 
-		}
-		}
+					}
+
+				}
+			}
 	
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
@@ -435,8 +429,7 @@ public class Juego extends InterfaceJuego {
 		for(int i = 0; i < ninjas.length;i++) { // Si choca con algun ninja, perdemos.
 			if(ninjas[i] != null) {
 				if( sakura.chocasteConNinja(ninjas[i])) {
-					System.out.println( Herramientas.cargarImagen("game over.jpg"));
-					perdido = true;
+					//perdido = true;
 				}
 			}
 		}
@@ -474,8 +467,7 @@ public class Juego extends InterfaceJuego {
 		entorno.cambiarFont("Arial", 30, Color.YELLOW);
 		entorno.escribirTexto("Ganaste", 300, 300);
 		} else {
-			entorno.cambiarFont("Arial", 30, Color.RED);
-			entorno.escribirTexto("Perdiste", 300, 300);
+			entorno.dibujarImagen(gameover, entorno.ancho()/2, entorno.alto()/2, 0);;
 		}
 
 	}
