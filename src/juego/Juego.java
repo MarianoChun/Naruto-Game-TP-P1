@@ -49,6 +49,7 @@ public class Juego extends InterfaceJuego {
 	private int ninjasEnJuego;
 	private int ninjasEliminados;
 	private boolean ganar = false;
+	private Image gameover;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -434,8 +435,8 @@ public class Juego extends InterfaceJuego {
 		for(int i = 0; i < ninjas.length;i++) { // Si choca con algun ninja, perdemos.
 			if(ninjas[i] != null) {
 				if( sakura.chocasteConNinja(ninjas[i])) {
-					System.out.println("Perdiste");
-					//perdido = true;
+					System.out.println( Herramientas.cargarImagen("game over.jpg"));
+					perdido = true;
 				}
 			}
 		}
