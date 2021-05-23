@@ -1,9 +1,9 @@
 package juego;
 
-import java.awt.Color;
+
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
+
 
 import entorno.Entorno;
 import entorno.Herramientas;
@@ -44,9 +44,16 @@ public class Ninja {
 	public double getY() {
 		return y;
 	}
+	
+	
+	public double getVelocidad() {
+		return velocidad;
+	}
 
-	
-	
+
+	public void cambiarVelocidad(double velocidad) {
+		this.velocidad = velocidad;
+	}
 	
 	
 	
