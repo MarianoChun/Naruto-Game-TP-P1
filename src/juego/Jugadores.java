@@ -1,6 +1,6 @@
 package juego;
 
-public class Jugadores<Player> {
+public class Jugadores <jugador> {
 	private String nombre;
 	private String password;
 	private int puntos;

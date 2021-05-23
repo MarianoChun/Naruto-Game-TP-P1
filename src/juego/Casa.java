@@ -14,6 +14,7 @@ public class Casa {
 	private double angulo;
 	private Color color;
 	private Image img1;
+	private Image img2;
 	
 
 	// Al usar imagenes, sacar (angulo?) y color
@@ -25,11 +26,13 @@ public class Casa {
 		this.angulo = angulo;
 		this.color = color;
 		this.img1= Herramientas.cargarImagen("casas.png");
+		this.img2 =  Herramientas.cargarImagen("floreria.jpg");
 	}
 	
 	public void dibujar (Entorno e) {
 		//e.dibujarRectangulo(x, y, ancho, alto, angulo, color);
 		e.dibujarImagen(this.img1,this.x,this.y,0);
+		e.dibujarImagen(this.img2, 470, 440, 0);
 		
 	}
 
