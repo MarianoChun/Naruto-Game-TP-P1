@@ -24,6 +24,7 @@ public class Juego extends InterfaceJuego {
 	private Sakura sakura;
 	private Casa casas[][];
 	private Moneda monedas[][];
+	private Floreria floreria;
 	private int posXMonedas[] = {202,402,602};
 	private int posYMonedas[] = {84,226,362,498};
 	private int posicionesNinjas[][];
@@ -32,6 +33,7 @@ public class Juego extends InterfaceJuego {
 	private int posXCasas[] = {50,130,270,340,470,540,680,760};
 	private int posYCasas[] = {30,160,300,440,570};
 	private boolean entregaHecha = true;
+	private boolean ikebanaBuscado = false;
 	private int posXFlecha;
 	private int posYFlecha;
 //	private Sakura sakuraizquierda;
@@ -144,12 +146,13 @@ public class Juego extends InterfaceJuego {
 		casas = new Casa[8][5];
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
-				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
+				casas[i][j] = new Casa(posXCasas[i],posYCasas[j]);
 				//System.out.println("Casa " +posXCasas[i] +" "+ posYCasas[j]);
 			}
 		}
 		
-		
+		// Inicializamos la floreria
+		floreria = new Floreria(470,440);
 		
 		// Inicializamos el array de monedas
 		monedas = new Moneda[3][4];
@@ -204,9 +207,16 @@ public class Juego extends InterfaceJuego {
 		// Dibujamos las casas
 		for(int i = 0; i < casas.length;i++) {
 			for(int j = 0; j < casas[0].length;j++) {
-				casas[i][j].dibujar(entorno);
+				if(i != 3 || j != 2) { // No dibuja en la posicion que iria la floreria (x = 470,y = 440)
+					casas[i][j].dibujar(entorno);
+				}
 			}
 		}
+		
+		// Dibujamos la floreria
+		
+		floreria.dibujar(entorno);
+		
 		// Dibujamos las monedas
 		for(int i = 0; i < monedas.length;i++) {
 			for(int j = 0; j < monedas[0].length;j++) {
@@ -215,10 +225,11 @@ public class Juego extends InterfaceJuego {
 				}
 			}
 		}
-	
+		
+
 		
 		//	Flecha
-		if(entregaHecha) {
+		if(entregaHecha && ikebanaBuscado) {
 			pedidoX = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
 			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
 			
@@ -229,9 +240,20 @@ public class Juego extends InterfaceJuego {
 			System.out.println(posXFlecha + " " + posYFlecha);
 			flecha = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
 			entregaHecha = false;
+			ikebanaBuscado = false;
 		}
 		
-		if(sakura.enCasaMarcada(flecha)) {
+		// Determina si el Ikebana fue buscado
+		
+		if(entregaHecha && !ikebanaBuscado) {
+			flecha = new Flecha(floreria.getX(),floreria.getY());
+			if(sakura.enFloreria(floreria)) {
+				ikebanaBuscado = true;
+			}
+			
+		}
+		
+		if(sakura.enCasaMarcada(flecha) && !ikebanaBuscado) { // Realizó la entrega y verifica que no sea la floreria
 			entregaHecha = true;
 			puntaje = puntaje + 5;
 		}
