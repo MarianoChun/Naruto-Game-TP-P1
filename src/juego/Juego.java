@@ -41,6 +41,7 @@ public class Juego extends InterfaceJuego {
 	private int clockCasero[];
 	private Flecha flecha;
 	private Image fondo;
+	private Image fondoMenu;
 	private int puntaje;
 	private int tiempo;
 	private int ninjasEnJuego;
@@ -49,6 +50,8 @@ public class Juego extends InterfaceJuego {
 	private String dificultad = "Principiante";
 	private Image gameover;
 	private Image ganaste;
+	private boolean unJugador = false;
+	private boolean dosJugadores = false;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -60,7 +63,8 @@ public class Juego extends InterfaceJuego {
 		
 //		this.sakuraizquierda = new Sakura()
 				
-	
+		// Menu
+		fondoMenu = Herramientas.cargarImagen("fondoMenu.png");
 		
 
 	
@@ -187,7 +191,18 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
-		if (!perdido && !ganar) {
+		entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
+		entorno.cambiarFont("Rockwell", 25, Color.GRAY);
+		entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
+		entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+		if(entorno.sePresiono('1')) {
+			unJugador = true;
+		} else if(entorno.sePresiono('2')) {
+			dosJugadores = true;
+		}
+		
+		// Juego de un jugador
+		if (!perdido && !ganar && unJugador) {
 			// System.out.println(ninjasEnJuego);
 			tiempo++;
 
@@ -209,8 +224,11 @@ public class Juego extends InterfaceJuego {
 
 			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 			// Determinamos la dificultad
-
-			if (puntaje >= 50 && puntaje < 100 || tiempo >= 500 && tiempo < 1000) {
+			
+			// Se agrega el AND dificultad != Experto para que la dificultad no cambie si estamos en experto.
+			// Esto se debe a que si tenemos un tiempo mayor a 1000 y no llegamos a los 50 puntos, al llegar, la dificultad
+			// No vuelva a intermedia.
+			if (puntaje >= 50 && puntaje < 100 && dificultad != "Experto"|| tiempo >= 500 && tiempo < 1000) {
 				dificultad = "Intermedio";
 			} else if (puntaje >= 100 || tiempo >= 1000) {
 				dificultad = "Experto";
@@ -474,7 +492,7 @@ public class Juego extends InterfaceJuego {
 		}
 
 		// Datos en pantalla: Puntaje y ninjas eliminados
-		entorno.cambiarFont("Verdana", 17, Color.GREEN);
+		entorno.cambiarFont("Rockwell", 17, Color.GREEN);
 		entorno.escribirTexto("Puntaje: " + puntaje, 690, 15);
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
 		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
@@ -483,16 +501,16 @@ public class Juego extends InterfaceJuego {
 		// Dibuja en pantalla en que dificultad se encuentra el jugador
 		
 				if (dificultad == "Principiante") {
-					entorno.cambiarFont("Verdana", 18, Color.BLACK);
+					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
 					entorno.escribirTexto("Dificultad:", 10, 35);
 
-					entorno.cambiarFont("Verdana", 18, Color.GREEN);
+					entorno.cambiarFont("Rockwell", 18, Color.GREEN);
 					entorno.escribirTexto("Principiante", 100, 35);
 				} else if (dificultad == "Intermedio") {
-					entorno.cambiarFont("Verdana", 18, Color.BLACK);
+					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
 					entorno.escribirTexto("Dificultad:", 5, 35);
 
-					entorno.cambiarFont("Verdana", 18, Color.ORANGE);
+					entorno.cambiarFont("Rockwell", 18, Color.ORANGE);
 					entorno.escribirTexto("Intermedio", 100, 35);
 
 					for (int i = 0; i < ninjas.length; i++) {
@@ -504,10 +522,10 @@ public class Juego extends InterfaceJuego {
 
 					}
 				} else if (dificultad == "Experto") {
-					entorno.cambiarFont("Verdana", 18, Color.BLACK);
+					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
 					entorno.escribirTexto("Dificultad:", 5, 35);
 
-					entorno.cambiarFont("Verdana", 18, Color.RED);
+					entorno.cambiarFont("Rockwell", 18, Color.RED);
 					entorno.escribirTexto("Experto", 100, 35);
 
 					for (int i = 0; i < ninjas.length; i++) {
@@ -533,7 +551,7 @@ public class Juego extends InterfaceJuego {
 			entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
 //		entorno.cambiarFont("Arial", 30, Color.YELLOW);
 //		entorno.escribirTexto("Ganaste", 300, 300);
-		} else {
+		} else if (perdido) {
 			entorno.dibujarImagen(gameover, entorno.ancho()/2, entorno.alto()/2, 0);;
 		}
 

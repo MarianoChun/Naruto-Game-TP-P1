@@ -25,7 +25,6 @@ public class Ninja {
 		this.ancho = img1.getWidth(null);
 	}
 	
-
 	public int getAncho() {
 		return ancho;
 	}
