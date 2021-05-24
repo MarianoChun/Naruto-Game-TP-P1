@@ -16,7 +16,7 @@ public class Floreria {
 		// Dado que la floreria es unica, se definen los valores dentro del constructor
 		this.x = 340;
 		this.y = 300;
-		this.img1= Herramientas.cargarImagen("floreria.jpg");
+		this.img1= Herramientas.cargarImagen("floreria.png");
 		this.ancho = img1.getWidth(null);
 		this.alto = img1.getHeight(null);
 

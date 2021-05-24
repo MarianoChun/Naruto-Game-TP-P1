@@ -43,6 +43,7 @@ public class Juego extends InterfaceJuego {
 	private Flecha flecha;
 	private Image fondo;
 	private Image fondoMenu;
+	private RamoFlores floresSakura;
 	private int puntajeSakura;
 	private int tiempo;
 	private int ninjasEnJuego;
@@ -61,6 +62,7 @@ public class Juego extends InterfaceJuego {
 	private boolean empate = false;
 	private boolean dosJugadores = false;
 	private int puntajeNaruto;
+	private RamoFlores floresNaruto;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -87,7 +89,7 @@ public class Juego extends InterfaceJuego {
 		
 		rasengan = new Rasengan[2];
 		sakura = new Sakura (400,300,2);
-		naruto = new Naruto(400,400,2);
+		naruto = new Naruto(400,440,2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
 		ganaste = Herramientas.cargarImagen("ganaste.png");
@@ -198,10 +200,12 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
-		entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
-		entorno.cambiarFont("Rockwell", 25, Color.GRAY);
-		entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
-		entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+		if(!unJugador && !dosJugadores) {
+			entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
+			entorno.cambiarFont("Rockwell", 25, Color.GRAY);
+			entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
+			entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+		}
 		if(entorno.sePresiono('1')) {
 			unJugador = true;
 		} else if(entorno.sePresiono('2')) {
@@ -229,6 +233,13 @@ public class Juego extends InterfaceJuego {
 			sakura.dibujar(entorno);
 			if(dosJugadores) {
 				naruto.dibujar(entorno);
+			}
+			
+			// Dibujamos los ramos
+			if(!ikebanaBuscado && !entregaHecha) {
+				floresSakura = new RamoFlores(sakura.getX(),sakura.getY());
+				floresSakura.dibujar(entorno);
+				System.out.println("Dibuajdo");
 			}
 			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 			// Determinamos la dificultad
@@ -280,13 +291,14 @@ public class Juego extends InterfaceJuego {
 			entregaHecha = false;
 			ikebanaBuscado = false;
 		}
-		
+		System.out.println(sakura.enFloreria(floreria));
 		// Determina si el Ikebana fue buscado
 		
 		if(entregaHecha && !ikebanaBuscado) {
 			flecha = new Flecha(floreria.getX(),floreria.getY());
 			if(sakura.enFloreria(floreria)) {
 				ikebanaBuscado = true;
+	
 			}
 			if(dosJugadores) {
 				if(naruto.enFloreria(floreria)) {
