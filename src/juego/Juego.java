@@ -43,23 +43,36 @@ public class Juego extends InterfaceJuego {
 	private Flecha flecha;
 	private Image fondo;
 	private Image fondoMenu;
-	private int puntaje;
+	private RamoFlores floresSakura;
+	private int puntajeSakura;
 	private int tiempo;
 	private int ninjasEnJuego;
 	private int ninjasEliminados;
-	private boolean ganar = false;
+	private boolean ganarSakura = false;
 	private String dificultad = "Principiante";
 	private Image gameover;
+<<<<<<< HEAD
 
 	private Shuriken shuriken[];
 
+=======
+	private Shuriken shuriken[];
+>>>>>>> 1951d27f0feee95c193dff5a3174a4e5517e8732
 	private Image ganaste;
 	private boolean unJugador = false;
-	private boolean dosJugadores = false;
-	
-	// Variables para dos jugadores
-	private Naruto naruto;
 
+	
+	// Variables para segundo jugador
+	private Naruto naruto;
+<<<<<<< HEAD
+
+=======
+	private boolean ganarNaruto = false;
+	private boolean empate = false;
+	private boolean dosJugadores = false;
+	private int puntajeNaruto;
+	private RamoFlores floresNaruto;
+>>>>>>> 1951d27f0feee95c193dff5a3174a4e5517e8732
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -84,9 +97,9 @@ public class Juego extends InterfaceJuego {
 		// Inicializar lo que haga falta para el juego
 		// ...
 		
-		rasengan = new Rasengan[1];
+		rasengan = new Rasengan[2];
 		sakura = new Sakura (400,300,2);
-		naruto = new Naruto(400,400,2);
+		naruto = new Naruto(400,440,2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
 		ganaste = Herramientas.cargarImagen("ganaste.png");
@@ -197,18 +210,19 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
-		entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
-		entorno.cambiarFont("Rockwell", 25, Color.GRAY);
-		entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
-		entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+		if(!unJugador && !dosJugadores) {
+			entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
+			entorno.cambiarFont("Rockwell", 25, Color.GRAY);
+			entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
+			entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+		}
 		if(entorno.sePresiono('1')) {
 			unJugador = true;
 		} else if(entorno.sePresiono('2')) {
 			dosJugadores = true;
 		}
 		
-		// Juego de un jugador
-		if (!perdido && !ganar && (unJugador || dosJugadores)) {
+		if (!perdido && (!ganarSakura && !ganarNaruto && !empate) && (unJugador || dosJugadores)) {
 			// System.out.println(ninjasEnJuego);
 			tiempo++;
 
@@ -230,15 +244,22 @@ public class Juego extends InterfaceJuego {
 			if(dosJugadores) {
 				naruto.dibujar(entorno);
 			}
+			
+			// Dibujamos los ramos
+			if(!ikebanaBuscado && !entregaHecha) {
+				floresSakura = new RamoFlores(sakura.getX(),sakura.getY());
+				floresSakura.dibujar(entorno);
+				System.out.println("Dibuajdo");
+			}
 			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 			// Determinamos la dificultad
 			
 			// Se agrega el AND dificultad != Experto para que la dificultad no cambie si estamos en experto.
 			// Esto se debe a que si tenemos un tiempo mayor a 1000 y no llegamos a los 50 puntos, al llegar, la dificultad
 			// No vuelva a intermedia.
-			if (puntaje >= 50 && puntaje < 100 && dificultad != "Experto"|| tiempo >= 500 && tiempo < 1000) {
+			if (puntajeSakura >= 50 && puntajeSakura < 100 && dificultad != "Experto"|| tiempo >= 500 && tiempo < 1000) {
 				dificultad = "Intermedio";
-			} else if (puntaje >= 100 || tiempo >= 1000) {
+			} else if (puntajeSakura >= 100 || tiempo >= 1000) {
 				dificultad = "Experto";
 			}
 
@@ -280,20 +301,32 @@ public class Juego extends InterfaceJuego {
 			entregaHecha = false;
 			ikebanaBuscado = false;
 		}
-		
+		System.out.println(sakura.enFloreria(floreria));
 		// Determina si el Ikebana fue buscado
 		
 		if(entregaHecha && !ikebanaBuscado) {
 			flecha = new Flecha(floreria.getX(),floreria.getY());
 			if(sakura.enFloreria(floreria)) {
 				ikebanaBuscado = true;
+	
+			}
+			if(dosJugadores) {
+				if(naruto.enFloreria(floreria)) {
+					ikebanaBuscado = true;
+				}
 			}
 			
 		}
 		
-		if(sakura.enCasaMarcada(flecha) && !ikebanaBuscado) { // Realizó la entrega y verifica que no sea la floreria
+		if(sakura.enCasaMarcada(flecha) && !ikebanaBuscado) { // Sakura realizó la entrega y verifica que no sea la floreria
 			entregaHecha = true;
-			puntaje = puntaje + 5;
+			puntajeSakura = puntajeSakura + 5;
+		}
+		if(dosJugadores) {
+			if(naruto.enCasaMarcada(flecha) && !ikebanaBuscado) { // Naruto realizó la entrega y verifica que no sea la floreria
+				entregaHecha = true;
+				puntajeNaruto = puntajeNaruto + 5;
+			}
 		}
 		flecha.dibujar(entorno);
 		
@@ -446,8 +479,37 @@ public class Juego extends InterfaceJuego {
 			
 			}
 		}
-		// Lanzamiento Rasengan
+
 		
+		// Lanzamiento Rasengan naruto (si hay dos jugadores)
+		if(dosJugadores) {
+			if(entorno.sePresiono('k') && entorno.estaPresionada('s')) { // Dispara el rasengan en la direccion a la que mira el jugador
+				if(rasengan[1] == null) { // Si hay rasengan, no dibuja otro
+				rasengan[1] = new Rasengan(naruto.getX(),naruto.getY(),Math.PI/2); // Obtenemos la posicion de sakura y disparamos al angulo al que esta mirando
+				}
+			}
+			else if(entorno.sePresiono('k') && entorno.estaPresionada('a')) {
+				if(rasengan[1] == null) {
+				rasengan[1] = new Rasengan(naruto.getX(),naruto.getY(),Math.PI);
+				}
+			}
+			else if(entorno.sePresiono('k') && entorno.estaPresionada('d')) {
+				if(rasengan[1] == null) {
+				rasengan[1] = new Rasengan(naruto.getX(),naruto.getY(),Math.PI*2);
+				}
+			}
+			else if(entorno.sePresiono('k') && entorno.estaPresionada('w')) {
+				if(rasengan[1] == null) {
+				rasengan[1] = new Rasengan(naruto.getX(),naruto.getY(),-Math.PI/2);
+				}
+			}
+			else if(entorno.sePresiono('k')) {
+				if(rasengan[1] == null) {
+				rasengan[1] = new Rasengan(naruto.getX(),naruto.getY(),Math.PI/2);
+				}
+			}
+		}
+		// Lanzamiento Rasengan sakura
 		if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ABAJO)) { // Dispara el rasengan en la direccion a la que mira el jugador
 			if(rasengan[0] == null) { // Si hay rasengan, no dibuja otro
 			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2); // Obtenemos la posicion de sakura y disparamos al angulo al que esta mirando
@@ -474,6 +536,7 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
+<<<<<<< HEAD
 //		//Lanzamiento Shuriken
 //		int ninjas = (int ) (Math.random()*6+1);
 //		
@@ -538,16 +601,128 @@ public class Juego extends InterfaceJuego {
 //		if (shuriken[0] != null && !shuriken[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
 //			shuriken[0].dibujar(entorno);
 //			shuriken[0].mover();
+=======
+		//Lanzamiento Shuriken
+		int ninja = (int ) (Math.random()*6+1);
+		
+		for (int i = 0; i < ninjas.length;i++) {
+			if(i == 0) {
+				shuriken[i] = new Shuriken(posicionesNinjas[0][0],posicionesNinjas[0][1],0 );
+			}
+			if(i == 1) {
+				shuriken[i] = new Shuriken(posicionesNinjas[1][0],posicionesNinjas[1][1],0);
+			}
+			if(i == 2) {
+				shuriken[i] = new Shuriken(posicionesNinjas[2][0],posicionesNinjas[2][1], 0);
+			}
+			if(i == 3) {
+				shuriken[i] = new Shuriken(posicionesNinjas[3][0],posicionesNinjas[3][1],0);
+			}
+			if(i == 4) {
+					shuriken[i] = new Shuriken(posicionesNinjas[4][0],posicionesNinjas[4][1],0);
+				}
+			if(i == 5) {
+				shuriken[i] = new Shuriken(posicionesNinjas[5][0],posicionesNinjas[5][1],0);
+			}		
+		}
+		
+		for (int i = 0; i < ninjas.length; i++) {
+			if (rasengan[0] != null) { // Verifica si el rasengan de naruto (cuando hay dos jugadores) choca con algun
+										// ninja
+				if (ninjas[i] != null && rasengan[0].chocasteConNinja(ninjas[i])) {
+					rasengan[0] = null;
+					ninjas[i] = null;
+					clockCasero[i] = 0;
+					ninjasEnJuego--;
+					ninjasEliminados++;
+				}
+			}
+			if (rasengan[1] != null) { // Verifica si el rasengan de naruto (cuando hay dos jugadores) choca con algun
+										// ninja
+				if (ninjas[i] != null && rasengan[1].chocasteConNinja(ninjas[i])) {
+					rasengan[1] = null;
+					ninjas[i] = null;
+					clockCasero[i] = 0;
+					ninjasEnJuego--;
+					ninjasEliminados++;
+				}
+			}
+		}
+		
+		for(int i = 0;i<rasengan.length;i++) {
+			if(rasengan[i] != null && rasengan[i].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
+				rasengan[i] = null;
+			}
+		}
+//		if(rasengan[0] != null && rasengan[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
+//			rasengan[0] = null;
+//		}
+		for(int i = 0;i<rasengan.length;i++) {
+			if(rasengan[i] != null && !rasengan[i].chocasteConElEntorno(entorno)) { // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
+				rasengan[i].dibujar(entorno);
+				rasengan[i].mover();
+			}
+		}
+		
+	
+		for(int i = 0; i < ninjas.length; i++) {
+			if(ninjas[i] != null) {
+				shuriken[i].dibujar(entorno);
+			} else {
+				clockShuriken[i]++;
+			}
+	
+//			if (ninjas[i] == null && clockShuriken[i] > 500){
+//					shuriken[i]++;
+//			}
+		}
+			
+				
+					
+		
+		
+		
+		for(int i = 0; i < shuriken.length;i++) { // Si hay shuriken y choca con algun ninja, eliminamos el shuriken.
+			if(shuriken[0] != null) {
+				if(shuriken[0].chocasteConSakura(sakura)) {
+					perdido=true;
+				}
+					
+			}	
+		}	
+				
+			
+		
+		
+		if(shuriken[0] != null && shuriken[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
+			shuriken[0] = null;
+		}
+		if (shuriken[0] != null && !shuriken[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
+			shuriken[0].dibujar(entorno);
+			shuriken[0].mover();
+		}
+//		if (rasengan[0] != null && !rasengan[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
+//			rasengan[0].dibujar(entorno);
+//			rasengan[0].mover();
+>>>>>>> 1951d27f0feee95c193dff5a3174a4e5517e8732
 //		}
 		
 		
 		//Monedas del juego
 		for(int i = 0; i < monedas.length;i++) {
 			for(int j = 0; j < monedas[0].length;j++) {
+				// Verifica si sakura toca alguna moneda y le suma puntaje
 				if(monedas[i][j] != null && sakura.tocasteMoneda(monedas[i][j])) {
 					monedas[i][j] = null;
-					puntaje += 10;
+					puntajeSakura += 10;
 				}
+				// Verifica si naruto toca alguna moneda y le suma puntaje
+				if(dosJugadores) {
+					if(monedas[i][j] != null && naruto.tocasteMoneda(monedas[i][j])) {
+						monedas[i][j] = null;
+						puntajeNaruto += 10;
+					}
+				}	
 			}
 		}
 	
@@ -558,18 +733,34 @@ public class Juego extends InterfaceJuego {
 				}
 			}
 		}
-		
-		// Ganar el juego
-		if(puntaje >= 1000 || tiempo == 3000) {
-			ganar = true;
+		// Ganar el juego para un jugador
+		if(unJugador) {
+			if(puntajeSakura >= 1000 || tiempo == 3000) {
+				ganarSakura = true;
+			}
 		}
-
+		
+		// Ganar el juego para alguno de los dos jugadores o empate
+		if(dosJugadores) {
+			if(puntajeNaruto >= 100) {
+				ganarNaruto = true;
+			} else if(puntajeSakura >= 100) {
+				ganarSakura = true;
+			} else if(tiempo >= 2000) {
+				empate = true;
+			}
+		}
+		
+				
 		// Datos en pantalla: Puntaje y ninjas eliminados
 		entorno.cambiarFont("Rockwell", 17, Color.GREEN);
-		entorno.escribirTexto("Puntaje: " + puntaje, 690, 15);
+		entorno.escribirTexto("Puntaje Sakura: " + puntajeSakura, 650, 15);
+		if(dosJugadores) {
+			entorno.escribirTexto("Puntaje Naruto: " + puntajeNaruto, 650, 30);
+		}
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
-		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
-		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
+//		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
+//		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
 		
 		// Dibuja en pantalla en que dificultad se encuentra el jugador
 		
@@ -620,11 +811,19 @@ public class Juego extends InterfaceJuego {
 						System.out.println(ninjas[i].getVelocidad());
 					}
 				}
-		} else if(ganar) {
-			entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
-//		entorno.cambiarFont("Arial", 30, Color.YELLOW);
-//		entorno.escribirTexto("Ganaste", 300, 300);
-		} else if (perdido) {
+		} else if(ganarSakura) {
+			//entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+		entorno.cambiarFont("Arial", 30, Color.YELLOW);
+		entorno.escribirTexto("Ganó Sakura!", 300, 300);
+		} else if(ganarNaruto) {
+			//entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+		entorno.cambiarFont("Arial", 30, Color.YELLOW);
+		entorno.escribirTexto("Ganó Naruto!", 300, 300);
+		} else if(empate) {
+			//entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+		entorno.cambiarFont("Arial", 30, Color.YELLOW);
+		entorno.escribirTexto("Hubo empate!", 300, 300);
+		}else if (perdido) {
 			entorno.dibujarImagen(gameover, entorno.ancho()/2, entorno.alto()/2, 0);;
 		}
 

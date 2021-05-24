@@ -23,14 +23,15 @@ public class Sakura {
 	public Sakura(double x, double y, double velocidad) {
 		this.x = x;
 		this.y = y;
-		this.velocidad = velocidad;
-		this.alto = 41;
-		this.ancho = 28;
 		this.imagenSakura = Herramientas.cargarImagen("SakuraQuieta.png");
 		this.imagenSakuraArriba = Herramientas.cargarImagen("SakuraArriba.png");
 		this.imagenSakuraDerecha = Herramientas.cargarImagen("SakuraDer.png");
 		this.imagenSakuraIzquierda = Herramientas.cargarImagen("SakuraIzq.png");
 		this.imagenSakuraAbajo = Herramientas.cargarImagen("SakuraAbajo.png");
+		this.velocidad = velocidad;
+		this.alto = imagenSakura.getHeight(null);
+		this.ancho = imagenSakura.getWidth(null);
+		
 	}
 
 	public double getX() {

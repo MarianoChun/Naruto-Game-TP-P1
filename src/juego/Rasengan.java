@@ -37,7 +37,7 @@ public class Rasengan {
 	}
 
 	public void dibujar(Entorno e) {
-		e.dibujarImagen(rasengan, x, y, angulo);;
+		e.dibujarImagen(rasengan, x, y, angulo);
 	}
 
 	public void mover() {
