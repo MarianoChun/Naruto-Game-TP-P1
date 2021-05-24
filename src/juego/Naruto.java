@@ -22,13 +22,14 @@ public class Naruto {
 		this.x = x;
 		this.y = y;
 		this.velocidad = velocidad;
-		this.alto = 41;
-		this.ancho = 28;
 		this.imagenNaruto = Herramientas.cargarImagen("narutoQuieto.png");
 		this.imagenNarutoArriba = Herramientas.cargarImagen("narutoArriba.png");
 		this.imagenNarutoDerecha = Herramientas.cargarImagen("narutoDerecha.png");
 		this.imagenNarutoIzquierda = Herramientas.cargarImagen("narutoIzquierda.png");
 		this.imagenNarutoAbajo = Herramientas.cargarImagen("narutoAbajo.png");
+		this.alto = imagenNaruto.getHeight(null);
+		this.ancho = imagenNaruto.getWidth(null);
+
 	}
 
 	public double getX() {
