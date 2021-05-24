@@ -3,6 +3,8 @@ package juego;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.Random;
+
 import entorno.Entorno;
 import entorno.Herramientas;
 import entorno.InterfaceJuego;
@@ -28,8 +30,8 @@ public class Juego extends InterfaceJuego {
 	private int posXMonedas[] = {202,402,602};
 	private int posYMonedas[] = {84,226,362,498};
 	private int posicionesNinjas[][];
-	private int pedidoX;
-	private int pedidoY;
+	private int pedidoXSakura;
+	private int pedidoYSakura;
 	private int posXCasas[] = {50,130,270,340,470,540,680,760};
 	private int posYCasas[] = {30,160,300,440,570};
 	private boolean entregaHecha = true;
@@ -41,6 +43,8 @@ public class Juego extends InterfaceJuego {
 	private int clockCasero[];
 	private int clockShuriken[];
 	private Flecha flechaSakura;
+	private Random randomSakuraX;
+	private Random randomSakuraY;
 	private Image fondo;
 	private Image fondoMenu;
 	private RamoFlores floresSakura;
@@ -51,10 +55,7 @@ public class Juego extends InterfaceJuego {
 	private boolean ganarSakura = false;
 	private String dificultad = "Principiante";
 	private Image gameover;
-
-
 	private Shuriken shuriken[];
-
 	private Image ganaste;
 	private boolean unJugador = false;
 
@@ -73,7 +74,8 @@ public class Juego extends InterfaceJuego {
 	private int posYFlechaNaruto;
 	private int pedidoXNaruto;
 	private int pedidoYNaruto;
-
+	private Random randomNarutoX;
+	private Random randomNarutoY;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -104,6 +106,8 @@ public class Juego extends InterfaceJuego {
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
 		ganaste = Herramientas.cargarImagen("ganaste.png");
+		
+
 		// Horizontales
 		calle = new Calle(400,90, 800,50,0,true);
 		calle1 = new Calle(400,230, 800,50,0, true); 
@@ -298,13 +302,15 @@ public class Juego extends InterfaceJuego {
 		
 		//	Flecha sakura
 		if(entregaHecha && ikebanaBuscado) {
-			pedidoX = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
-			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
+			Random randomSakuraX = new Random(); // Se inicializa random con un numero diferente para que los numeros random no coincidan
+			Random randomSakuraY = new Random();
+			pedidoXSakura = randomSakuraX.nextInt(8);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
+			pedidoYSakura = randomSakuraY.nextInt(5);
 			
-			System.out.println(pedidoX +" "+pedidoY);
+
 			
-			posXFlecha = posXCasas[pedidoX]; // Asignamos a una variable la posicion aleatoria
-			posYFlecha = posYCasas[pedidoY];
+			posXFlecha = posXCasas[pedidoXSakura]; // Asignamos a una variable la posicion aleatoria
+			posYFlecha = posYCasas[pedidoYSakura];
 			System.out.println(posXFlecha + " " + posYFlecha);
 			flechaSakura = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
 			entregaHecha = false;
@@ -314,13 +320,14 @@ public class Juego extends InterfaceJuego {
 		// Flecha naruto (para dos jugadores)
 		
 		if(entregaHechaNaruto && ikebanaBuscadoNaruto) {
-			pedidoXNaruto = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
-			pedidoYNaruto = (int)Math.floor(Math.random()*casas[0].length);
+			Random randomNarutoX = new Random();
+			Random randomNarutoY = new Random();
+			pedidoXNaruto = randomNarutoX.nextInt(8);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
+			pedidoYNaruto = randomNarutoY.nextInt(5);	
 			
-			System.out.println(pedidoX +" "+pedidoY);
 			
-			posXFlechaNaruto = posXCasas[pedidoX]; // Asignamos a una variable la posicion aleatoria
-			posYFlechaNaruto = posYCasas[pedidoY];
+			posXFlechaNaruto = posXCasas[pedidoXNaruto]; // Asignamos a una variable la posicion aleatoria
+			posYFlechaNaruto = posYCasas[pedidoYNaruto];
 			System.out.println(posXFlecha + " " + posYFlecha);
 			flechaNaruto = new Flecha(posXFlechaNaruto,posYFlechaNaruto); // Creamos la flecha sobre la casa aleatoria
 			entregaHechaNaruto = false;
