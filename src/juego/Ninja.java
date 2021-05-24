@@ -1,9 +1,9 @@
 package juego;
 
-import java.awt.Color;
+
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
+
 
 import entorno.Entorno;
 import entorno.Herramientas;
@@ -25,7 +25,6 @@ public class Ninja {
 		this.ancho = img1.getWidth(null);
 	}
 	
-
 	public int getAncho() {
 		return ancho;
 	}
@@ -44,9 +43,16 @@ public class Ninja {
 	public double getY() {
 		return y;
 	}
+	
+	
+	public double getVelocidad() {
+		return velocidad;
+	}
 
-	
-	
+
+	public void cambiarVelocidad(double velocidad) {
+		this.velocidad = velocidad;
+	}
 	
 	
 	
@@ -67,10 +73,6 @@ public class Ninja {
 		}
 
 	}
-
-//	public void cambiarDeDireccion() {
-//		angulo += Math.PI/2;
-//	}
 	
 	public boolean chocasteConElEntorno(Entorno e) {
 		return x <= alto / 2 || x >= e.ancho() - alto / 2 || 

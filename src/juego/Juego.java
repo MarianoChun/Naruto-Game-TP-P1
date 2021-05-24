@@ -24,6 +24,7 @@ public class Juego extends InterfaceJuego {
 	private Sakura sakura;
 	private Casa casas[][];
 	private Moneda monedas[][];
+	private Floreria floreria;
 	private int posXMonedas[] = {202,402,602};
 	private int posYMonedas[] = {84,226,362,498};
 	private int posicionesNinjas[][];
@@ -32,6 +33,7 @@ public class Juego extends InterfaceJuego {
 	private int posXCasas[] = {50,130,270,340,470,540,680,760};
 	private int posYCasas[] = {30,160,300,440,570};
 	private boolean entregaHecha = true;
+	private boolean ikebanaBuscado = false;
 	private int posXFlecha;
 	private int posYFlecha;
 //	private Sakura sakuraizquierda;
@@ -40,13 +42,24 @@ public class Juego extends InterfaceJuego {
 	private int clockShuriken[];
 	private Flecha flecha;
 	private Image fondo;
+	private Image fondoMenu;
 	private int puntaje;
 	private int tiempo;
 	private int ninjasEnJuego;
 	private int ninjasEliminados;
 	private boolean ganar = false;
+	private String dificultad = "Principiante";
 	private Image gameover;
+<<<<<<< HEAD
 	private Shuriken shuriken[];
+=======
+	private Image ganaste;
+	private boolean unJugador = false;
+	private boolean dosJugadores = false;
+	
+	// Variables para dos jugadores
+	private Naruto naruto;
+>>>>>>> 4612a8aa5fe65699f07b7eb1c0d9f874ed5ee078
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -58,7 +71,8 @@ public class Juego extends InterfaceJuego {
 		
 //		this.sakuraizquierda = new Sakura()
 				
-	
+		// Menu
+		fondoMenu = Herramientas.cargarImagen("fondoMenu.png");
 		
 
 	
@@ -71,9 +85,11 @@ public class Juego extends InterfaceJuego {
 		// ...
 		
 		rasengan = new Rasengan[1];
-		sakura = new Sakura (400,300,2,Color.BLUE);		
+		sakura = new Sakura (400,300,2);
+		naruto = new Naruto(400,400,2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
+		ganaste = Herramientas.cargarImagen("ganaste.png");
 		// Horizontales
 		calle = new Calle(400,90, 800,50,0,true);
 		calle1 = new Calle(400,230, 800,50,0, true); 
@@ -147,12 +163,13 @@ public class Juego extends InterfaceJuego {
 		casas = new Casa[8][5];
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
-				casas[i][j] = new Casa(posXCasas[i],posYCasas[j],50,50,0.0,Color.BLUE);
+				casas[i][j] = new Casa(posXCasas[i],posYCasas[j]);
 				//System.out.println("Casa " +posXCasas[i] +" "+ posYCasas[j]);
 			}
 		}
 		
-		
+		// Inicializamos la floreria
+		floreria = new Floreria(470,440);
 		
 		// Inicializamos el array de monedas
 		monedas = new Moneda[3][4];
@@ -168,10 +185,6 @@ public class Juego extends InterfaceJuego {
 
 		this.entorno.iniciar();
 
-//		this.sakura.dibujar(entorno);
-		
-
-		// ninja1.dibujar(entorno);
 	
 		
 	}
@@ -184,32 +197,64 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
-		if(!perdido && !ganar) {
-		//System.out.println(ninjasEnJuego);
-		tiempo++;
+		entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
+		entorno.cambiarFont("Rockwell", 25, Color.GRAY);
+		entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
+		entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+		if(entorno.sePresiono('1')) {
+			unJugador = true;
+		} else if(entorno.sePresiono('2')) {
+			dosJugadores = true;
+		}
+		
+		// Juego de un jugador
+		if (!perdido && !ganar && (unJugador || dosJugadores)) {
+			// System.out.println(ninjasEnJuego);
+			tiempo++;
 
-		// Procesamiento de un instante de tiempo
-		// ...
+			// Procesamiento de un instante de tiempo
+			// ...
+
+			entorno.dibujarImagen(fondo, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
+
+			// dibujo las calles
+			calle.dibujar(entorno);
+			calle1.dibujar(entorno);
+			calle2.dibujar(entorno);
+			calle3.dibujar(entorno);
+			calle4.dibujar(entorno);
+			calle5.dibujar(entorno);
+			calle6.dibujar(entorno);
+
+			sakura.dibujar(entorno);
+			if(dosJugadores) {
+				naruto.dibujar(entorno);
+			}
+			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
+			// Determinamos la dificultad
 			
-		entorno.dibujarImagen(fondo,entorno.ancho()/2, entorno.alto()/2, Math.PI*2);
-		//dibujo las calles
-		calle.dibujar(entorno);
-		calle1.dibujar(entorno);
-		calle2.dibujar(entorno);
-		calle3.dibujar(entorno);
-		calle4.dibujar(entorno);
-		calle5.dibujar(entorno);
-		calle6.dibujar(entorno);	
-		
-		sakura.dibujar(entorno);
-		
-	//	System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
+			// Se agrega el AND dificultad != Experto para que la dificultad no cambie si estamos en experto.
+			// Esto se debe a que si tenemos un tiempo mayor a 1000 y no llegamos a los 50 puntos, al llegar, la dificultad
+			// No vuelva a intermedia.
+			if (puntaje >= 50 && puntaje < 100 && dificultad != "Experto"|| tiempo >= 500 && tiempo < 1000) {
+				dificultad = "Intermedio";
+			} else if (puntaje >= 100 || tiempo >= 1000) {
+				dificultad = "Experto";
+			}
+
 		// Dibujamos las casas
 		for(int i = 0; i < casas.length;i++) {
 			for(int j = 0; j < casas[0].length;j++) {
-				casas[i][j].dibujar(entorno);
+				if(i != 3 || j != 2) { // No dibuja en la posicion que iria la floreria (x = 470,y = 440)
+					casas[i][j].dibujar(entorno);
+				}
 			}
 		}
+		
+		// Dibujamos la floreria
+		
+		floreria.dibujar(entorno);
+		
 		// Dibujamos las monedas
 		for(int i = 0; i < monedas.length;i++) {
 			for(int j = 0; j < monedas[0].length;j++) {
@@ -218,10 +263,11 @@ public class Juego extends InterfaceJuego {
 				}
 			}
 		}
-	
+		
+
 		
 		//	Flecha
-		if(entregaHecha) {
+		if(entregaHecha && ikebanaBuscado) {
 			pedidoX = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
 			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
 			
@@ -232,9 +278,20 @@ public class Juego extends InterfaceJuego {
 			System.out.println(posXFlecha + " " + posYFlecha);
 			flecha = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
 			entregaHecha = false;
+			ikebanaBuscado = false;
 		}
 		
-		if(sakura.enCasaMarcada(flecha)) {
+		// Determina si el Ikebana fue buscado
+		
+		if(entregaHecha && !ikebanaBuscado) {
+			flecha = new Flecha(floreria.getX(),floreria.getY());
+			if(sakura.enFloreria(floreria)) {
+				ikebanaBuscado = true;
+			}
+			
+		}
+		
+		if(sakura.enCasaMarcada(flecha) && !ikebanaBuscado) { // Realizó la entrega y verifica que no sea la floreria
 			entregaHecha = true;
 			puntaje = puntaje + 5;
 		}
@@ -249,10 +306,6 @@ public class Juego extends InterfaceJuego {
 				clockCasero[i]++;
 			}
 		}
-		sakura.dibujar(entorno);
-
-
-//		sakuraizquierda.dibujar(entorno);
 
 		// Movimiento Ninjas
 		
@@ -356,7 +409,7 @@ public class Juego extends InterfaceJuego {
 
 				}
 			}
-	
+		// Movimiento Sakura
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
 		}
@@ -372,6 +425,26 @@ public class Juego extends InterfaceJuego {
 		else if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
 			sakura.moverArriba();
 		
+		}
+		
+		// Movimiento Naruto (si hay dos jugadores)
+		if(dosJugadores) {
+			if (entorno.estaPresionada('s')) {
+				naruto.moverAbajo();
+			}
+			
+			else if (entorno.estaPresionada('a')) {
+				naruto.moverIzquierda();
+			}
+			
+			else if (entorno.estaPresionada('d')) {
+				naruto.moverDerecha();
+			}
+			
+			else if (entorno.estaPresionada('w')) {
+				naruto.moverArriba();
+			
+			}
 		}
 		// Lanzamiento Rasengan
 		
@@ -487,38 +560,71 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		// Ganar el juego
-		if(puntaje >= 100 || tiempo == 2000) {
+		if(puntaje >= 1000 || tiempo == 3000) {
 			ganar = true;
 		}
-//		if(rasenganActivado) {
-//			rasengan.dibujar(entorno);
-//			rasengan.mover();
-//		}
-//		if (ninja1.chocasteConElEntorno(entorno)) {
-//			ninja1.cambiarDeDireccion();
-//		}
-		
-//		if (ninja1.chocasteConUnRasengan(rasengan)) {
-//			//vivo = false;
-//			System.out.println("Choca");
-//		}
-	
-		
-		
 
-
-	//	sakura.dibujar(entorno);
-	//	sakura.mover();
-
-		entorno.cambiarFont("Verdana", 17, Color.GREEN);
+		// Datos en pantalla: Puntaje y ninjas eliminados
+		entorno.cambiarFont("Rockwell", 17, Color.GREEN);
 		entorno.escribirTexto("Puntaje: " + puntaje, 690, 15);
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
 		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
 		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
+		
+		// Dibuja en pantalla en que dificultad se encuentra el jugador
+		
+				if (dificultad == "Principiante") {
+					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
+					entorno.escribirTexto("Dificultad:", 10, 35);
+
+					entorno.cambiarFont("Rockwell", 18, Color.GREEN);
+					entorno.escribirTexto("Principiante", 100, 35);
+				} else if (dificultad == "Intermedio") {
+					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
+					entorno.escribirTexto("Dificultad:", 5, 35);
+
+					entorno.cambiarFont("Rockwell", 18, Color.ORANGE);
+					entorno.escribirTexto("Intermedio", 100, 35);
+
+					for (int i = 0; i < ninjas.length; i++) {
+						// Si hay ninja y la velocidad de este es 2 (velocidad base) aumentamos la
+						// velocidad a un nivel intermedio
+						if (ninjas[i] != null && ninjas[i].getVelocidad() == 2) {
+							ninjas[i].cambiarVelocidad(ninjas[i].getVelocidad() + 0.5);
+						}
+
+					}
+				} else if (dificultad == "Experto") {
+					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
+					entorno.escribirTexto("Dificultad:", 5, 35);
+
+					entorno.cambiarFont("Rockwell", 18, Color.RED);
+					entorno.escribirTexto("Experto", 100, 35);
+
+					for (int i = 0; i < ninjas.length; i++) {
+						// Si hay ninja y la velocidad de este es 2.5 (velocidad intermedia) aumentamos la
+						// velocidad a un nivel experto
+						if (ninjas[i] != null && ninjas[i].getVelocidad() == 2.5) {
+							ninjas[i].cambiarVelocidad(ninjas[i].getVelocidad() + 0.5);
+						} else if(ninjas[i] != null && ninjas[i].getVelocidad() == 2) { // Si hay ninja y la velocidad de este es 2 (velocidad base al reiniciarse el ninja) aumentamos la
+																						// velocidad a un nivel experto
+							ninjas[i].cambiarVelocidad(ninjas[i].getVelocidad() + 1);
+						}
+					}
+						
+					
+					
+				}
+				for (int i = 0; i < ninjas.length; i++) {
+					if (ninjas[i] != null) {
+						System.out.println(ninjas[i].getVelocidad());
+					}
+				}
 		} else if(ganar) {
-		entorno.cambiarFont("Arial", 30, Color.YELLOW);
-		entorno.escribirTexto("Ganaste", 300, 300);
-		} else {
+			entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+//		entorno.cambiarFont("Arial", 30, Color.YELLOW);
+//		entorno.escribirTexto("Ganaste", 300, 300);
+		} else if (perdido) {
 			entorno.dibujarImagen(gameover, entorno.ancho()/2, entorno.alto()/2, 0);;
 		}
 
