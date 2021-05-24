@@ -74,10 +74,6 @@ public class Ninja {
 		}
 
 	}
-
-//	public void cambiarDeDireccion() {
-//		angulo += Math.PI/2;
-//	}
 	
 	public boolean chocasteConElEntorno(Entorno e) {
 		return x <= alto / 2 || x >= e.ancho() - alto / 2 || 
