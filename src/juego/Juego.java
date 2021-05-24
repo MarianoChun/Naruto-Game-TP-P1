@@ -210,9 +210,9 @@ public class Juego extends InterfaceJuego {
 			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 			// Determinamos la dificultad
 
-			if (puntaje >= 50 && puntaje < 100 || tiempo >= 200 && tiempo < 400) {
+			if (puntaje >= 50 && puntaje < 100 || tiempo >= 500 && tiempo < 1000) {
 				dificultad = "Intermedio";
-			} else if (puntaje >= 100 || tiempo >= 400) {
+			} else if (puntaje >= 100 || tiempo >= 1000) {
 				dificultad = "Experto";
 			}
 
@@ -469,7 +469,7 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		// Ganar el juego
-		if(puntaje >= 100 || tiempo == 2000) {
+		if(puntaje >= 1000 || tiempo == 3000) {
 			ganar = true;
 		}
 
