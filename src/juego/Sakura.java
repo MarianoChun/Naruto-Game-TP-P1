@@ -18,6 +18,7 @@ public class Sakura {
 	private Image imagenSakuraDerecha;
 	private Image imagenSakuraIzquierda;
 	private Image imagenSakuraAbajo;
+	
 
 	public Sakura(double x, double y, double velocidad) {
 		this.x = x;
@@ -47,8 +48,6 @@ public class Sakura {
 		else if (e.estaPresionada(e.TECLA_DERECHA))
 			e.dibujarImagen(this.imagenSakuraDerecha, this.x, this.y, 0.0);
 
-
-		
 
 		else if (e.estaPresionada(e.TECLA_IZQUIERDA))
 			e.dibujarImagen(this.imagenSakuraIzquierda, this.x, this.y, 0.0);
