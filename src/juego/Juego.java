@@ -51,7 +51,10 @@ public class Juego extends InterfaceJuego {
 	private boolean ganarSakura = false;
 	private String dificultad = "Principiante";
 	private Image gameover;
+
+
 	private Shuriken shuriken[];
+
 	private Image ganaste;
 	private boolean unJugador = false;
 
@@ -70,6 +73,7 @@ public class Juego extends InterfaceJuego {
 	private int posYFlechaNaruto;
 	private int pedidoXNaruto;
 	private int pedidoYNaruto;
+
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -568,6 +572,72 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
+
+//		//Lanzamiento Shuriken
+//		int ninjas = (int ) (Math.random()*6+1);
+//		
+//		for (int i = 0; i < ninjas.length;i++) {
+//			if(i == 0) {
+//				shuriken[0] = new Shuriken(posicionesNinjas[0][0],posicionesNinjas[0][1],0 );
+//			}
+//			if(i == 1) {
+//				shuriken[1] = new Shuriken(posicionesNinjas[1][0],posicionesNinjas[1][1],0);
+//			}
+//			if(i == 2) {
+//				shuriken[2] = new Shuriken(posicionesNinjas[2][0],posicionesNinjas[2][1], 0);
+//			}
+//			if(i == 3) {
+//				shuriken[3] = new Shuriken(posicionesNinjas[3][0],posicionesNinjas[3][1],0);
+//			}
+//			if(i == 4) {
+//					shuriken[4] = new Shuriken(posicionesNinjas[4][0],posicionesNinjas[4][1],0);
+//				}
+//			if(i == 5) {
+//				shuriken[5] = new Shuriken(posicionesNinjas[5][0],posicionesNinjas[5][1],0);
+//			}
+//
+//			clockShuriken[6] = 0;
+//			
+//		}
+//		
+//	
+//		for(int i = 0; i < ninjas.length; i++) {
+//			if(ninjas[i] != null) {
+//				shuriken[i].dibujar(entorno);
+//			} else {
+//				clockShuriken[i]++;
+//			}
+//		}
+//		
+//		if (ninjas[i] == null && clockShuriken[i] > 500){
+//				shuriken[i++];
+//		}
+//			
+//			
+//				
+//					
+//		
+//		
+//		
+//		for(int i = 0; i < shuriken.length;i++) { // Si hay shuriken y choca con algun ninja, eliminamos el shuriken.
+//			if(shuriken[0] != null) {
+//				if(shuriken[0].chocasteConSakura(sakura)) {
+//					perdido=true;
+//				}
+//					
+//			}	
+//		}	
+//				
+//			
+//		
+//		
+//		if(shuriken[0] != null && shuriken[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
+//			shuriken[0] = null;
+//		}
+//		if (shuriken[0] != null && !shuriken[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
+//			shuriken[0].dibujar(entorno);
+//			shuriken[0].mover();
+
 		//Lanzamiento Shuriken
 		int ninja = (int ) (Math.random()*6+1);
 		
