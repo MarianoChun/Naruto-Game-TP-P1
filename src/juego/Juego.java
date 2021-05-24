@@ -40,7 +40,7 @@ public class Juego extends InterfaceJuego {
 	private boolean perdido = false;
 	private int clockCasero[];
 	private int clockShuriken[];
-	private Flecha flecha;
+	private Flecha flechaSakura;
 	private Image fondo;
 	private Image fondoMenu;
 	private RamoFlores floresSakura;
@@ -63,6 +63,13 @@ public class Juego extends InterfaceJuego {
 	private boolean dosJugadores = false;
 	private int puntajeNaruto;
 	private RamoFlores floresNaruto;
+	private Flecha flechaNaruto;
+	private boolean entregaHechaNaruto = true;
+	private boolean ikebanaBuscadoNaruto = false;
+	private int posXFlechaNaruto;
+	private int posYFlechaNaruto;
+	private int pedidoXNaruto;
+	private int pedidoYNaruto;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -235,11 +242,19 @@ public class Juego extends InterfaceJuego {
 				naruto.dibujar(entorno);
 			}
 			
-			// Dibujamos los ramos
+			// Dibujamos los ramos para sakura y naruto(si hay dos jugadores)
 			if(!ikebanaBuscado && !entregaHecha) {
 				floresSakura = new RamoFlores(sakura.getX(),sakura.getY());
 				floresSakura.dibujar(entorno);
 				System.out.println("Dibuajdo");
+			}
+			
+			if(dosJugadores) {
+				if(!ikebanaBuscadoNaruto && !entregaHechaNaruto) {
+					floresNaruto = new RamoFlores(naruto.getX(),naruto.getY());
+					floresNaruto.dibujar(entorno);
+					System.out.println("Dibuajdo");
+				}
 			}
 			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 			// Determinamos la dificultad
@@ -277,7 +292,7 @@ public class Juego extends InterfaceJuego {
 		
 
 		
-		//	Flecha
+		//	Flecha sakura
 		if(entregaHecha && ikebanaBuscado) {
 			pedidoX = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
 			pedidoY = (int)Math.floor(Math.random()*casas[0].length);
@@ -287,39 +302,66 @@ public class Juego extends InterfaceJuego {
 			posXFlecha = posXCasas[pedidoX]; // Asignamos a una variable la posicion aleatoria
 			posYFlecha = posYCasas[pedidoY];
 			System.out.println(posXFlecha + " " + posYFlecha);
-			flecha = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
+			flechaSakura = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
 			entregaHecha = false;
 			ikebanaBuscado = false;
+		}
+		
+		// Flecha naruto (para dos jugadores)
+		
+		if(entregaHechaNaruto && ikebanaBuscadoNaruto) {
+			pedidoXNaruto = (int)Math.floor(Math.random()*casas.length);  // Nos arroja una posicion aleatoria para x e y correspondiente a una casa
+			pedidoYNaruto = (int)Math.floor(Math.random()*casas[0].length);
+			
+			System.out.println(pedidoX +" "+pedidoY);
+			
+			posXFlechaNaruto = posXCasas[pedidoX]; // Asignamos a una variable la posicion aleatoria
+			posYFlechaNaruto = posYCasas[pedidoY];
+			System.out.println(posXFlecha + " " + posYFlecha);
+			flechaNaruto = new Flecha(posXFlechaNaruto,posYFlechaNaruto); // Creamos la flecha sobre la casa aleatoria
+			entregaHechaNaruto = false;
+			ikebanaBuscadoNaruto = false;
 		}
 		System.out.println(sakura.enFloreria(floreria));
 		// Determina si el Ikebana fue buscado
 		
 		if(entregaHecha && !ikebanaBuscado) {
-			flecha = new Flecha(floreria.getX(),floreria.getY());
+			flechaSakura = new Flecha(floreria.getX(),floreria.getY());
 			if(sakura.enFloreria(floreria)) {
 				ikebanaBuscado = true;
 	
 			}
-			if(dosJugadores) {
-				if(naruto.enFloreria(floreria)) {
-					ikebanaBuscado = true;
-				}
-			}
-			
 		}
 		
-		if(sakura.enCasaMarcada(flecha) && !ikebanaBuscado) { // Sakura realizó la entrega y verifica que no sea la floreria
+		if (dosJugadores) {
+			if(entregaHechaNaruto && !ikebanaBuscadoNaruto) {
+				flechaNaruto = new Flecha(floreria.getX(),floreria.getY());
+				if(naruto.enFloreria(floreria)) {
+					ikebanaBuscadoNaruto = true;
+		
+				}
+			}
+		}
+			
+		
+		
+		if(sakura.enCasaMarcada(flechaSakura) && !ikebanaBuscado) { // Sakura realizó la entrega y verifica que no sea la floreria
 			entregaHecha = true;
 			puntajeSakura = puntajeSakura + 5;
 		}
 		if(dosJugadores) {
-			if(naruto.enCasaMarcada(flecha) && !ikebanaBuscado) { // Naruto realizó la entrega y verifica que no sea la floreria
-				entregaHecha = true;
+			if(naruto.enCasaMarcada(flechaNaruto) && !ikebanaBuscadoNaruto) { // Naruto realizó la entrega y verifica que no sea la floreria
+				entregaHechaNaruto = true;
 				puntajeNaruto = puntajeNaruto + 5;
 			}
 		}
-		flecha.dibujar(entorno);
 		
+		
+		flechaSakura.dibujar(entorno,true); // Flecha sakura
+
+		if(dosJugadores) {
+			flechaNaruto.dibujar(entorno, false); // flecha para naruto
+		}
 
 		// Dibujo array ninja
 		for(int i = 0; i < ninjas.length; i++) {
