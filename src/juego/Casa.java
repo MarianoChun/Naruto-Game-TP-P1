@@ -1,8 +1,7 @@
 package juego;
 
-import java.awt.Color;
-import java.awt.Image;
 
+import java.awt.Image;
 import entorno.Entorno;
 import entorno.Herramientas;
 
@@ -15,7 +14,6 @@ public class Casa {
 
 	
 
-	// Al usar imagenes, sacar (angulo?) y color
 	public Casa(double x, double y) {
 		this.x = x;
 		this.y = y;
