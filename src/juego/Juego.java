@@ -52,6 +52,9 @@ public class Juego extends InterfaceJuego {
 	private Image ganaste;
 	private boolean unJugador = false;
 	private boolean dosJugadores = false;
+	
+	// Variables para dos jugadores
+	private Naruto naruto;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -77,7 +80,8 @@ public class Juego extends InterfaceJuego {
 		// ...
 		
 		rasengan = new Rasengan[1];
-		sakura = new Sakura (400,300,2,Color.BLUE);		
+		sakura = new Sakura (400,300,2);
+		naruto = new Naruto(400,400,2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
 		ganaste = Herramientas.cargarImagen("ganaste.png");
@@ -175,10 +179,6 @@ public class Juego extends InterfaceJuego {
 
 		this.entorno.iniciar();
 
-//		this.sakura.dibujar(entorno);
-		
-
-		// ninja1.dibujar(entorno);
 	
 		
 	}
@@ -202,7 +202,7 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		// Juego de un jugador
-		if (!perdido && !ganar && unJugador) {
+		if (!perdido && !ganar && (unJugador || dosJugadores)) {
 			// System.out.println(ninjasEnJuego);
 			tiempo++;
 
@@ -221,7 +221,9 @@ public class Juego extends InterfaceJuego {
 			calle6.dibujar(entorno);
 
 			sakura.dibujar(entorno);
-
+			if(dosJugadores) {
+				naruto.dibujar(entorno);
+			}
 			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
 			// Determinamos la dificultad
 			
@@ -298,10 +300,6 @@ public class Juego extends InterfaceJuego {
 				clockCasero[i]++;
 			}
 		}
-		sakura.dibujar(entorno);
-
-
-//		sakuraizquierda.dibujar(entorno);
 
 		// Movimiento Ninjas
 		
@@ -405,7 +403,7 @@ public class Juego extends InterfaceJuego {
 
 				}
 			}
-	
+		// Movimiento Sakura
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
 		}
@@ -421,6 +419,26 @@ public class Juego extends InterfaceJuego {
 		else if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
 			sakura.moverArriba();
 		
+		}
+		
+		// Movimiento Naruto (si hay dos jugadores)
+		if(dosJugadores) {
+			if (entorno.estaPresionada('s')) {
+				naruto.moverAbajo();
+			}
+			
+			else if (entorno.estaPresionada('a')) {
+				naruto.moverIzquierda();
+			}
+			
+			else if (entorno.estaPresionada('d')) {
+				naruto.moverDerecha();
+			}
+			
+			else if (entorno.estaPresionada('w')) {
+				naruto.moverArriba();
+			
+			}
 		}
 		// Lanzamiento Rasengan
 		if(entorno.sePresiono(entorno.TECLA_ESPACIO) && entorno.estaPresionada(entorno.TECLA_ABAJO)) { // Dispara el rasengan en la direccion a la que mira el jugador

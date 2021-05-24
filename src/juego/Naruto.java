@@ -6,30 +6,29 @@ import java.awt.Image;
 import entorno.Entorno;
 import entorno.Herramientas;
 
-public class Sakura {
-
+public class Naruto {
 	private double x;
 	private double y;
 	private double ancho;
 	private double alto;
 	private double velocidad;
-	private Image imagenSakura;
-	private Image imagenSakuraArriba;
-	private Image imagenSakuraDerecha;
-	private Image imagenSakuraIzquierda;
-	private Image imagenSakuraAbajo;
+	private Image imagenNaruto;
+	private Image imagenNarutoArriba;
+	private Image imagenNarutoDerecha;
+	private Image imagenNarutoIzquierda;
+	private Image imagenNarutoAbajo;
 
-	public Sakura(double x, double y, double velocidad) {
+	public Naruto(double x, double y, double velocidad) {
 		this.x = x;
 		this.y = y;
 		this.velocidad = velocidad;
 		this.alto = 41;
 		this.ancho = 28;
-		this.imagenSakura = Herramientas.cargarImagen("SakuraQuieta.png");
-		this.imagenSakuraArriba = Herramientas.cargarImagen("SakuraArriba.png");
-		this.imagenSakuraDerecha = Herramientas.cargarImagen("SakuraDer.png");
-		this.imagenSakuraIzquierda = Herramientas.cargarImagen("SakuraIzq.png");
-		this.imagenSakuraAbajo = Herramientas.cargarImagen("SakuraAbajo.png");
+		this.imagenNaruto = Herramientas.cargarImagen("narutoQuieto.png");
+		this.imagenNarutoArriba = Herramientas.cargarImagen("narutoArriba.png");
+		this.imagenNarutoDerecha = Herramientas.cargarImagen("narutoDerecha.png");
+		this.imagenNarutoIzquierda = Herramientas.cargarImagen("narutoIzquierda.png");
+		this.imagenNarutoAbajo = Herramientas.cargarImagen("narutoAbajo.png");
 	}
 
 	public double getX() {
@@ -40,31 +39,25 @@ public class Sakura {
 		return y;
 	}
 	public void dibujar(Entorno e) {
-		if (e.estaPresionada(e.TECLA_ARRIBA))
-			e.dibujarImagen(this.imagenSakuraArriba, this.x, this.y, -0.0);
+		if (e.estaPresionada('w'))
+			e.dibujarImagen(this.imagenNarutoArriba, this.x, this.y, -0.0);
 
-		else if (e.estaPresionada(e.TECLA_DERECHA))
-			e.dibujarImagen(this.imagenSakuraDerecha, this.x, this.y, 0.0);
+		else if (e.estaPresionada('d'))
+			e.dibujarImagen(this.imagenNarutoDerecha, this.x, this.y, 0.0);
 
 
 		
 
-		else if (e.estaPresionada(e.TECLA_IZQUIERDA))
-			e.dibujarImagen(this.imagenSakuraIzquierda, this.x, this.y, 0.0);
+		else if (e.estaPresionada('a'))
+			e.dibujarImagen(this.imagenNarutoIzquierda, this.x, this.y, 0.0);
 
-		else if (e.estaPresionada(e.TECLA_ABAJO))
-			e.dibujarImagen(this.imagenSakuraAbajo, this.x, this.y, 0.0);
+		else if (e.estaPresionada('s'))
+			e.dibujarImagen(this.imagenNarutoAbajo, this.x, this.y, 0.0);
 
 
 		else
-			e.dibujarImagen(imagenSakura, x, y, Math.PI * 2);
+			e.dibujarImagen(imagenNaruto, x, y, Math.PI * 2);
 	}
-
-//	public boolean chocasteConElEntorno(Entorno e) {
-//		return x <= 0 || x + ancho >= e.ancho() || 
-//				y <= 0 || y + alto >= e.alto();
-//	}
-
 	public void moverIzquierda() {
 		if (x > 0) {
 			if (y > 57 && y < 97 ||y > 205 && y < 240 ||y > 335 && y < 380 || y > 482 && y < 518) {// Si esta en una interseccion
@@ -117,15 +110,6 @@ public class Sakura {
 			}
 		}
 	}
-		
-			
-
-	
-
-//	public boolean colisionCalles(Calle c) {
-//		return x < 400 || x > 200;
-
-	
 	public boolean chocasteConNinja(Ninja n) {
 		return Math.abs(y - n.getY()) < alto && Math.abs(x - n.getX()) < ancho;
 	}
@@ -142,6 +126,4 @@ public class Sakura {
 	public boolean tocasteMoneda(Moneda m) {
 		return Math.abs(y - m.getY()) < alto && Math.abs(x - m.getX()) < ancho;
 	}
-	
-		
 }
