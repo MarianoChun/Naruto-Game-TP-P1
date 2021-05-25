@@ -226,7 +226,7 @@ public class Juego extends InterfaceJuego {
 	public void tick() {
 		if(!unJugador && !dosJugadores) {
 			entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
-			entorno.cambiarFont("Rockwell", 25, Color.GRAY);
+			entorno.cambiarFont("Rockwell", 25, Color.BLACK);
 			entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
 			entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
 		}
@@ -383,7 +383,7 @@ public class Juego extends InterfaceJuego {
 		// Dibujo array ninjas
 		for(int i = 0; i < ninjas.length; i++) {
 			if(ninjas[i] != null) {
-				ninjas[i].dibujar(entorno);
+				ninjas[i].dibujar(entorno);		    
 			} else {
 				clockNinjasNormales[i]++;
 			}
@@ -519,6 +519,9 @@ public class Juego extends InterfaceJuego {
 				ninjasNuevos++;
 				ninjasEnJuego++;
 				ninjasFuertes[1] = new NinjaFuerte(770,370); // Inicializa al primer ninja fuerte de experto
+				
+				ninjas[3] = null;
+				ninjasEnJuego--;
 				clockNinjasFuertes[1] = 0;
 			}
 			
@@ -995,17 +998,17 @@ public class Juego extends InterfaceJuego {
 				
 				System.out.println(ninjasEnJuego);
 		} else if(ganarSakura) {
-		entorno.dibujarImagen(fotoGanoSakura, entorno.ancho()/2,entorno.alto()/2,0);
-		entorno.cambiarFont("Arial", 30, Color.YELLOW);
-		entorno.escribirTexto("Ganó Sakura!", 300, 300);
+			entorno.dibujarImagen(fotoGanoSakura, entorno.ancho()/2,entorno.alto()/2,0);
+			entorno.cambiarFont("Arial", 30, Color.YELLOW);
+			entorno.escribirTexto("Ganó Sakura!", 300, 300);
 		} else if(ganarNaruto) {
-		entorno.dibujarImagen(fotoGanoNaruto, entorno.ancho()/2,entorno.alto()/2,0);
-		entorno.cambiarFont("Arial", 30, Color.YELLOW);
-		entorno.escribirTexto("Ganó Naruto!", 300, 300);
+			entorno.dibujarImagen(fotoGanoNaruto, entorno.ancho()/2,entorno.alto()/2,0);
+			entorno.cambiarFont("Arial", 30, Color.YELLOW);
+			entorno.escribirTexto("Ganó Naruto!", 300, 300);
 		} else if(empate) {
-		entorno.dibujarImagen(fotoEmpate, entorno.ancho()/2,entorno.alto()/2,0);
-		entorno.cambiarFont("Arial", 30, Color.YELLOW);
-		entorno.escribirTexto("Hubo empate!", 300, 300);
+			entorno.dibujarImagen(fotoEmpate, entorno.ancho()/2,entorno.alto()/2,0);
+			entorno.cambiarFont("Arial", 30, Color.YELLOW);
+			entorno.escribirTexto("Hubo empate!", 300, 300);
 		}else if (perdido) {
 			entorno.dibujarImagen(gameover, entorno.ancho()/2, entorno.alto()/2, 0);;
 		}
