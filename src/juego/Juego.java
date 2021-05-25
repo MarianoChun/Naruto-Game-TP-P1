@@ -43,8 +43,6 @@ public class Juego extends InterfaceJuego {
 	private int clockCasero[];
 	private int clockShuriken[];
 	private Flecha flechaSakura;
-	private Random randomSakuraX;
-	private Random randomSakuraY;
 	private Image fondo;
 	private Image fondoMenu;
 	private RamoFlores floresSakura;
@@ -56,7 +54,7 @@ public class Juego extends InterfaceJuego {
 	private String dificultad = "Principiante";
 	private Image gameover;
 	private Shuriken shuriken[];
-	private Image ganaste;
+	private Image fotoGanoSakura;
 	private boolean unJugador = false;
 
 	
@@ -74,8 +72,8 @@ public class Juego extends InterfaceJuego {
 	private int posYFlechaNaruto;
 	private int pedidoXNaruto;
 	private int pedidoYNaruto;
-	private Random randomNarutoX;
-	private Random randomNarutoY;
+	private Image fotoGanoNaruto;
+	private Image fotoEmpate;
 	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
 	//private Jugadores[] jugadores;
 	
@@ -105,9 +103,9 @@ public class Juego extends InterfaceJuego {
 		naruto = new Naruto(400,440,2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
-		ganaste = Herramientas.cargarImagen("ganaste.png");
-		
-
+		fotoGanoSakura = Herramientas.cargarImagen("sakuraGana.jpg");
+		fotoGanoNaruto = Herramientas.cargarImagen("narutoGana.jpg");
+		fotoEmpate = Herramientas.cargarImagen("empate.png");
 		// Horizontales
 		calle = new Calle(400,90, 800,50,0,true);
 		calle1 = new Calle(400,230, 800,50,0, true); 
@@ -264,12 +262,8 @@ public class Juego extends InterfaceJuego {
 					System.out.println("Dibuajdo");
 				}
 			}
-			// System.out.println(ninjas[0].getAlto() +" "+ ninjas[0].getAncho());
-			// Determinamos la dificultad
-			
-			// Se agrega el AND dificultad != Experto para que la dificultad no cambie si estamos en experto.
-			// Esto se debe a que si tenemos un tiempo mayor a 1000 y no llegamos a los 50 puntos, al llegar, la dificultad
-			// No vuelva a intermedia.
+
+
 			if (puntajeSakura >= 50 && puntajeSakura < 100 && dificultad != "Experto"|| tiempo >= 500 && tiempo < 1000) {
 				dificultad = "Intermedio";
 			} else if (puntajeSakura >= 100 || tiempo >= 1000) {
@@ -334,8 +328,8 @@ public class Juego extends InterfaceJuego {
 			ikebanaBuscadoNaruto = false;
 		}
 		System.out.println(sakura.enFloreria(floreria));
-		// Determina si el Ikebana fue buscado
 		
+		// Determina si el Ikebana fue buscado
 		if(entregaHecha && !ikebanaBuscado) {
 			flechaSakura = new Flecha(floreria.getX(),floreria.getY());
 			if(sakura.enFloreria(floreria)) {
@@ -355,7 +349,7 @@ public class Juego extends InterfaceJuego {
 		}
 			
 		
-		
+		// Verificamos si sakura y/o naruto estan en la casa marcada.
 		if(sakura.enCasaMarcada(flechaSakura) && !ikebanaBuscado) { // Sakura realizó la entrega y verifica que no sea la floreria
 			entregaHecha = true;
 			puntajeSakura = puntajeSakura + 5;
@@ -367,14 +361,14 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
-		
+		// Dibujamos a sakura y a naruto (si hay dos jugadores)
 		flechaSakura.dibujar(entorno,true); // Flecha sakura
 
 		if(dosJugadores) {
 			flechaNaruto.dibujar(entorno, false); // flecha para naruto
 		}
 
-		// Dibujo array ninja
+		// Dibujo array ninjas
 		for(int i = 0; i < ninjas.length; i++) {
 			if(ninjas[i] != null) {
 				ninjas[i].dibujar(entorno);
@@ -697,9 +691,7 @@ public class Juego extends InterfaceJuego {
 				rasengan[i] = null;
 			}
 		}
-//		if(rasengan[0] != null && rasengan[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
-//			rasengan[0] = null;
-//		}
+
 		for(int i = 0;i<rasengan.length;i++) {
 			if(rasengan[i] != null && !rasengan[i].chocasteConElEntorno(entorno)) { // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
 				rasengan[i].dibujar(entorno);
@@ -768,16 +760,33 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 	
-		for(int i = 0; i < ninjas.length;i++) { // Si choca con algun ninja, perdemos.
-			if(ninjas[i] != null) {
-				if( sakura.chocasteConNinja(ninjas[i])) {
-					//perdido = true;
+		// Verifica la colision de sakura con algun ninja para un jugador
+		if(unJugador) {
+			for(int i = 0; i < ninjas.length;i++) { 
+				if(ninjas[i] != null) {
+					if( sakura.chocasteConNinja(ninjas[i])) {
+						perdido = true;
+					}
+				}
+			}
+		}
+		
+		// Verifica la colision de naruto y sakura para dos jugadores
+		if(dosJugadores) {
+			for(int i = 0; i < ninjas.length;i++) { 
+				if(ninjas[i] != null) {
+					if( sakura.chocasteConNinja(ninjas[i])) {
+						ganarNaruto = true;
+					}
+					if(naruto.chocasteConNinja(ninjas[i])) {
+						ganarSakura = true;
+					}
 				}
 			}
 		}
 		// Ganar el juego para un jugador
 		if(unJugador) {
-			if(puntajeSakura >= 1000 || tiempo == 3000) {
+			if(puntajeSakura >= 100 || tiempo == 3000) {
 				ganarSakura = true;
 			}
 		}
@@ -788,7 +797,7 @@ public class Juego extends InterfaceJuego {
 				ganarNaruto = true;
 			} else if(puntajeSakura >= 100) {
 				ganarSakura = true;
-			} else if(tiempo >= 2000) {
+			} else if(tiempo >= 3000) {
 				empate = true;
 			}
 		}
@@ -801,8 +810,8 @@ public class Juego extends InterfaceJuego {
 			entorno.escribirTexto("Puntaje Naruto: " + puntajeNaruto, 650, 30);
 		}
 		entorno.escribirTexto("Ninjas eliminados: " + ninjasEliminados, 10, 15);
-//		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
-//		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
+		entorno.escribirTexto("X= " + sakura.getX(), 690, 30);
+		entorno.escribirTexto("Y= " + sakura.getY(), 690, 50);
 		
 		// Dibuja en pantalla en que dificultad se encuentra el jugador
 		
@@ -827,6 +836,7 @@ public class Juego extends InterfaceJuego {
 						}
 
 					}
+					
 				} else if (dificultad == "Experto") {
 					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
 					entorno.escribirTexto("Dificultad:", 5, 35);
@@ -854,15 +864,15 @@ public class Juego extends InterfaceJuego {
 					}
 				}
 		} else if(ganarSakura) {
-			//entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+		entorno.dibujarImagen(fotoGanoSakura, entorno.ancho()/2,entorno.alto()/2,0);
 		entorno.cambiarFont("Arial", 30, Color.YELLOW);
 		entorno.escribirTexto("Ganó Sakura!", 300, 300);
 		} else if(ganarNaruto) {
-			//entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+		entorno.dibujarImagen(fotoGanoNaruto, entorno.ancho()/2,entorno.alto()/2,0);
 		entorno.cambiarFont("Arial", 30, Color.YELLOW);
 		entorno.escribirTexto("Ganó Naruto!", 300, 300);
 		} else if(empate) {
-			//entorno.dibujarImagen(ganaste, entorno.ancho()/2,entorno.alto()/2,0);
+		entorno.dibujarImagen(fotoEmpate, entorno.ancho()/2,entorno.alto()/2,0);
 		entorno.cambiarFont("Arial", 30, Color.YELLOW);
 		entorno.escribirTexto("Hubo empate!", 300, 300);
 		}else if (perdido) {

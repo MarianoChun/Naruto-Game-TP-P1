@@ -98,7 +98,7 @@ public class Sakura {
 			if(x > 184 && x < 227 ||x > 383 && x < 425|| x > 585 && x < 621) { // Si esta entrecalles
 				y += velocidad;
 			} else {
-				if(y < 96 || y > 196 && y < 238|| y > 338 &&y < 378|| y > 482 && y < 516) { // Si se esta en una interseccion
+				if(y < 96 || y > 196 && y < 238|| y > 334 && y < 378|| y > 482 && y < 516) { // Si se esta en una interseccion
 					y += velocidad;
 				}
 			}
