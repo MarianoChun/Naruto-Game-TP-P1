@@ -114,7 +114,9 @@ public class Naruto {
 	public boolean chocasteConNinja(Ninja n) {
 		return Math.abs(y - n.getY()) < alto && Math.abs(x - n.getX()) < ancho;
 	}
-	
+	public boolean chocasteConNinjaFuerte(NinjaFuerte n) {
+		return Math.abs(y - n.getY()) < alto && Math.abs(x - n.getX()) < ancho;
+	}
 	public boolean enCasaMarcada(Flecha f) {
 		return Math.abs(y - f.getY() - 45) < alto && Math.abs(x - f.getX() - 45) < ancho
 				||Math.abs(y - f.getY() + 50) < alto && Math.abs(x - f.getX() + 50) < ancho;

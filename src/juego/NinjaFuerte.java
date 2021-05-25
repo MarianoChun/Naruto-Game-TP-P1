@@ -21,7 +21,13 @@ public class NinjaFuerte {
 		this.alto = img1.getHeight(null);
 		this.ancho = img1.getWidth(null);
 	}
-	
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
 	public void dibujar(Entorno e) {
 		e.dibujarImagen(img1, x, y, Math.PI * 2);
 	}

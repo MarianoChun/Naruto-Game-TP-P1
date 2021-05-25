@@ -40,7 +40,8 @@ public class Juego extends InterfaceJuego {
 	private int posYFlecha;
 //	private Sakura sakuraizquierda;
 	private boolean perdido = false;
-	private int clockCasero[];
+	private int clockNinjasNormales[];
+	private int clockNinjasFuertes[];
 	private int clockShuriken[];
 	private Flecha flechaSakura;
 	private Image fondo;
@@ -57,8 +58,8 @@ public class Juego extends InterfaceJuego {
 	private Image fotoGanoSakura;
 	private boolean unJugador = false;
 	private NinjaFuerte ninjasFuertes[];
-
-	
+	private int rasenganANinjaFuerte[]; // Almacena cuantos rasengan recibio el ninja fuerte, si llega a 2 lo eliminamos
+	private int ninjasNuevos = 0; // Sirve para que al llegar a nivel intermedio y experto se sumen a ninjasEnJuego los ninjas mas fuertes.
 	// Variables para segundo jugador
 	private Naruto naruto;
 	private boolean ganarNaruto = false;
@@ -120,11 +121,11 @@ public class Juego extends InterfaceJuego {
 		calle6 = new Calle(600,100, 50,1000,0, false);
 
 
-		// Ninjas
+		// Inicializamos a los ninjas normales
 
         shuriken = new Shuriken [6]; 
 		ninjas = new Ninja[6];
-		clockCasero = new int[6];
+		clockNinjasNormales = new int[6];
 		posicionesNinjas = new int[6][2];
 		clockShuriken = new int [6];
 		// Ninja[0]
@@ -172,16 +173,17 @@ public class Juego extends InterfaceJuego {
 				ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
 			}
 
-			clockCasero[i] = 0;
+			clockNinjasNormales[i] = 0;
 			ninjasEnJuego ++;
 
 		}
 		
 		// Inicializamos los ninjasFuertes 
 		ninjasFuertes = new NinjaFuerte[2];
+		rasenganANinjaFuerte = new int[2];
+		clockNinjasFuertes = new int[2];
+		
 
-		ninjasFuertes[0] = new NinjaFuerte(20,226);
-		ninjasFuertes[1] = new NinjaFuerte(770,370);
 		
 		
 		// Inicializamos el array de casas
@@ -244,6 +246,7 @@ public class Juego extends InterfaceJuego {
 			entorno.dibujarImagen(fondo, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
 
 			// dibujo las calles
+			
 			calle.dibujar(entorno);
 			calle1.dibujar(entorno);
 			calle2.dibujar(entorno);
@@ -261,14 +264,14 @@ public class Juego extends InterfaceJuego {
 			if(!ikebanaBuscado && !entregaHecha) {
 				floresSakura = new RamoFlores(sakura.getX(),sakura.getY());
 				floresSakura.dibujar(entorno);
-				System.out.println("Dibuajdo");
+	
 			}
 			
 			if(dosJugadores) {
 				if(!ikebanaBuscadoNaruto && !entregaHechaNaruto) {
 					floresNaruto = new RamoFlores(naruto.getX(),naruto.getY());
 					floresNaruto.dibujar(entorno);
-					System.out.println("Dibuajdo");
+
 				}
 			}
 
@@ -314,7 +317,7 @@ public class Juego extends InterfaceJuego {
 			
 			posXFlecha = posXCasas[pedidoXSakura]; // Asignamos a una variable la posicion aleatoria
 			posYFlecha = posYCasas[pedidoYSakura];
-			System.out.println(posXFlecha + " " + posYFlecha);
+			
 			flechaSakura = new Flecha(posXFlecha,posYFlecha); // Creamos la flecha sobre la casa aleatoria
 			entregaHecha = false;
 			ikebanaBuscado = false;
@@ -331,12 +334,12 @@ public class Juego extends InterfaceJuego {
 			
 			posXFlechaNaruto = posXCasas[pedidoXNaruto]; // Asignamos a una variable la posicion aleatoria
 			posYFlechaNaruto = posYCasas[pedidoYNaruto];
-			System.out.println(posXFlecha + " " + posYFlecha);
+			
 			flechaNaruto = new Flecha(posXFlechaNaruto,posYFlechaNaruto); // Creamos la flecha sobre la casa aleatoria
 			entregaHechaNaruto = false;
 			ikebanaBuscadoNaruto = false;
 		}
-		System.out.println(sakura.enFloreria(floreria));
+		
 		
 		// Determina si el Ikebana fue buscado
 		if(entregaHecha && !ikebanaBuscado) {
@@ -382,7 +385,7 @@ public class Juego extends InterfaceJuego {
 			if(ninjas[i] != null) {
 				ninjas[i].dibujar(entorno);
 			} else {
-				clockCasero[i]++;
+				clockNinjasNormales[i]++;
 			}
 		}
 
@@ -442,7 +445,7 @@ public class Juego extends InterfaceJuego {
 					if(i == 2) {
 						ninjas[i] = new Ninja(posicionesNinjas[2][0],posicionesNinjas[2][1]);
 					}
-					if(i == 3) {
+					if(i == 3 && dificultad != "Experto") {
 						ninjas[i] = new Ninja(posicionesNinjas[3][0],posicionesNinjas[3][1]);
 					}
 					if(i == 4) {
@@ -454,9 +457,8 @@ public class Juego extends InterfaceJuego {
 					
 				}
 			}
-//			System.out.println(ninjasEnJuego);
-//			System.out.println(clockCasero[i]);
-			if (ninjas[i] == null && clockCasero[i] > 600 ||ninjas[i] == null && ninjasEnJuego < 4) { 
+
+			if (ninjas[i] == null && clockNinjasNormales[i] > 600 ||ninjas[i] == null && ninjasEnJuego < 4) { 
 				
 				if (ninjas[i] == null) { // Comprueba si hay algun ninja eliminado y cada cierto tiempo hace que
 					// reaparezcan
@@ -469,7 +471,7 @@ public class Juego extends InterfaceJuego {
 					if (i == 2) {
 						ninjas[i] = new Ninja(posicionesNinjas[2][0], posicionesNinjas[2][1]);
 					}
-					if (i == 3) {
+					if (i == 3 && dificultad != "Experto") {
 						ninjas[i] = new Ninja(posicionesNinjas[3][0], posicionesNinjas[3][1]);
 					}
 					if (i == 4) {
@@ -479,10 +481,13 @@ public class Juego extends InterfaceJuego {
 						ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
 						}
 
-						clockCasero[i] = 0;
-						if (ninjasEnJuego < ninjas.length) {
+						clockNinjasNormales[i] = 0;
+						if(dificultad == "Experto" && i != 3 && ninjasEnJuego < 8) {
+							ninjasEnJuego++;
+						} else if(dificultad != "Experto" && ninjasEnJuego < 8){
 							ninjasEnJuego++;
 						}
+						
 
 					}
 
@@ -491,13 +496,77 @@ public class Juego extends InterfaceJuego {
 		
 		// Dibujamos los ninjas mas fuertes (Requieren de dos rasengan para morir).
 		// Dibujamos uno para la intermedia y dos para la experta
+
 		
 		if(dificultad == "Intermedio") {
-			ninjasFuertes[0].dibujar(entorno);
+			if(ninjasNuevos < 1) { // El if se asegura que se itere una vez sola al alcanzar la dificultad nueva, 
+				ninjasNuevos++;	   //aqui se agregan los ninjas mas fuertes a ninjasEnJuego
+				ninjasEnJuego++;
+				ninjasFuertes[0] = new NinjaFuerte(25,226); // Inicializa al primer ninja fuerte de intermedio
+				clockNinjasFuertes[0] = 0;
+			}
+			if(ninjasFuertes[0] != null) {
+				ninjasFuertes[0].dibujar(entorno);
+				ninjasFuertes[0].mover(0);
+			} else {
+				clockNinjasFuertes[0]++;
+				System.out.println(clockNinjasFuertes[0]);
+			}
 		}
+		
 		if(dificultad == "Experto") {
-			ninjasFuertes[1].dibujar(entorno);
+			if(ninjasNuevos < 2) { 
+				ninjasNuevos++;
+				ninjasEnJuego++;
+				ninjasFuertes[1] = new NinjaFuerte(770,370); // Inicializa al primer ninja fuerte de experto
+				clockNinjasFuertes[1] = 0;
+			}
+			
+			if(ninjasFuertes[0] != null) {
+				ninjasFuertes[0].dibujar(entorno);
+				ninjasFuertes[0].mover(0);
+			} else {
+				clockNinjasFuertes[0]++;
+				System.out.println(clockNinjasFuertes[0]);
+			}
+		
+			if(ninjasFuertes[1] != null) {
+				ninjasFuertes[1].dibujar(entorno);
+				ninjasFuertes[1].mover(Math.PI);
+			} else {
+				clockNinjasFuertes[1]++;
+				System.out.println(clockNinjasFuertes[1]);
+			}
+			
 		}
+		
+		// Dibuja al ninja fuerte de nuevo si choca con el entorno
+		for(int i = 0;i < ninjasFuertes.length;i++) {
+			if(ninjasFuertes[i] != null) {
+				if(ninjasFuertes[i].chocasteConElEntorno(entorno)) {
+					if(i == 0) {
+						ninjasFuertes[0] = new NinjaFuerte(25,226);
+					}
+					if(i == 1) {
+						ninjasFuertes[1] = new NinjaFuerte(770,370);
+					}
+				}
+			}
+			// Si el ninja fuerte esta eliminado y paso cierto tiempo, lo inicializamos de nuevo
+			if (ninjasFuertes[i] == null && clockNinjasFuertes[i] > 800) {
+				if (i == 0) {
+					ninjasFuertes[0] = new NinjaFuerte(25, 226);
+					ninjasEnJuego++;
+				}
+				if (i == 1) {
+					ninjasFuertes[1] = new NinjaFuerte(770, 370);
+					ninjasEnJuego++;
+				}
+				clockNinjasFuertes[i] = 0;
+				}
+			}
+			
+		
 		// Movimiento Sakura
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
@@ -683,14 +752,28 @@ public class Juego extends InterfaceJuego {
 		}
 		
 		for (int i = 0; i < ninjas.length; i++) {
-			if (rasengan[0] != null) { // Verifica si el rasengan de naruto (cuando hay dos jugadores) choca con algun
+			if (rasengan[0] != null) { // Verifica si el rasengan de sakura choca con algun
 										// ninja
 				if (ninjas[i] != null && rasengan[0].chocasteConNinja(ninjas[i])) {
 					rasengan[0] = null;
 					ninjas[i] = null;
-					clockCasero[i] = 0;
+					clockNinjasNormales[i] = 0;
 					ninjasEnJuego--;
 					ninjasEliminados++;
+				}
+				// Verifica si choco con algun ninja fuerte
+				if(i >= 0 && i <= 1 && rasengan[0] != null) { // Se restringen las i dado que el length del array de ninjasFuertes es de 2. Este for itera para el length de ninjasNormales que es 6
+					// Rasengan Sakura
+					if(ninjasFuertes[i] != null && rasengan[0].chocasteConNinjaFuerte(ninjasFuertes[i])) {
+						rasenganANinjaFuerte[i]++; // Cada rasengan que reciba suma al elemento
+						rasengan[0] = null;
+						if(rasenganANinjaFuerte[i] == 2) { // Si los rasengan recibidos llega a 2, eliminamos al ninja fuerte
+							ninjasFuertes[i] = null;
+							ninjasEnJuego--;
+							ninjasEliminados++;
+							rasenganANinjaFuerte[i] = 0;
+						}
+					}
 				}
 			}
 			if (rasengan[1] != null) { // Verifica si el rasengan de naruto (cuando hay dos jugadores) choca con algun
@@ -698,9 +781,23 @@ public class Juego extends InterfaceJuego {
 				if (ninjas[i] != null && rasengan[1].chocasteConNinja(ninjas[i])) {
 					rasengan[1] = null;
 					ninjas[i] = null;
-					clockCasero[i] = 0;
+					clockNinjasNormales[i] = 0;
 					ninjasEnJuego--;
 					ninjasEliminados++;
+				}
+				// Verifica si el rasengan choco con algun ninja fuerte
+				if(i >= 0 && i <= 1 && rasengan[0] != null) {
+					// Rasengan Naruto
+					if(ninjasFuertes[i] != null && rasengan[1].chocasteConNinjaFuerte(ninjasFuertes[i])) {
+						rasenganANinjaFuerte[i]++; // Cada rasengan que reciba suma al elemento
+						rasengan[1] = null;
+						if(rasenganANinjaFuerte[i] == 2) { // Si los rasengan recibidos llega a 2, eliminamos al ninja fuerte
+							ninjasFuertes[i] = null;
+							ninjasEnJuego--;
+							ninjasEliminados++;
+							rasenganANinjaFuerte[i] = 0;
+						}
+					}
 				}
 			}
 		}
@@ -708,15 +805,13 @@ public class Juego extends InterfaceJuego {
 		for(int i = 0;i<rasengan.length;i++) {
 			if(rasengan[i] != null && rasengan[i].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
 				rasengan[i] = null;
-			}
-		}
-
-		for(int i = 0;i<rasengan.length;i++) {
-			if(rasengan[i] != null && !rasengan[i].chocasteConElEntorno(entorno)) { // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
+			} else if(rasengan[i] != null && !rasengan[i].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
 				rasengan[i].dibujar(entorno);
 				rasengan[i].mover();
 			}
 		}
+
+
 		
 	
 		for(int i = 0; i < ninjas.length; i++) {
@@ -788,6 +883,14 @@ public class Juego extends InterfaceJuego {
 					}
 				}
 			}
+			// Verifica la colision para ninjas fuertes.
+			for(int i = 0; i < ninjasFuertes.length;i++) { 
+				if(ninjasFuertes[i] != null) {
+					if( sakura.chocasteConNinjaFuerte(ninjasFuertes[i])) {
+						perdido = true;
+					}
+				}
+			}
 		}
 		
 		// Verifica la colision de naruto y sakura para dos jugadores
@@ -798,6 +901,18 @@ public class Juego extends InterfaceJuego {
 						ganarNaruto = true;
 					}
 					if(naruto.chocasteConNinja(ninjas[i])) {
+						ganarSakura = true;
+					}
+				}
+			}
+
+			// Verifica la colision para ninjas fuertes.
+			for (int i = 0; i < ninjasFuertes.length; i++) {
+				if (ninjasFuertes[i] != null) {
+					if (sakura.chocasteConNinjaFuerte(ninjasFuertes[i])) {
+						ganarNaruto = true;
+					}
+					if(naruto.chocasteConNinjaFuerte(ninjasFuertes[i])) {
 						ganarSakura = true;
 					}
 				}
@@ -877,11 +992,8 @@ public class Juego extends InterfaceJuego {
 					
 					
 				}
-				for (int i = 0; i < ninjas.length; i++) {
-					if (ninjas[i] != null) {
-						System.out.println(ninjas[i].getVelocidad());
-					}
-				}
+				
+				System.out.println(ninjasEnJuego);
 		} else if(ganarSakura) {
 		entorno.dibujarImagen(fotoGanoSakura, entorno.ancho()/2,entorno.alto()/2,0);
 		entorno.cambiarFont("Arial", 30, Color.YELLOW);
