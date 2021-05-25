@@ -56,6 +56,7 @@ public class Juego extends InterfaceJuego {
 	private Shuriken shuriken[];
 	private Image fotoGanoSakura;
 	private boolean unJugador = false;
+	private NinjaFuerte ninjasFuertes[];
 
 	
 	// Variables para segundo jugador
@@ -175,6 +176,14 @@ public class Juego extends InterfaceJuego {
 			ninjasEnJuego ++;
 
 		}
+		
+		// Inicializamos los ninjasFuertes 
+		ninjasFuertes = new NinjaFuerte[2];
+
+		ninjasFuertes[0] = new NinjaFuerte(20,226);
+		ninjasFuertes[1] = new NinjaFuerte(770,370);
+		
+		
 		// Inicializamos el array de casas
 		casas = new Casa[8][5];
 		for(int i = 0;i< posXCasas.length ;i++) {
@@ -479,6 +488,16 @@ public class Juego extends InterfaceJuego {
 
 				}
 			}
+		
+		// Dibujamos los ninjas mas fuertes (Requieren de dos rasengan para morir).
+		// Dibujamos uno para la intermedia y dos para la experta
+		
+		if(dificultad == "Intermedio") {
+			ninjasFuertes[0].dibujar(entorno);
+		}
+		if(dificultad == "Experto") {
+			ninjasFuertes[1].dibujar(entorno);
+		}
 		// Movimiento Sakura
 		if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
 			sakura.moverAbajo();
