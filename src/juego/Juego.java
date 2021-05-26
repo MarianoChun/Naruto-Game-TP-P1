@@ -107,13 +107,13 @@ public class Juego extends InterfaceJuego {
 		fotoGanoSakura = Herramientas.cargarImagen("sakuraGana.jpg");
 		fotoGanoNaruto = Herramientas.cargarImagen("narutoGana.jpg");
 		fotoEmpate = Herramientas.cargarImagen("empate.png");
-		// Horizontales
+		// Calles Horizontales
 		calle = new Calle(400,90,true);
 		calle1 = new Calle(400,230, true); 
 		calle2 = new Calle(400,370, true);
 		calle3 = new Calle(400,510, true);
 		
-		// Verticales
+		// Calles Verticales
 
 		calle4 = new Calle(200,100, false);
 		calle5 = new Calle(400,100, false);
@@ -185,7 +185,7 @@ public class Juego extends InterfaceJuego {
 
 		
 		
-		// Inicializamos el array de casas
+		// Inicializamos la matriz de casas
 		casas = new Casa[8][5];
 		for(int i = 0;i< posXCasas.length ;i++) {
 			for(int j = 0;j<posYCasas.length;j++) {
@@ -197,7 +197,7 @@ public class Juego extends InterfaceJuego {
 		// Inicializamos la floreria
 		floreria = new Floreria(470,440);
 		
-		// Inicializamos el array de monedas
+		// Inicializamos la matriz de monedas
 		monedas = new Moneda[3][4];
 		for(int i = 0;i< posXMonedas.length ;i++) {
 			for(int j = 0; j<posYMonedas.length;j++) {
@@ -223,6 +223,7 @@ public class Juego extends InterfaceJuego {
 	 */
 
 	public void tick() {
+		//preguntamos si quiere jugar de 1 o 2 jugadores
 		if(!unJugador && !dosJugadores) {
 			entorno.dibujarImagen(fondoMenu, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
 			entorno.cambiarFont("Rockwell", 25, Color.BLACK);
