@@ -13,7 +13,6 @@ public class Juego extends InterfaceJuego {
 
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-//	private Rasengan rasengan;
 	private Rasengan rasengan[];
 	private Calle calle;
 	private Calle calle1;
@@ -38,7 +37,6 @@ public class Juego extends InterfaceJuego {
 	private boolean ikebanaBuscado = false;
 	private int posXFlecha;
 	private int posYFlecha;
-//	private Sakura sakuraizquierda;
 	private boolean perdido = false;
 	private int clockNinjasNormales[];
 	private int clockNinjasFuertes[];
@@ -60,6 +58,8 @@ public class Juego extends InterfaceJuego {
 	private NinjaFuerte ninjasFuertes[];
 	private int rasenganANinjaFuerte[]; // Almacena cuantos rasengan recibio el ninja fuerte, si llega a 2 lo eliminamos
 	private int ninjasNuevos = 0; // Sirve para que al llegar a nivel intermedio y experto se sumen a ninjasEnJuego los ninjas mas fuertes.
+	
+	
 	// Variables para segundo jugador
 	private Naruto naruto;
 	private boolean ganarNaruto = false;
@@ -76,8 +76,7 @@ public class Juego extends InterfaceJuego {
 	private int pedidoYNaruto;
 	private Image fotoGanoNaruto;
 	private Image fotoEmpate;
-	//private int dificultad; //0=facil, 1=normal, 2=dificil, 4=experto
-	//private Jugadores[] jugadores;
+
 	
 	
 	public Juego() {
@@ -85,7 +84,7 @@ public class Juego extends InterfaceJuego {
 
 		this.entorno = new Entorno(this,  "Sakura Ikebana Delivery - Grupo 4 - v1", 800, 600);
 		
-//		this.sakuraizquierda = new Sakura()
+
 				
 		// Menu
 		fondoMenu = Herramientas.cargarImagen("fondoMenu.png");
