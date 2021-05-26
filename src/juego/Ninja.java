@@ -24,17 +24,6 @@ public class Ninja {
 		this.alto = img1.getHeight(null);
 		this.ancho = img1.getWidth(null);
 	}
-	
-	public int getAncho() {
-		return ancho;
-	}
-
-
-	public int getAlto() {
-		return alto;
-	}
-
-
 	public double getX() {
 		return x;
 	}

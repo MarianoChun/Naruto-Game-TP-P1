@@ -8,20 +8,14 @@ public class Calle {
 
 	private double x;
 	private double y;
-	private double ancho;
-	private double alto;
-	private double angulo;
 	private boolean tipo;
 	private Image img1;
 	private Image img2;
 	
-	public Calle(double x, double y, double ancho, double alto, double angulo, boolean tipo) {
+	public Calle(double x, double y,boolean tipo) {
 		this.x = x;
 		this.y = y;
 		this.tipo = tipo;
-		this.ancho = ancho;
-		this.alto = alto;
-		this.angulo = angulo;
 		this.img1= Herramientas.cargarImagen("CALLE.png");
 		this.img2= Herramientas.cargarImagen("CALLE2.png");
 		
