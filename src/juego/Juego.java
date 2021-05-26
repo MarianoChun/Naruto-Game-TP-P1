@@ -993,8 +993,8 @@ public class Juego extends InterfaceJuego {
 				System.out.println(ninjasEnJuego);
 		} else if(ganarSakura) {
 			entorno.dibujarImagen(fotoGanoSakura, entorno.ancho()/2,entorno.alto()/2,0);
-			entorno.cambiarFont("Arial", 30, Color.YELLOW);
-			entorno.escribirTexto("Ganó Sakura!", 300, 300);
+			entorno.cambiarFont("Arial", 30, Color.red);
+			entorno.escribirTexto("Ganó Sakura!", 100, 300);
 		} else if(ganarNaruto) {
 			entorno.dibujarImagen(fotoGanoNaruto, entorno.ancho()/2,entorno.alto()/2,0);
 			entorno.cambiarFont("Arial", 30, Color.YELLOW);
