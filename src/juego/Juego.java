@@ -935,7 +935,7 @@ public class Juego extends InterfaceJuego {
 		
 				
 		// Datos en pantalla: Puntaje y ninjas eliminados
-		entorno.cambiarFont("Rockwell", 17, Color.GREEN);
+		entorno.cambiarFont("Rockwell", 17, Color.WHITE);
 		entorno.escribirTexto("Puntaje Sakura: " + puntajeSakura, 650, 15);
 		if(dosJugadores) {
 			entorno.escribirTexto("Puntaje Naruto: " + puntajeNaruto, 650, 30);
@@ -950,7 +950,7 @@ public class Juego extends InterfaceJuego {
 					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
 					entorno.escribirTexto("Dificultad:", 10, 35);
 
-					entorno.cambiarFont("Rockwell", 18, Color.GREEN);
+					entorno.cambiarFont("Rockwell", 18, Color.PINK);
 					entorno.escribirTexto("Principiante", 100, 35);
 				} else if (dificultad == "Intermedio") {
 					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
