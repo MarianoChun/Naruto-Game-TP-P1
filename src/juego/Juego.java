@@ -100,8 +100,8 @@ public class Juego extends InterfaceJuego {
 		// ...
 		
 		rasengan = new Rasengan[2];
-		sakura = new Sakura (400,300,2);
-		naruto = new Naruto(400,440,2);
+		sakura = new Sakura (385,310,2);
+		naruto = new Naruto(420,310,2);
 		fondo = Herramientas.cargarImagen("fondoJuego.png");
 		gameover = Herramientas.cargarImagen("gameover.jpg");
 		fotoGanoSakura = Herramientas.cargarImagen("sakuraGana.jpg");
@@ -184,7 +184,7 @@ public class Juego extends InterfaceJuego {
 		
 
 		
-		
+
 		// Inicializamos el array de casas
 		casas = new Casa[8][5];
 		for(int i = 0;i< posXCasas.length ;i++) {
@@ -245,7 +245,6 @@ public class Juego extends InterfaceJuego {
 			entorno.dibujarImagen(fondo, entorno.ancho() / 2, entorno.alto() / 2, Math.PI * 2);
 
 			// dibujo las calles
-			
 			calle.dibujar(entorno);
 			calle1.dibujar(entorno);
 			calle2.dibujar(entorno);
@@ -253,8 +252,22 @@ public class Juego extends InterfaceJuego {
 			calle4.dibujar(entorno);
 			calle5.dibujar(entorno);
 			calle6.dibujar(entorno);
-
+			
+			// Dibujamos las casas
+			for(int i = 0; i < casas.length;i++) {
+				for(int j = 0; j < casas[0].length;j++) {
+					if(i != 3 || j != 2) { // No dibuja en la posicion que iria la floreria (x = 470,y = 440)
+						casas[i][j].dibujar(entorno);
+					}
+				}
+			}
+			// Dibujamos la floreria
+			
+			floreria.dibujar(entorno);
+			// Dibujamos la o los personajes
+			
 			sakura.dibujar(entorno);
+
 			if (dosJugadores) {
 				naruto.dibujar(entorno);
 			}
@@ -280,19 +293,6 @@ public class Juego extends InterfaceJuego {
 			} else if (puntajeSakura >= 100 || tiempo >= 1000) {
 				dificultad = "Experto";
 			}
-
-		// Dibujamos las casas
-		for(int i = 0; i < casas.length;i++) {
-			for(int j = 0; j < casas[0].length;j++) {
-				if(i != 3 || j != 2) { // No dibuja en la posicion que iria la floreria (x = 470,y = 440)
-					casas[i][j].dibujar(entorno);
-				}
-			}
-		}
-		
-		// Dibujamos la floreria
-		
-		floreria.dibujar(entorno);
 		
 		// Dibujamos las monedas
 		for(int i = 0; i < monedas.length;i++) {
@@ -303,6 +303,7 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 		
+
 
 		
 		//	Flecha sakura
@@ -931,7 +932,9 @@ public class Juego extends InterfaceJuego {
 				empate = true;
 			}
 		}
-		
+		entorno.cambiarFont("Verdana", 18, Color.GREEN);
+		entorno.escribirTexto("X: " + sakura.getX(), 700, 30);
+		entorno.escribirTexto("Y: " + sakura.getY(), 700, 50);
 				
 		// Datos en pantalla: Puntaje y ninjas eliminados
 		entorno.cambiarFont("Rockwell", 17, Color.GREEN);

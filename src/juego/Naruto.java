@@ -89,10 +89,10 @@ public class Naruto {
 
 	public void moverAbajo() {
 		if(y < 600) {
-			if(x > 184 && x < 227 ||x > 383 && x < 425|| x > 585 && x < 621) { // Si esta entrecalles
+			if(x > 184 && x < 227 ||x > 380 && x < 427|| x > 585 && x < 623) { // Si esta entrecalles
 				y += velocidad;
 			} else {
-				if(y < 96 || y > 196 && y < 238|| y > 338 &&y < 378|| y > 482 && y < 516) { // Si se esta en una interseccion
+				if(y < 96 || y > 196 && y < 238|| y > 334 && y < 378|| y > 482 && y < 516) { // Si se esta en una interseccion
 					y += velocidad;
 				}
 			}
@@ -102,7 +102,7 @@ public class Naruto {
 
 	public void moverArriba() {
 		if(y > 0) {
-			if(x > 184 && x < 227 ||x > 383 && x < 425|| x > 585 && x < 621) { // Si esta entrecalles
+			if(x > 184 && x < 227 ||x > 380 && x < 427|| x > 585 && x < 623) { // Si esta entrecalles
 				y -= velocidad;
 			} else {
 				if(y > 58 && y < 98||y > 206 && y < 240|| y > 342 && y < 380|| y > 486) { // Si se esta en una interseccion
