@@ -22,8 +22,8 @@ public class Calle {
 	}
 	
 	public void dibujar (Entorno e) {
-//		e.dibujarRectangulo(x, y, ancho, alto, angulo, color);
-		if(tipo) {
+		//vemos si la calle es horizontal o vertical
+		if(tipo) { 
 			e.dibujarImagen(this.img1,this.x ,this.y,0.0, 1.2);
 		} else {
 			e.dibujarImagen(this.img2,this.x,this.y, 0.0,1.3);
