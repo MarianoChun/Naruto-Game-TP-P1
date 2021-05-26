@@ -166,8 +166,8 @@ public class Juego extends InterfaceJuego {
 				ninjas[i] = new Ninja(posicionesNinjas[3][0],posicionesNinjas[3][1]);
 			}
 			if(i == 4) {
-					ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
-				}
+				ninjas[i] = new Ninja(posicionesNinjas[4][0],posicionesNinjas[4][1]);
+			}
 			if(i == 5) {
 				ninjas[i] = new Ninja(posicionesNinjas[5][0],posicionesNinjas[5][1]);
 			}
@@ -515,7 +515,6 @@ public class Juego extends InterfaceJuego {
 				ninjasFuertes[0].mover(0);
 			} else {
 				clockNinjasFuertes[0]++;
-				System.out.println(clockNinjasFuertes[0]);
 			}
 		}
 		
@@ -535,15 +534,13 @@ public class Juego extends InterfaceJuego {
 				ninjasFuertes[0].mover(0);
 			} else {
 				clockNinjasFuertes[0]++;
-				System.out.println(clockNinjasFuertes[0]);
 			}
 		
 			if(ninjasFuertes[1] != null) {
 				ninjasFuertes[1].dibujar(entorno);
 				ninjasFuertes[1].mover(Math.PI);
 			} else {
-				clockNinjasFuertes[1]++;
-				System.out.println(clockNinjasFuertes[1]);
+				clockNinjasFuertes[1]++;				
 			}
 			
 		}
@@ -668,22 +665,35 @@ public class Juego extends InterfaceJuego {
 			rasengan[0] = new Rasengan(sakura.getX(),sakura.getY(),Math.PI/2);
 			}
 		}
-		
+
 
 		//Lanzamiento Shuriken
-		
-		if(clockShuriken > 500) {
+		//System.out.println(clockShuriken);
+		if(clockShuriken > 400) {
 			Random randomShuriken = new Random();
 		
 			posShurikenAleatorio = randomShuriken.nextInt(ninjas.length);
 			
 			for(int i = 0;i < ninjas.length;i++) {
 				if(posShurikenAleatorio == i && ninjas[i] != null) {
-					shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),0);
+					System.out.println("Tira el: " + i);
+					if(i == 0) {
+						shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),-Math.PI/2);
+					}
+					if(i == 3) {
+						shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),Math.PI);
+					}
+					if(i == 1 || i == 5) {
+						shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),Math.PI/2);
+					}
+					if(i == 2 || i == 4) {
+						shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),0.0);
+					}
 				}
+				clockShuriken = 0;
 			}
 			
-			clockShuriken = 0;
+			
 		}
 		for (int i = 0; i < ninjas.length; i++) {
 			if (rasengan[0] != null) { // Verifica si el rasengan de sakura choca con algun
