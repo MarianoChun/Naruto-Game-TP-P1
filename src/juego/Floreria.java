@@ -8,8 +8,6 @@ import entorno.Herramientas;
 public class Floreria {
 	private double x;
 	private double y;
-	private double ancho;
-	private double alto;
 	private Image img1;
 	
 	public Floreria(double x, double y) {
@@ -17,9 +15,6 @@ public class Floreria {
 		this.x = 340;
 		this.y = 300;
 		this.img1= Herramientas.cargarImagen("floreria.png");
-		this.ancho = img1.getWidth(null);
-		this.alto = img1.getHeight(null);
-
 	}
 	
 	public double getX() {
