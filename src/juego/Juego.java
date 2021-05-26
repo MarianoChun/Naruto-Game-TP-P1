@@ -676,7 +676,6 @@ public class Juego extends InterfaceJuego {
 			
 			for(int i = 0;i < ninjas.length;i++) {
 				if(posShurikenAleatorio == i && ninjas[i] != null) {
-					System.out.println("Tira el: " + i);
 					if(i == 0) {
 						shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),-Math.PI/2);
 					}
