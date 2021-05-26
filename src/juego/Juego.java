@@ -40,7 +40,7 @@ public class Juego extends InterfaceJuego {
 	private boolean perdido = false;
 	private int clockNinjasNormales[];
 	private int clockNinjasFuertes[];
-	private int clockShuriken[];
+	private int clockShuriken;
 	private Flecha flechaSakura;
 	private Image fondo;
 	private Image fondoMenu;
@@ -52,13 +52,14 @@ public class Juego extends InterfaceJuego {
 	private boolean ganarSakura = false;
 	private String dificultad = "Principiante";
 	private Image gameover;
-	private Shuriken shuriken[];
+	private Shuriken shuriken;
 	private Image fotoGanoSakura;
 	private boolean unJugador = false;
 	private NinjaFuerte ninjasFuertes[];
 	private int rasenganANinjaFuerte[]; // Almacena cuantos rasengan recibio el ninja fuerte, si llega a 2 lo eliminamos
 	private int ninjasNuevos = 0; // Sirve para que al llegar a nivel intermedio y experto se sumen a ninjasEnJuego los ninjas mas fuertes.
-	
+	private int posShurikenAleatorio;
+
 	
 	// Variables para segundo jugador
 	private Naruto naruto;
@@ -122,11 +123,10 @@ public class Juego extends InterfaceJuego {
 
 		// Inicializamos a los ninjas normales
 
-        shuriken = new Shuriken [6]; 
 		ninjas = new Ninja[6];
 		clockNinjasNormales = new int[6];
 		posicionesNinjas = new int[6][2];
-		clockShuriken = new int [6];
+		clockShuriken = 0;
 		// Ninja[0]
 		posicionesNinjas[0][0] = 200;
 		posicionesNinjas[0][1] = 570;
@@ -228,6 +228,7 @@ public class Juego extends InterfaceJuego {
 			entorno.cambiarFont("Rockwell", 25, Color.BLACK);
 			entorno.escribirTexto("Presione '1' para jugar con un jugador", 200, 300);
 			entorno.escribirTexto("Presione '2' para jugar con dos jugadores", 200, 300 + 30);
+
 		}
 		if(entorno.sePresiono('1')) {
 			unJugador = true;
@@ -238,7 +239,7 @@ public class Juego extends InterfaceJuego {
 		if (!perdido && (!ganarSakura && !ganarNaruto && !empate) && (unJugador || dosJugadores)) {
 			// System.out.println(ninjasEnJuego);
 			tiempo++;
-
+			clockShuriken++;
 			// Procesamiento de un instante de tiempo
 			// ...
 
@@ -387,7 +388,12 @@ public class Juego extends InterfaceJuego {
 				clockNinjasNormales[i]++;
 			}
 		}
-
+		
+		// Dibujo y movimiento Shuriken
+		if(shuriken != null) {
+			shuriken.dibujar(entorno);
+			shuriken.mover();
+		}
 		// Movimiento Ninjas
 		
 		// ninja[0] de abajo hacia arrriba, calle vertical izquierda
@@ -664,95 +670,21 @@ public class Juego extends InterfaceJuego {
 		}
 		
 
-//		//Lanzamiento Shuriken
-//		int ninjas = (int ) (Math.random()*6+1);
-//		
-//		for (int i = 0; i < ninjas.length;i++) {
-//			if(i == 0) {
-//				shuriken[0] = new Shuriken(posicionesNinjas[0][0],posicionesNinjas[0][1],0 );
-//			}
-//			if(i == 1) {
-//				shuriken[1] = new Shuriken(posicionesNinjas[1][0],posicionesNinjas[1][1],0);
-//			}
-//			if(i == 2) {
-//				shuriken[2] = new Shuriken(posicionesNinjas[2][0],posicionesNinjas[2][1], 0);
-//			}
-//			if(i == 3) {
-//				shuriken[3] = new Shuriken(posicionesNinjas[3][0],posicionesNinjas[3][1],0);
-//			}
-//			if(i == 4) {
-//					shuriken[4] = new Shuriken(posicionesNinjas[4][0],posicionesNinjas[4][1],0);
-//				}
-//			if(i == 5) {
-//				shuriken[5] = new Shuriken(posicionesNinjas[5][0],posicionesNinjas[5][1],0);
-//			}
-//
-//			clockShuriken[6] = 0;
-//			
-//		}
-//		
-//	
-//		for(int i = 0; i < ninjas.length; i++) {
-//			if(ninjas[i] != null) {
-//				shuriken[i].dibujar(entorno);
-//			} else {
-//				clockShuriken[i]++;
-//			}
-//		}
-//		
-//		if (ninjas[i] == null && clockShuriken[i] > 500){
-//				shuriken[i++];
-//		}
-//			
-//			
-//				
-//					
-//		
-//		
-//		
-//		for(int i = 0; i < shuriken.length;i++) { // Si hay shuriken y choca con algun ninja, eliminamos el shuriken.
-//			if(shuriken[0] != null) {
-//				if(shuriken[0].chocasteConSakura(sakura)) {
-//					perdido=true;
-//				}
-//					
-//			}	
-//		}	
-//				
-//			
-//		
-//		
-//		if(shuriken[0] != null && shuriken[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
-//			shuriken[0] = null;
-//		}
-//		if (shuriken[0] != null && !shuriken[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
-//			shuriken[0].dibujar(entorno);
-//			shuriken[0].mover();
-
 		//Lanzamiento Shuriken
-		int ninja = (int ) (Math.random()*6+1);
 		
-		for (int i = 0; i < ninjas.length;i++) {
-			if(i == 0) {
-				shuriken[i] = new Shuriken(posicionesNinjas[0][0],posicionesNinjas[0][1],0 );
-			}
-			if(i == 1) {
-				shuriken[i] = new Shuriken(posicionesNinjas[1][0],posicionesNinjas[1][1],0);
-			}
-			if(i == 2) {
-				shuriken[i] = new Shuriken(posicionesNinjas[2][0],posicionesNinjas[2][1], 0);
-			}
-			if(i == 3) {
-				shuriken[i] = new Shuriken(posicionesNinjas[3][0],posicionesNinjas[3][1],0);
-			}
-			if(i == 4) {
-					shuriken[i] = new Shuriken(posicionesNinjas[4][0],posicionesNinjas[4][1],0);
+		if(clockShuriken > 500) {
+			Random randomShuriken = new Random();
+		
+			posShurikenAleatorio = randomShuriken.nextInt(ninjas.length);
+			
+			for(int i = 0;i < ninjas.length;i++) {
+				if(posShurikenAleatorio == i && ninjas[i] != null) {
+					shuriken = new Shuriken(ninjas[i].getX(),ninjas[i].getY(),0);
 				}
-			if(i == 5) {
-				shuriken[i] = new Shuriken(posicionesNinjas[5][0],posicionesNinjas[5][1],0);
-			}		
+			}
+			
+			clockShuriken = 0;
 		}
-		
 		for (int i = 0; i < ninjas.length; i++) {
 			if (rasengan[0] != null) { // Verifica si el rasengan de sakura choca con algun
 										// ninja
@@ -816,41 +748,37 @@ public class Juego extends InterfaceJuego {
 
 		
 	
-		for(int i = 0; i < ninjas.length; i++) {
-			if(ninjas[i] != null) {
-				shuriken[i].dibujar(entorno);
-			} else {
-				clockShuriken[i]++;
-			}
-	
-//			if (ninjas[i] == null && clockShuriken[i] > 500){
-//					shuriken[i]++;
-//			}
-		}
-			
 				
-					
 		
-		
-		
-		for(int i = 0; i < shuriken.length;i++) { // Si hay shuriken y choca con algun ninja, eliminamos el shuriken.
-			if(shuriken[0] != null) {
-				if(shuriken[0].chocasteConSakura(sakura)) {
+		// Verifica si el shuriken choco a alguno de los jugadores
+		if(unJugador) {
+			if(shuriken != null) {
+				if(shuriken.chocasteConSakura(sakura)) {
 					perdido=true;
 				}
-					
-			}	
-		}	
+			}
+		}
+		if(dosJugadores) {
+			if(shuriken != null) {
+				if(shuriken.chocasteConSakura(sakura)) {
+					ganarNaruto = true;
+				}
+				if(shuriken.chocasteConNaruto(naruto)) {
+					ganarSakura = true;
+				}
+			}
+		}
+	
 				
 			
 		
 		
-		if(shuriken[0] != null && shuriken[0].chocasteConElEntorno(entorno)) { // Si hay rasengan y choca con el entorno, eliminamos el rasengan.
-			shuriken[0] = null;
+		if(shuriken != null && shuriken.chocasteConElEntorno(entorno)) { // Si hay shuriken y choca con el entorno, eliminamos el shuriken.
+			shuriken = null;
 		}
-		if (shuriken[0] != null && !shuriken[0].chocasteConElEntorno(entorno)){ // Si hay rasengan y no choca con el entorno, lo dibujamos y movemos.
-			shuriken[0].dibujar(entorno);
-			shuriken[0].mover();
+		if (shuriken != null && !shuriken.chocasteConElEntorno(entorno)){ // Si hay shuriken y no choca con el entorno, lo dibujamos y movemos.
+			shuriken.dibujar(entorno);
+			shuriken.mover();
 		}		
 		
 		//Monedas del juego
@@ -871,7 +799,7 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 	
-		// Verifica la colision de sakura con algun ninja para un jugador
+		// Verifica la colision de sakura con algun ninja para u n jugador
 		if(unJugador) {
 			for(int i = 0; i < ninjas.length;i++) { 
 				if(ninjas[i] != null) {
@@ -917,7 +845,7 @@ public class Juego extends InterfaceJuego {
 		}
 		// Ganar el juego para un jugador
 		if(unJugador) {
-			if(puntajeSakura >= 100 || tiempo == 3000) {
+			if(puntajeSakura >= 100 || tiempo == 4000) {
 				ganarSakura = true;
 			}
 		}
@@ -932,9 +860,7 @@ public class Juego extends InterfaceJuego {
 				empate = true;
 			}
 		}
-		entorno.cambiarFont("Verdana", 18, Color.GREEN);
-		entorno.escribirTexto("X: " + sakura.getX(), 700, 30);
-		entorno.escribirTexto("Y: " + sakura.getY(), 700, 50);
+
 				
 		// Datos en pantalla: Puntaje y ninjas eliminados
 		entorno.cambiarFont("Rockwell", 17, Color.WHITE);
@@ -949,13 +875,13 @@ public class Juego extends InterfaceJuego {
 		// Dibuja en pantalla en que dificultad se encuentra el jugador
 		
 				if (dificultad == "Principiante") {
-					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
+					entorno.cambiarFont("Rockwell", 18, Color.WHITE);
 					entorno.escribirTexto("Dificultad:", 10, 35);
 
 					entorno.cambiarFont("Rockwell", 18, Color.PINK);
 					entorno.escribirTexto("Principiante", 100, 35);
 				} else if (dificultad == "Intermedio") {
-					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
+					entorno.cambiarFont("Rockwell", 18, Color.WHITE);
 					entorno.escribirTexto("Dificultad:", 5, 35);
 
 					entorno.cambiarFont("Rockwell", 18, Color.ORANGE);
@@ -971,7 +897,7 @@ public class Juego extends InterfaceJuego {
 					}
 					
 				} else if (dificultad == "Experto") {
-					entorno.cambiarFont("Rockwell", 18, Color.BLACK);
+					entorno.cambiarFont("Rockwell", 18, Color.WHITE);
 					entorno.escribirTexto("Dificultad:", 5, 35);
 
 					entorno.cambiarFont("Rockwell", 18, Color.RED);
@@ -992,7 +918,7 @@ public class Juego extends InterfaceJuego {
 					
 				}
 				
-				System.out.println(ninjasEnJuego);
+			
 		} else if(ganarSakura) {
 			entorno.dibujarImagen(fotoGanoSakura, entorno.ancho()/2,entorno.alto()/2,0);
 			entorno.cambiarFont("Arial", 30, Color.red);

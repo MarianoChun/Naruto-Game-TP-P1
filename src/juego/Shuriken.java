@@ -18,7 +18,7 @@ public class Shuriken {
 		this.y = y;
 		this.tamaño = 20;
 		this.angulo = angulo;
-		this.velocidad = 4;
+		this.velocidad = 3;
 		this.shuriken = Herramientas.cargarImagen("shuriken.png");
 	}
 
@@ -52,7 +52,9 @@ public class Shuriken {
 	public boolean chocasteConSakura(Sakura s) {
 		return Math.sqrt(Math.pow(x - s.getX(), 2) + Math.pow(y - s.getY(), 2)) < tamaño;
 	}	
-		
+	public boolean chocasteConNaruto(Naruto n) {
+		return Math.sqrt(Math.pow(x - n.getX(), 2) + Math.pow(y - n.getY(), 2)) < tamaño;
+	}		
 		
 		
 		
